@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>はじめてのテラリア</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one long read with a sticky chip nav; each section is a card with short paragraphs, key tables and a "これだけは" box. */
+:root{
+  --bg:#f1f0ec; --panel:#ffffff; --panel-2:#f6f5f1; --ink:#22251f; --ink-2:#5f655a; --line:#dcdad2;
+  --accent:#2f7a4f; --accent-ink:#ffffff; --accent-soft:#e2f0e6;
+  --key-bg:#eeede8; --key-ink:#2a2d26; --key-line:#c9c7bd;
+  --warn-bg:#fff3d6; --warn-ink:#6b4700; --warn-line:#e7c678;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+    --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+    --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+    --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+  --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+  --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+  --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.75;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.65rem;line-height:1.3}
+.sub{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+a{color:var(--accent)}
+.top{padding-block:18px 10px}
+.lead{color:var(--ink-2);margin:10px 0 0;font-size:.95rem}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:.84rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chips a:hover{color:var(--accent);border-color:var(--accent)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:16px;scroll-margin-top:64px}
+section h2{font-size:1.2rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+section h2 .no{font-size:.8rem;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+section h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}
+ul,ol{margin:4px 0 8px;padding-left:1.3em}
+li{margin:3px 0}
+kbd{font-family:inherit;font-size:.82em;background:var(--key-bg);color:var(--key-ink);border:1px solid var(--key-line);border-bottom-width:2px;border-radius:4px;padding:0 6px;white-space:nowrap}
+.tbl{overflow-x:auto;margin:8px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:480px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+.box{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:4px;padding:10px 14px;margin:12px 0 4px;font-size:.92rem}
+.box b{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:6px;padding:10px 14px;margin:10px 0 4px;font-size:.9rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px 16px}
+.cols>div{min-width:0}
+dl{margin:4px 0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:.92rem}
+dt{font-weight:700}
+dd{margin:0}
+@media (max-width:480px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.steps{display:grid;gap:8px;margin:6px 0 10px}
+.step{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.st-h{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.st-n{font-size:.78rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 7px;white-space:nowrap}
+.step dl{font-size:.9rem;grid-template-columns:max-content 1fr}
+.step dt{color:var(--ink-2);font-weight:700}
+@media (max-width:480px){.step dl{grid-template-columns:1fr}}
+.foot{margin-top:22px;font-size:.8rem;color:var(--ink-2)}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>はじめてのテラリア</h1>
+    <p class="sub">初めて遊ぶ人のための手引き ・ PC版 1.4.5 ・ マスター難易度の3人プレイ向け</p>
+    <p class="lead">テラリアは「探検して → 素材を集めて → 装備を作って → ボスを倒す → 行ける場所が増える」を繰り返すゲームです。正解の順番はなく、死んでもほとんど失いません。最初の1〜2時間だけ、ここに書いてあることを知っていると迷わずに済みます。装備の選び方は別ページ「<a href="index.html">テラリア3人旅の手引き</a>」に。</p>
+  </header>
+
+  <nav class="chips" aria-label="目次">
+    <a href="#s1">操作</a><a href="#s2">最初の1時間</a><a href="#s2b">進め方の地図</a><a href="#s3">家とNPC</a><a href="#s4">クラフト</a><a href="#s5">体力・防御・クラス</a><a href="#s6">死んだら</a><a href="#s7">場所の見分け</a><a href="#s8">ポーションと料理</a><a href="#s9">ボスとは</a><a href="#s10">釣り入門</a><a href="#s11">3人で遊ぶ作法</a><a href="#s12">マスターの注意</a><a href="#s13">用語集</a>
+  </nav>
+
+  <section id="s1">
+    <h2><span class="no">1</span>操作とキー(PC の初期設定)</h2>
+    <div class="cols">
+      <div>
+        <dl>
+          <dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>移動。<kbd>S</kbd> で足場をすり抜けて降りる</dd>
+          <dt><kbd>Space</kbd></dt><dd>ジャンプ。翼や二段ジャンプも同じキー</dd>
+          <dt>左クリック</dt><dd>持っている物を使う(殴る・掘る・置く)</dd>
+          <dt>右クリック</dt><dd>扉・宝箱・NPC・作業台などを開く</dd>
+          <dt><kbd>1</kbd>〜<kbd>0</kbd> / ホイール</dt><dd>ホットバー(手に持つ物)の切り替え</dd>
+          <dt><kbd>Esc</kbd></dt><dd>インベントリ(持ち物・装備・クラフト)</dd>
+          <dt><kbd>E</kbd></dt><dd>フックを飛ばす(Grappling Hook を持っていれば)</dd>
+          <dt><kbd>R</kbd></dt><dd>乗り物に乗る/降りる</dd>
+        </dl>
+      </div>
+      <div>
+        <dl>
+          <dt><kbd>H</kbd></dt><dd>回復薬を1つ飲む(持っている中で最良)</dd>
+          <dt><kbd>J</kbd></dt><dd>マナ薬を飲む</dd>
+          <dt><kbd>B</kbd></dt><dd>バフ薬をまとめて飲む(ボス前に押す)</dd>
+          <dt><kbd>M</kbd> / <kbd>Tab</kbd></dt><dd>地図 / 全画面地図</dd>
+          <dt><kbd>Ctrl</kbd></dt><dd>スマートカーソル切替。掘る・置くが自動で補助される(迷ったらオン)</dd>
+          <dt><kbd>Shift</kbd>(押しっぱなし)</dt><dd>カーソル先に合う道具を自動で持つ(木ならオノ、土ならツルハシ)</dd>
+          <dt><kbd>Q</kbd></dt><dd>持っている物を投げ捨てる</dd>
+          <dt><kbd>Enter</kbd></dt><dd>チャット</dd>
+        </dl>
+      </div>
+    </div>
+    <h3>インベントリで覚える3つ</h3>
+    <ul>
+      <li><b>クイックスタック</b>: 宝箱を開いて「Quick Stack」を押すと、その箱にすでに入っている種類の物がまとめて移る。拠点の整理はこれだけで足りる。近くの箱すべてに一括で入れるボタンもある。</li>
+      <li><b>装備欄</b>: 右側に 防具3(頭・胴・脚)+ アクセサリー6(マスター)+ 乗り物/ペット/フック。アクセの右の列は「見た目だけ」の欄なので、効果が欲しい物は左に。</li>
+      <li><b>ロードアウト</b>: 装備欄の上の 1/2/3 で装備セットを3つ保存できる(<kbd>F1</kbd>〜<kbd>F3</kbd>)。「探索用」「ボス用」を分けておくと便利。</li>
+    </ul>
+    <div class="box"><b>これだけは</b>ボス前に <kbd>B</kbd>(バフ)、減ったら <kbd>H</kbd>(回復)、危なくなったら Magic Mirror で帰る。この3つで死亡が半分に減ります。</div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="no">2</span>最初の1時間の流れ</h2>
+    <ol>
+      <li><b>木を切る</b>(オノで木の根元を左クリック)。20〜30本あれば十分。木から Acorn(どんぐり)が落ちるので、あとで植え直す。</li>
+      <li><b>Work Bench(作業台)</b>を作る(インベントリ左下のクラフト欄で Wood 10)。地面に置き、その近くに立つと木の道具・壁・扉・テーブルが作れる。</li>
+      <li><b>夜になる前に家</b>(次の章)。夜はゾンビと目玉が湧く。壁と扉があれば安全。</li>
+      <li><b>Guide(最初からいる NPC)</b>に話しかけ、「Crafting」で手持ちの素材から何が作れるか見る癖をつける。</li>
+      <li><b>浅い地下</b>へ。銅/錫 → 鉄/鉛 の鉱石を掘り、Furnace(炉)と Anvil(金床)を作って金属の道具と防具に。壺を割るとお金と矢・回復薬。</li>
+      <li><b>Life Crystal(ハート型の水晶)</b>を見つけたら使う。最大 HP が 20 増える。15 個で 400。これが序盤のいちばん大事な強化。</li>
+      <li>お金が銀貨 50 枚を超えると <b>Merchant</b> が来る。Rope(ロープ)と Torch(たいまつ)と回復薬を買う。</li>
+    </ol>
+    <div class="warn">マスターは敵が強いので、初日は<b>剣で殴り合わない</b>。弓(Wood 10)に矢(Wood 1 + Stone 1、Torch と合成で炎の矢)で、足場の上から撃つ。腕を持ったゾンビは近づかずロープで上に逃げる。</div>
+  </section>
+
+  
+  <section id="s2b">
+    <h2><span class="no">3</span>大まかな進め方(ボスの地図)</h2>
+    <p>テラリアは「ボスを倒すと世界が変わる」ゲームです。<b>いまどのボスの前にいるか</b>が分かれば、やることは自然に決まります。下の順番が一般的な流れで、「任意」は飛ばしても詰まりません。装備の細かい選び方は<a href="index.html">3人旅の手引き</a>の同じ番号のフェーズに。</p>
+
+    <h3>前半(ハードモード前)</h3>
+    <div class="steps">
+      <div class="step"><div class="st-h"><span class="st-n">1</span><b>準備期(ボスなし)</b></div>
+        <dl><dt>目標</dt><dd>家と NPC 3人、HP200(Life Crystal 10個)、銀〜金の防具、Magic Mirror、空島で Starfury</dd>
+        <dt>任意のボス</dt><dd><b>King Slime</b>: Slime Crown(Gold/Platinum Crown + Gel 20)を使う。Slime Rain 中にスライムを倒し続けても来る</dd>
+        <dt>次は</dt><dd>HP200 と防御10を超えたら、夜に Eye of Cthulhu が来るので足場のアリーナを作って待つ</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">2</span><b>Eye of Cthulhu(目玉)</b></div>
+        <dl><dt>湧く条件</dt><dd>HP200 以上・防御10 超・NPC 3人以上で、夜に自然に来る(毎晩 1/3)。自分で呼ぶなら Suspicious Looking Eye(Lens 6 を堕落の Demon Altar で)を夜に使う</dd>
+        <dt>倒すと</dt><dd>Dryad が来る(種・浄化の粉)。Demonite と Corrupt Seeds、Shield of Cthulhu(ダッシュ)。マスターでは 0x33's Aviators</dd>
+        <dt>次は</dt><dd>堕落の裂け目へ。Shadow Orb(紫の球)を壊す</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">3</span><b>Shadow Orb → Goblin Army → Eater of Worlds(ミミズ)</b></div>
+        <dl><dt>湧く条件</dt><dd>Shadow Orb を<b>1個</b>壊すと Musket がもらえて Arms Dealer が来る。同時に Goblin Army(ゴブリン軍)が朝に来るようになる。Orb を<b>3個</b>壊すと Eater of Worlds。自分で呼ぶなら Worm Food(Vile Powder 30 + Rotten Chunk 15、Demon Altar)を堕落の中で使う</dd>
+        <dt>倒すと</dt><dd>Goblin Army を撃退すると Goblin Tinkerer を救出できる(アクセ合成・リフォージ)。EoW からは Shadow Scale と Demonite(Shadow armor・Nightmare Pickaxe)、Worm Scarf。撃破後に隕石が落ちる。Tavernkeep が来る</dd>
+        <dt>次は</dt><dd>Nightmare Pickaxe で隕石を掘る。ジャングルへ</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">4</span><b>Queen Bee(女王蜂)</b></div>
+        <dl><dt>湧く条件</dt><dd>地下ジャングルの Bee Hive(蜂の巣)の中にある Larva(幼虫)を壊す。自分で呼ぶなら Abeemination(Honey Block 5 + Stinger 1 + Hive 5 + Bottled Honey 1)をジャングルで使う</dd>
+        <dt>倒すと</dt><dd>Witch Doctor が来る。Beenade・Bee Gun・Hornet Staff・蜂マウント。Bee Wax で Bee armor</dd>
+        <dt>次は</dt><dd>Dungeon の入口へ。夜に Old Man に話しかける</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">5</span><b>Skeletron(ガイコツ)</b></div>
+        <dl><dt>湧く条件</dt><dd>夜に Dungeon 入口の Old Man に話しかけて「Curse」。昼は絶対に戦わない(即死)</dd>
+        <dt>倒すと</dt><dd>Dungeon に入れる(Cobalt Shield・Muramasa・Water Bolt・Shadow Key・Golden Key)。Clothier が来て、Mechanic を救出できる。Merchant が Safe を売る</dd>
+        <dt>次は</dt><dd>地底へ Hellevator を掘る。Hellstone で Molten 装備</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">任意</span><b>Deerclops(鹿の魔物)</b></div>
+        <dl><dt>湧く条件</dt><dd>吹雪の雪原で、HP200 以上か防御9 以上だと真夜中に来る。自分で呼ぶなら Deer Thing(Flinx Fur 3 + Lens 1 + Demonite Ore 5、Demon Altar)を雪原で</dd>
+        <dt>倒すと</dt><dd>Houndius Shootius(置き型の砲台)、Eye Bone(Chester: 持ち運べる箱)</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">6</span><b>Wall of Flesh(肉の壁)</b></div>
+        <dl><dt>湧く条件</dt><dd>地底で Voodoo Demon が落とす Guide Voodoo Doll を溶岩に落とす(Guide が生きていること)。横に長い橋を先に架ける</dd>
+        <dt>倒すと</dt><dd><b>ハードモード開始</b>。世界に Hallow(虹色)と新しい堕落が出て、敵が全部強くなる。Pwnhammer(祭壇を壊して新鉱石)、Demon Heart(アクセ枠+1)、クラス Emblem。Wizard・Truffle・Tax Collector が来るようになる</dd>
+        <dt>次は</dt><dd>拠点の安全確認 → Pwnhammer で祭壇を3個 → 新鉱石のツルハシ → 翼</dd></dl></div>
+    </div>
+
+    <h3>後半(ハードモード)</h3>
+    <div class="steps">
+      <div class="step"><div class="st-h"><span class="st-n">7</span><b>HM 序盤(ボスなし)</b></div>
+        <dl><dt>目標</dt><dd>Cobalt → Mythril → Adamantite の鉱石チェーン、翼、Greater Healing Potion、Flesh Knuckles(堕落 Mimic の Putrid Scent を Shimmer で)</dd>
+        <dt>任意のボス</dt><dd><b>Queen Slime</b>: 地下 Hallow で拾う Gelatin Crystal を地表の Hallow で使う。メカより弱く、Crystal Assassin armor と飛行マウント。<b>Pirate Invasion</b>: 海の敵が落とす Pirate Map を使う</dd>
+        <dt>次は</dt><dd>空中アリーナを作ってメカ3体</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">8</span><b>メカニカルボス3体(Destroyer・Twins・Skeletron Prime)</b></div>
+        <dl><dt>湧く条件</dt><dd>ハードモード後、倒していないボスが夜に自然に来ることがある(「恐ろしい夜」のメッセージ)。自分で呼ぶなら夜に Mechanical Worm(Rotten Chunk 6 + Iron Bar 5 + Soul of Night 6)/ Mechanical Eye(Lens 3 + Iron Bar 5 + Soul of Light 6)/ Mechanical Skull(Bone 30 + Iron Bar 5 + Soul of Light 3 + Soul of Night 3)。Mythril Anvil で作る。順番は自由(Destroyer → Twins → Prime が楽)</dd>
+        <dt>倒すと</dt><dd><b>1体目</b>: Steampunker が来る(Clentaminator・Jetpack・Teleporter)、日食が起こるようになる、地下ジャングルに Life Fruit(HP+5、20個で500)。<b>3体目</b>: Soul 3種で Drax / Pickaxe Axe → Chlorophyte が掘れる。地下ジャングルに Plantera's Bulb が生える。Hallowed Bar で Hallowed armor</dd>
+        <dt>次は</dt><dd>Life Fruit 20個、Chlorophyte 装備、地下ジャングルに Plantera 用の部屋</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">9</span><b>Plantera(食虫植物)</b></div>
+        <dl><dt>湧く条件</dt><dd>地下ジャングルに生える Plantera's Bulb(ピンクの球根)をツルハシで壊す。Dynamite は不可(消える)。地表に出ると激怒</dd>
+        <dt>倒すと</dt><dd>侵食の広がりが半減。Temple Key(ジャングル神殿に入れる)。Dungeon が強化され Ectoplasm(Spectre 装備)と Biome Chest が開く。Truffle が Autohammer(Shroomite)を売る。Cyborg が来る。日食に Mothron(Terra Blade の素材)。Empress of Light を呼べるようになる</dd>
+        <dt>次は</dt><dd>Dungeon 後半 → Lihzahrd Temple → Golem</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">10</span><b>Golem(石像)</b></div>
+        <dl><dt>湧く条件</dt><dd>Temple Key で Lihzahrd Temple に入り、最奥の Lihzahrd Altar に Lihzahrd Power Cell(神殿の敵と宝箱)を使う</dd>
+        <dt>倒すと</dt><dd>Martian Probe が飛んでくる(見つかると火星人襲来: UFO マウント)。Dungeon 入口に Cultist が現れる(次のボスの入口)。Old One's Army Tier3(Betsy)。Picksaw、Beetle armor、Sun Stone</dd>
+        <dt>次は</dt><dd>火星人で UFO → やりたい任意ボス → Cultist</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">任意</span><b>月前のイベントとボス</b></div>
+        <dl><dt>Empress of Light</dt><dd>Plantera 後、地表の Hallow で夜に飛んでいる Prismatic Lacewing(光る蝶)を倒す。Soaring Insignia(無限飛行)・Kaleidoscope・翼</dd>
+        <dt>Duke Fishron</dt><dd>地下キノコ地帯で Truffle Worm を Bug Net で捕まえ、海で釣り餌にする。ハードモードならいつでも。Golem より強い</dd>
+        <dt>Pumpkin Moon</dt><dd>Pumpkin Moon Medallion(Pumpkin 30 + Ectoplasm 5 + Hallowed Bar 10)を夜に使う。The Horseman's Blade(Zenith の素材)</dd>
+        <dt>Frost Moon</dt><dd>Naughty Present(Silk 20 + Ectoplasm 5 + Soul of Fright 5)を夜に使う。最難関クラス</dd>
+        <dt>Old One's Army</dt><dd>Tavernkeep の Eternia Crystal を台に置く。Tier が上がるほど防具と翼が良い</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">11</span><b>Lunatic Cultist(教祖)</b></div>
+        <dl><dt>湧く条件</dt><dd>Golem 後、Dungeon 入口に立っている Cultist 4体を倒す。儀式中は本物を狙う</dd>
+        <dt>倒すと</dt><dd>Ancient Manipulator(かけらの作業台)。世界に4本の柱(Solar / Vortex / Nebula / Stardust)が立つ</dd>
+        <dt>注意</dt><dd>3人全員が死ぬとボスが消え、翌日の昼にやり直し</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">12</span><b>4本の柱</b></div>
+        <dl><dt>倒し方</dt><dd>柱の周りの敵を 100 体倒すと盾が消えて殴れる。自分が使う武器の柱(Solar=近接・Vortex=遠距離・Nebula=魔法・Stardust=召喚)から</dd>
+        <dt>倒すと</dt><dd>かけらで最終防具・武器・Super Healing Potion。4本すべて倒すと1分後に Moon Lord</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">13</span><b>Moon Lord(ラスボス)</b></div>
+        <dl><dt>湧く条件</dt><dd>柱4本の撃破から1分後。以降は Celestial Sigil(各かけら 20)でいつでも再戦</dd>
+        <dt>倒すと</dt><dd>Luminite(最終防具・翼)、最終武器、Zenith の素材。クリア。あとはコレクションと建築の時間</dd></dl></div>
+    </div>
+    <div class="box"><b>迷ったら</b>「次のボスは何で、どうすれば湧くか」を仲間に聞くか、この表で確認。湧く条件を満たす前に Nurse の家と足場のアリーナを作っておくのが、毎回同じ勝ちパターンです。</div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="no">4</span>家の条件と NPC(住人)</h2>
+    <p>NPC は条件を満たすと勝手に来て、<b>空いている家</b>に住みます。家の条件は次の6つ。満たしているかは、インベントリ右上の「家」アイコン(Housing)の「?」を部屋の中でクリックすると教えてくれます。</p>
+    <ul>
+      <li>内側の広さが <b>横7 × 縦5</b> 以上(扉と床を含めて 60 マス以上、750 マス未満)</li>
+      <li>周りがブロックで囲われている(床・天井・左右の壁)</li>
+      <li><b>背景壁</b>がある(自分で置いたもの。自然の土の背景は不可。ハンマーで壊して木の壁を貼る)</li>
+      <li><b>扉</b>(または足場)で出入りできる</li>
+      <li>テーブル(または作業台)と椅子</li>
+      <li>明かり(Torch)</li>
+    </ul>
+    <p>同じ形の部屋を縦に積むと、1軒ごとに壁を作らずに済みます。NPC は近くにいるだけで敵の湧きを抑えてくれるので、<b>3人の寝床のまわりに NPC を集める</b>のが基本です。</p>
+    <h3>序盤に来る NPC と役目</h3>
+    <div class="tbl"><table>
+      <tr><th>NPC</th><th>来る条件</th><th>何をしてくれる</th></tr>
+      <tr><td>Guide</td><td>最初からいる</td><td>素材から作れる物を教える。後半のボス召喚に必要なので死なせない</td></tr>
+      <tr><td>Merchant</td><td>銀貨 50 以上</td><td>Rope・Torch・回復薬・Piggy Bank(貯金箱)・釣り竿・Bug Net</td></tr>
+      <tr><td>Nurse</td><td>Life Crystal を使う</td><td>お金で即時全回復。ボス戦のそばに家を置く</td></tr>
+      <tr><td>Demolitionist</td><td>爆弾かダイナマイトを持つ</td><td>爆弾を売る。硬い岩や縦穴掘りに</td></tr>
+      <tr><td>Dryad</td><td>最初のボスを倒す</td><td>種・Purification Powder(浄化の粉)。近くにいると防御が上がる</td></tr>
+      <tr><td>Arms Dealer</td><td>銃を持つ(堕落の Shadow Orb を壊すともらえる)</td><td>銃と弾</td></tr>
+      <tr><td>Goblin Tinkerer</td><td>ゴブリン軍を倒した後、地下で縛られている</td><td>アクセサリーの合成台・リフォージ(装備の強化し直し)・Rocket Boots</td></tr>
+      <tr><td>Angler</td><td>海辺で寝ている</td><td>釣りクエスト(報酬が豪華)</td></tr>
+      <tr><td>Witch Doctor</td><td>Queen Bee を倒す</td><td>召喚系アイテム・翼(Leaf Wings)</td></tr>
+      <tr><td>Mechanic</td><td>Dungeon で縛られている</td><td>配線(ハート像のタイマーなど)</td></tr>
+    </table></div>
+    <p>NPC には好きな場所・嫌いな隣人があり(幸福度)、売値が変わります。1.4.5 からワープ装置の <b>Pylon</b> は幸福度に関係なく買えるので、最初は気にしなくて大丈夫です。</p>
+  </section>
+
+  <section id="s4">
+    <h2><span class="no">5</span>クラフトの考え方</h2>
+    <p>作れる物は「近くにある作業台の種類」で決まります。インベントリ左下に、いま作れる物だけが並びます。作りたい物があるのに出てこないときは、<b>素材が足りないか、作業台が違う</b>かのどちらかです。Guide に素材を見せると、何が作れて何の台が要るか教えてくれます。</p>
+    <div class="tbl"><table>
+      <tr><th>作業台</th><th>作り方</th><th>作れる物</th></tr>
+      <tr><td>Work Bench</td><td>Wood 10</td><td>木の道具・家具・壁・弓・矢</td></tr>
+      <tr><td>Furnace(炉)</td><td>Stone 20 + Wood 4 + Torch 3</td><td>鉱石 → Bar(インゴット)、ガラス</td></tr>
+      <tr><td>Anvil(金床)</td><td>Iron / Lead Bar 5</td><td>金属の道具・防具・Chain・Grappling Hook</td></tr>
+      <tr><td>Sawmill</td><td>Wood 10 + Bar 2 + Chain 1</td><td>ベッド(スポーン地点になる)などの家具</td></tr>
+      <tr><td>Loom</td><td>Wood 12</td><td>Cobweb → Silk(ベッドに必要)</td></tr>
+      <tr><td>Bottle(置いたボトル)</td><td>Glass 1、テーブルの上に置く</td><td>ポーション</td></tr>
+      <tr><td>Demon Altar</td><td>堕落の地にある(壊せない)</td><td>ボス召喚アイテム・Night's Edge</td></tr>
+      <tr><td>Tinkerer's Workshop</td><td>Goblin Tinkerer から購入</td><td>アクセサリーの合成</td></tr>
+    </table></div>
+    <ul>
+      <li>1.4.5 から、<b>近くの宝箱の中身を使ってそのままクラフト</b>できます。作業台の周りに素材箱を並べると取り出す手間が消えます。</li>
+      <li>クラフト欄の品をクリックすると1個、右クリック長押しで連続して作れます。</li>
+      <li>ほとんどの物は 9999 個まで重ねられます。</li>
+    </ul>
+  </section>
+
+  <section id="s5">
+    <h2><span class="no">6</span>体力・マナ・防御・クラス</h2>
+    <dl>
+      <dt>体力(ハート)</dt><dd>Life Crystal(地下)で +20、最大 400。ハードモードの Life Fruit で最大 500</dd>
+      <dt>マナ(星)</dt><dd>Mana Crystal(夜に落ちる Fallen Star 5 個で作る)で +20、最大 200。魔法武器を使う人だけ</dd>
+      <dt>防御</dt><dd>防具とアクセの合計。マスターでは<b>その数字ぶんダメージがそのまま減る</b>ので、序盤はとにかく防具を更新する</dd>
+      <dt>ノックバック</dt><dd>殴られると吹き飛ぶ。穴や溶岩に落ちる原因なので、Cobalt Shield 系で無効化できると楽になる</dd>
+      <dt>バフ / デバフ</dt><dd>画面左上のアイコン。良い効果(ポーション)と悪い効果(毒・炎上・鈍足)。マスターではデバフが 2.5 倍長く続く</dd>
+    </dl>
+    <h3>4つのクラス(武器の系統)</h3>
+    <div class="tbl"><table>
+      <tr><th>クラス</th><th>武器</th><th>向いている人</th><th>3人で遊ぶときの強み</th></tr>
+      <tr><td>近接</td><td>剣・槍・ヨーヨー・フレイル</td><td>防御が高く死ににくい。操作が単純</td><td>前に出て敵の注意を引ける</td></tr>
+      <tr><td>遠距離</td><td>弓・銃・投擲</td><td>弾の管理が要るが火力が高い</td><td>ボスの HP を一番速く削れる</td></tr>
+      <tr><td>魔法</td><td>杖・魔導書</td><td>マナ管理が要る。範囲攻撃が得意</td><td>雑魚処理・味方回復(後半)</td></tr>
+      <tr><td>召喚</td><td>ミニオン(召喚獣)・ムチ</td><td>本人は逃げ回るだけ。1.4.5 でマナ不要に</td><td>本人が自由に動けるので救援や採集を兼ねられる</td></tr>
+    </table></div>
+    <p>序盤は決めなくて大丈夫です。拾った物を使い、<b>Wall of Flesh を倒す頃までにどれか1つに寄せる</b>と防具の効果(セットボーナス)が活きます。ただし3人で役割を固定する必要はありません。全員が何でもできる前提で、ロードアウト(<kbd>F1</kbd>〜<kbd>F3</kbd>)に系統の違う装備を入れておき、その日の気分や拾った物で切り替えて大丈夫です。</p>
+    <h3>アクセサリーとリフォージ</h3>
+    <ul>
+      <li>アクセサリーは宝箱・敵・ボスから出る。合成して1枠に効果をまとめるのがこのゲームの醍醐味。</li>
+      <li><b>リフォージ</b>: Goblin Tinkerer にお金を払うと武器・アクセに付く「接頭語」を引き直せる。アクセは <b>Warding(防御+4)</b>、武器はダメージ系が当たり。</li>
+    </ul>
+  </section>
+
+  <section id="s6">
+    <h2><span class="no">7</span>死んだらどうなる</h2>
+    <ul>
+      <li>キャラは「クラシック」なので、<b>失うのは持っているお金だけ</b>(マスターは全額)。装備も素材も残る。</li>
+      <li>数秒後にベッド(なければ初期地点)で復活。1.4.5 から周りが安全ならすぐ復活できる。</li>
+      <li>落としたお金は死んだ場所に袋で残るので、取りに戻れる。仲間が拾ってもよい。</li>
+      <li>対策は <b>Piggy Bank(Merchant、銀貨)</b>。中に入れたお金は死んでも減らない。拠点に戻るたびに入れる。</li>
+      <li>ボス戦中に死んでも、仲間が生きていればボスは消えない。復活して戻れば続きから参加できる(例外は最後の方のボス)。</li>
+    </ul>
+    <div class="box"><b>Nurse の使い方</b>Nurse に右クリック →「Heal」で、お金と引き換えに即時全回復+状態異常も治る。ボス戦のアリーナの横に Nurse の家を建てるのは、このゲームで一番コスパのいい「回復手段」です。</div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="no">8</span>場所(バイオーム)の見分けと危険度</h2>
+    <div class="tbl"><table>
+      <tr><th>場所</th><th>見た目</th><th>序盤の危険度</th><th>ここで取るもの</th></tr>
+      <tr><td>森(Forest)</td><td>緑の草、普通の木</td><td>低</td><td>木・スライム・最初の家</td></tr>
+      <tr><td>地下 / 洞窟</td><td>土 → 石</td><td>低〜中</td><td>鉱石・Life Crystal・宝箱(靴・雲・鏡)</td></tr>
+      <tr><td>雪原</td><td>白い雪と氷</td><td>低</td><td>Flinx の毛・氷の靴・吹雪の瓶</td></tr>
+      <tr><td>砂漠</td><td>砂、サボテン</td><td>地表は低、地下は中</td><td>地下砂漠の宝箱(雷の杖・砂嵐の瓶)、化石</td></tr>
+      <tr><td>ジャングル</td><td>濃い緑、泥、ツタ</td><td><b>中〜高</b></td><td>Jungle Spores・Stinger・Ivy Chest(爪・足首飾り)。Queen Bee</td></tr>
+      <tr><td>堕落(Corruption)</td><td>紫の草、深い裂け目</td><td><b>高</b>(敵が飛ぶ)</td><td>Shadow Orb(壊すと銃と Arms Dealer)。Eater of Worlds</td></tr>
+      <tr><td>海</td><td>左右の端</td><td>低(溺れ注意)</td><td>Angler・貝・釣り</td></tr>
+      <tr><td>空島</td><td>はるか上空</td><td>中(ハーピー)</td><td>Starfury・風船・蹄鉄</td></tr>
+      <tr><td>Dungeon</td><td>青/緑/桃色のレンガの塔</td><td><b>最初は即死</b></td><td>Skeletron を倒してから。入口の老人に夜話しかける</td></tr>
+      <tr><td>地底(Underworld)</td><td>いちばん下、溶岩</td><td><b>高</b></td><td>Hellstone・Wall of Flesh。Obsidian Skin Potion を飲んでから</td></tr>
+      <tr><td>キノコ地帯</td><td>青く光るキノコ</td><td>低</td><td>Glowing Mushroom(回復薬の上位の素材)</td></tr>
+      <tr><td>花崗岩 / 大理石</td><td>黒い石 / 白い柱</td><td>中</td><td>Snapping Stone(1.4.5)/ 投げ槍</td></tr>
+      <tr><td>Aether(Shimmer)</td><td>ジャングル側の端の地下、紫に光る液体</td><td>低</td><td>物を投げ入れると別の物に変わる(永続強化など)。<b>入ると下に落ちるので足場を用意</b></td></tr>
+    </table></div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="no">9</span>ポーションと料理</h2>
+    <ul>
+      <li><b>回復薬</b>は飲むと 60 秒のクールダウン(Potion Sickness)。連打できないので、<b>減ったら早めに1本</b>が正解。Lesser(50)→ Healing(100、Glowing Mushroom)→ Greater(150、ハードモード)。</li>
+      <li><b>食べ物</b>(Well Fed バフ)は全ステータスが少し上がる。Cooking Pot(Iron Bar 10 + Wood 2)で魚や肉を焼く。回復薬と別枠なので常に食べておく。</li>
+      <li><b>バフ薬</b>はボス戦の前に <kbd>B</kbd> でまとめて飲む。Bottled Water(ボトルに水を汲む)+ 草 + 素材で作る。</li>
+    </ul>
+    <h3>草(Herb)はどこに生えるか</h3>
+    <div class="tbl"><table>
+      <tr><th>草</th><th>場所</th><th>収穫の時間</th><th>主な用途</th></tr>
+      <tr><td>Daybloom(黄)</td><td>地表の草</td><td>昼</td><td>Ironskin(防御+8)・Regeneration</td></tr>
+      <tr><td>Blinkroot(光る草)</td><td>地下の土</td><td>いつでも</td><td>Spelunker(鉱石が光る)・Swiftness</td></tr>
+      <tr><td>Moonglow(青)</td><td>ジャングルの草</td><td>夜</td><td>Regeneration・Lifeforce</td></tr>
+      <tr><td>Deathweed(黒)</td><td>堕落の草</td><td>Blood Moon か満月</td><td>Battle・Wrath(ハードモード)</td></tr>
+      <tr><td>Waterleaf(水色)</td><td>砂漠の砂</td><td>雨の日</td><td>Obsidian Skin・Endurance</td></tr>
+      <tr><td>Fireblossom(赤)</td><td>地底の灰</td><td>夕方</td><td>Obsidian Skin・Inferno</td></tr>
+      <tr><td>Shiverthorn(白)</td><td>雪原の雪</td><td>いつでも</td><td>Lifeforce・Endurance</td></tr>
+    </table></div>
+    <p>種を <b>Planter Box(Dryad)</b> か Clay Pot に植えれば拠点で育ちます。Staff of Regrowth(ジャングル)で刈ると種が倍。</p>
+    <div class="box"><b>ボス前の基本セット</b>Ironskin(防御)・Regeneration(回復)・Swiftness(速度)・料理。ハードモードから Endurance(被ダメ減)・Lifeforce(最大HP)・Wrath(ダメージ)を足す。</div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="no">10</span>ボスってなに?</h2>
+    <ul>
+      <li>ボスは「条件を満たすと自然に来る」か「召喚アイテムを使う」で現れる。例: Eye of Cthulhu は HP200・防御10・NPC3人で夜に来る。Suspicious Looking Eye(Lens 6 を Demon Altar で)を夜に使えば好きなときに呼べる。</li>
+      <li>倒すと <b>Treasure Bag</b>(宝袋)が <b>攻撃に参加した全員に1つずつ</b>出る。中身は装備と専用アクセ。だから3人で戦っても取り合いにならない。</li>
+      <li>ボスを倒すと世界が変わる(新しい NPC・新しい鉱石・新しい敵)。「次に何をするか」はボスが教えてくれる。</li>
+      <li>ボスから遠く離れると消える(デスポーン)。逃げるときは全員で逃げる。</li>
+      <li>夜に来るボス(Eye of Cthulhu・Skeletron・メカ3体)は<b>朝になると帰る/激怒する</b>。日没直後に始めるのが基本。</li>
+    </ul>
+    <h3>アリーナを作る理由</h3>
+    <p>テラリアのボス戦は「地形を整えた場所で戦う」のが前提です。横に長い足場を 2〜3 段、Campfire と Heart Lantern(回復)を並べ、横に Nurse の家。これだけで難易度が1段下がります。どのボスにどんなアリーナが要るかは、3人旅の手引きの各フェーズに書いてあります。</p>
+  </section>
+
+  <section id="s10">
+    <h2><span class="no">11</span>釣り入門(5分で始められる)</h2>
+    <ol>
+      <li>Merchant から <b>Reinforced Fishing Pole</b> と <b>Bug Net</b> を買う。</li>
+      <li>餌を取る: 雨の日に地表の石を壊すと Worm、夜の草原で光る Firefly を Bug Net で。草を刈ると Grasshopper。</li>
+      <li>幅 20 マス以上・深さ 5 マス以上の水場(湖や海)で、竿を持って左クリック → 浮きが沈んだら左クリック。</li>
+      <li>木箱(Crate)が掛かったら<b>開けずに取っておく</b>(ハードモードで開けると良い鉱石が出る)。</li>
+      <li>海辺で寝ている <b>Angler</b> を起こすと、毎日「この魚を釣ってきて」と頼まれ、報酬で良い竿やアクセがもらえる。</li>
+    </ol>
+    <p>詳しい釣り場・餌・木箱の中身は、3人旅の手引きの「釣り」タブにまとめてあります。</p>
+  </section>
+
+  <section id="s11">
+    <h2><span class="no">12</span>3人で遊ぶときの作法</h2>
+    <ul>
+      <li><b>チームの色</b>をそろえる(インベントリ右上の盾のアイコン)。仲間の位置と HP が地図に出て、離れていても状態が分かる。</li>
+      <li><b>素材は共有箱へ</b>。拠点に「鉱石」「木・石」「素材」「ポーション」「装備」の箱を分け、帰ったらクイックスタック。</li>
+      <li><b>アクセや武器は使う人に</b>。ボスの Treasure Bag は全員に出るので、取り合いになるのは宝箱の中身だけ。「見つけた人が仲間に聞いてから」で十分。</li>
+      <li><b>誰かが死んだら</b>、お金の袋を拾っておいて渡す。ボス戦中は無理に拾わない。</li>
+      <li><b>ワールドのデータはホストの PC</b>にある。ホストが抜けると全員が切断されるので、長く遊ぶなら専用サーバー、または「今日はここまで」を声に出す。</li>
+      <li>情報系アクセ(深度計・釣り情報・Cell Phone)は近くの仲間にも効く。1人が持てばいい。</li>
+      <li>地図は各自別。見つけた場所はチャットで「空島、拠点の右上」のように伝えるか、Pylon を立てる。</li>
+    </ul>
+  </section>
+
+  <section id="s12">
+    <h2><span class="no">13</span>マスター難易度で特に気をつけること</h2>
+    <ul>
+      <li><b>敵の攻撃が通常の3倍、HP も約3倍</b>。序盤の1発が 40〜60 来るので、HP200・防御15 になるまでは夜に外へ出ない。</li>
+      <li><b>防御がそのまま効く</b>(通常は半分)。だから防具の更新が最優先で、アクセは Warding に。</li>
+      <li><b>デバフが 2.5 倍長い</b>。毒・炎上・鈍足を消す Bezoar(蜂)・Nazar(Dungeon)・Ankh Shield の価値が高い。</li>
+      <li><b>死ぬとお金を全部落とす</b>。Piggy Bank に入れる習慣だけで実害ゼロ。</li>
+      <li>アクセサリー枠が最初から 6(通常 5)。Wall of Flesh の Demon Heart で 7。</li>
+      <li>ボスは専用の置物(Relic)とペットを落とす。コレクション要素なので気にしなくていい。</li>
+      <li>昼になった Skeletron / Skeletron Prime は即死級。Dungeon は Skeletron を倒すまで入らない。</li>
+    </ul>
+  </section>
+
+  <section id="s13">
+    <h2><span class="no">14</span>用語集</h2>
+    <dl>
+      <dt>HM / ハードモード</dt><dd>Wall of Flesh を倒した後の世界。敵・鉱石・ボスが全部増える。後半戦の始まり</dd>
+      <dt>Treasure Bag</dt><dd>エキスパート以上でボスが落とす宝袋。攻撃した全員に1つずつ</dd>
+      <dt>Pylon</dt><dd>バイオームごとのワープ装置。住人2人のいる場所で買える。1.4.5 からボス戦中も使える</dd>
+      <dt>Shimmer / Aether</dt><dd>紫の液体。物を投げ入れると別の物に変換される。Life Crystal → 永続回復強化など</dd>
+      <dt>リフォージ</dt><dd>Goblin Tinkerer で装備の接頭語を引き直すこと</dd>
+      <dt>セット効果</dt><dd>同じ防具を3部位そろえたときの追加効果。クラスを寄せる理由</dd>
+      <dt>貫通</dt><dd>1発で複数の敵に当たる性質。長い敵(Eater of Worlds・Destroyer)に強い</dd>
+      <dt>ミニオン / セントリー / ムチ</dt><dd>召喚獣(ついてくる)/ 置き型の砲台 / 召喚獣の攻撃先を指定する近接武器</dd>
+      <dt>タグ</dt><dd>ムチで叩いた敵に付く印。ミニオンの攻撃が集中し、ダメージが増える</dd>
+      <dt>Crate(木箱)</dt><dd>釣りで掛かる箱。中に鉱石やアクセ。ハードモードで開けると中身が良くなる</dd>
+      <dt>侵食 / Hallow</dt><dd>堕落(紫)と聖域(ハードモードで出る虹色)が周りのブロックを塗り替えていく現象。Plantera を倒すと半減</dd>
+      <dt>Hellevator</dt><dd>地表から地底まで一直線の縦穴。爆弾で掘る</dd>
+      <dt>アリーナ</dt><dd>ボス戦のために整えた足場と回復設備の場所</dd>
+      <dt>Bulb</dt><dd>Plantera の球根。地下ジャングルに生え、壊すとボスが来る</dd>
+      <dt>Blood Moon / 日食</dt><dd>敵が増える夜 / 昼のイベント。家の中にいれば安全。釣りやドロップ目当てに戦う</dd>
+      <dt>デスポーン</dt><dd>ボスや敵がプレイヤーから離れて消えること</dd>
+      <dt>DPS</dt><dd>1秒あたりのダメージ。武器の強さの目安</dd>
+    </dl>
+  </section>
+
+  <p class="foot">出典: <a href="https://terraria.arcenserv.info/wiki/初心者ガイド">日本語wiki 初心者ガイド</a> / <a href="https://terraria.wiki.gg/wiki/Guide:Getting_started">Guide:Getting started</a> / <a href="https://terraria.wiki.gg/wiki/Guide:Practical_tips">Guide:Practical tips</a> / <a href="https://terraria.wiki.gg/wiki/Master_Mode">Master Mode</a> / <a href="https://terraria.wiki.gg/wiki/Guide:Fishing">Guide:Fishing</a></p>
+</div>
+
+</body>
+</html>

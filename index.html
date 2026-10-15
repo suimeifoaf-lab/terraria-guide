@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>テラリア3人旅の手引き</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: phase tabs at the top (7 phases + 釣り + アクセサリー), one on screen at a time; inside, role cards → build targets → boss tips → pitfalls. */
+:root{
+  --bg:#eef0f3; --panel:#ffffff; --panel-2:#f5f6f8; --ink:#1c2230; --ink-2:#5a6474; --line:#d8dce3;
+  --accent:#5b3fb8; --accent-ink:#ffffff; --accent-soft:#e9e3fa;
+  --all:#5b3fb8; --tank:#2f6fae; --ranged:#2e8b57; --summon:#b2502f; --magic:#a3337a; --pet:#8a6d1f;
+  --warn-bg:#fff3d6; --warn-ink:#6b4700; --warn-line:#e7c678;
+  --new-bg:#dff3ea; --new-ink:#135c3a;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171d; --panel:#1f222b; --panel-2:#262a35; --ink:#e8eaf0; --ink-2:#a3abba; --line:#353a47;
+    --accent:#9f87ef; --accent-ink:#15171d; --accent-soft:#2c2745;
+    --all:#9f87ef; --tank:#6ea7e3; --ranged:#5fc98f; --summon:#e58b66; --magic:#e07bb8; --pet:#d9b85a;
+    --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420; --new-bg:#1a3a2c; --new-ink:#8fe0b6;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171d; --panel:#1f222b; --panel-2:#262a35; --ink:#e8eaf0; --ink-2:#a3abba; --line:#353a47;
+  --accent:#9f87ef; --accent-ink:#15171d; --accent-soft:#2c2745;
+  --all:#9f87ef; --tank:#6ea7e3; --ranged:#5fc98f; --summon:#e58b66; --magic:#e07bb8; --pet:#d9b85a;
+  --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420; --new-bg:#1a3a2c; --new-ink:#8fe0b6;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.7;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3,h4{text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.6rem;line-height:1.3}
+.sub{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.top{padding-block:18px 10px}
+.lead{font-size:.95rem;color:var(--ink-2);margin:10px 0 0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--ink-2);margin-top:10px;align-items:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:6px 10px;display:flex;flex-direction:column;align-items:flex-start;min-width:104px;text-align:left}
+.tab b{font-size:.95rem;line-height:1.2;color:var(--accent)}
+.tab span{font-size:.76rem;color:var(--ink-2);line-height:1.3;white-space:nowrap}
+.tab.extra b{color:var(--pet)}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent)}
+.tab[aria-selected="true"] b,.tab[aria-selected="true"] span{color:var(--accent-ink)}
+
+.phase{display:none;padding-top:18px}
+.phase.on{display:block}
+.ph{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}
+.ph .n{font-size:2.6rem;line-height:1;color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+.ph h2{font-size:1.4rem}
+.ph .goal{color:var(--ink-2);margin-top:4px;max-width:64ch}
+.ph .flow{font-size:.86rem;margin-top:6px;color:var(--ink-2)}
+
+.sec{margin-top:24px}
+.sec>h3{font-size:1.1rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec>h3::before{content:"";width:6px;height:1.1em;background:var(--accent);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:6px;padding:12px 14px;min-width:0}
+.card h4{font-size:1rem;color:var(--c);margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card h4 small{font-size:.76rem;color:var(--ink-2);font-weight:400}
+.pick{padding:9px 0;border-top:1px solid var(--line)}
+.pick:first-of-type{border-top:0;padding-top:0}
+.pick .nm{font-weight:700;line-height:1.4}
+.pick .nm a{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);text-underline-offset:3px}
+.pick .nm a:hover{text-decoration-color:var(--accent)}
+.pick .ext{font-size:.72rem;font-weight:400;color:var(--ink-2);margin-left:6px;text-decoration:none;border:1px solid var(--line);border-radius:4px;padding:0 5px;vertical-align:1px}
+.pick .why{font-size:.9rem;margin-top:2px}
+.pick .tip{font-size:.86rem;margin-top:2px;color:var(--ink);padding-left:1.1em;text-indent:-1.1em}
+.pick .tip::before{content:"▸ ";color:var(--accent)}
+.pick .src{font-size:.8rem;color:var(--ink-2);margin-top:2px}
+.pick .src::before{content:"入手: "}
+.tag{font-size:.68rem;line-height:1.5;padding:0 6px;border-radius:999px;border:1px solid currentColor;color:var(--ink-2);display:inline-block;vertical-align:2px;margin-left:5px;font-weight:400}
+.tag.new{color:var(--new-ink);background:var(--new-bg);border-color:transparent;font-weight:700}
+.tag.star{color:var(--accent);border-color:var(--accent)}
+
+.builds{display:grid;gap:10px}
+.build{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.build b{font-size:1rem}
+.build ul{margin:4px 0 0;padding-left:1.2em;font-size:.9rem}
+.build .why{font-size:.84rem;color:var(--ink-2)}
+.boss{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.bs{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:.9rem}
+.bs b{display:block;font-size:.97rem}
+.warn{margin-top:8px;padding:10px 12px;background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:6px;font-size:.9rem}
+.warn ul{margin:0;padding-left:1.2em}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+.nav button{border:1px solid var(--line);background:var(--panel);padding:8px 14px;border-radius:6px;font-size:.9rem}
+.nav button:disabled{opacity:.4;cursor:default}
+
+/* free-form sections (釣り・アクセ) */
+.prose{max-width:76ch}
+.prose p{margin:6px 0}
+.prose h4{font-size:1rem;margin:16px 0 6px}
+.prose ul{margin:4px 0 8px;padding-left:1.25em}
+.prose li{margin:2px 0}
+.tbl{overflow-x:auto;margin:8px 0 14px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);font-weight:700;white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+.tree{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:10px 0}
+.tree b.t{font-size:1rem;display:block;margin-bottom:4px}
+.tree code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;background:var(--panel-2);padding:1px 5px;border-radius:3px}
+.tree .l{display:block;font-size:.88rem;margin:2px 0;padding-left:1.2em;text-indent:-1.2em}
+.tree .l::before{content:"└ ";color:var(--ink-2)}
+.foot{margin-top:28px;font-size:.8rem;color:var(--ink-2);line-height:1.7}
+@media (max-width:480px){.ph .n{font-size:2rem}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>テラリア3人旅の手引き</h1>
+    <p class="sub">マスター / 3人 / クラシック / 堕落(Corruption) / ラージ ・ Terraria 1.4.5.8 準拠</p>
+    <p class="lead">フェーズごとに「これがあると一気に楽になるもの」と「建築はここを目指す」をまとめました。役割分担は決めず、3人とも何でもできる前提で、カードは武器の系統別です。<b>アイテム名をクリックすると、画像つきの日本語wikiのページが開きます</b>(新要素は公式wiki)。全部そろえる必要はなく、各カードの「本命」1〜2個が優先です。釣りとアクセサリーは右端の専用タブに。初めての人は先に <a href="beginner.html">はじめてのテラリア</a> を。</p>
+    <div class="legend">
+      <span><i style="--c:var(--all)"></i>全員</span>
+      <span><i style="--c:var(--tank)"></i>近接</span>
+      <span><i style="--c:var(--ranged)"></i>遠距離</span>
+      <span><i style="--c:var(--summon)"></i>召喚</span>
+      <span><i style="--c:var(--magic)"></i>魔法</span>
+      <span><i style="--c:var(--pet)"></i>相棒(ミニオン・乗り物)</span>
+      <span><span class="tag star" style="margin:0">本命</span> 最優先 ／ <span class="tag new" style="margin:0">1.4.5</span> 今回の更新で追加</span>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="フェーズ"></nav>
+  <main id="phases"></main>
+
+  <p class="foot">
+    出典: <a href="https://terraria.arcenserv.info/wiki/攻略チャート(ノーマルモード)">日本語wiki 攻略チャート(ノーマル)</a> /
+    <a href="https://terraria.arcenserv.info/wiki/攻略チャート(ハードモード)">同(ハード)</a> /
+    <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups">Guide:Class setups</a> /
+    <a href="https://terraria.wiki.gg/wiki/Guide:Game_progression">Guide:Game progression</a> /
+    <a href="https://terraria.wiki.gg/wiki/Guide:Fishing">Guide:Fishing</a> /
+    <a href="https://terraria.wiki.gg/wiki/1.4.5.7">1.4.5.7 更新履歴</a> /
+    <a href="https://terraria.wiki.gg/wiki/Master_Mode">Master Mode</a>
+  </p>
+</div>
+
+<script>
+const ROLES={all:"全員",tank:"近接",ranged:"遠距離",summon:"召喚",magic:"魔法",pet:"相棒(ミニオン・乗り物)"};
+const JP="https://terraria.arcenserv.info/wiki/", EN="https://terraria.wiki.gg/wiki/";
+/* pick: {nm, w(wiki page name; default = first token of nm), why, tip, src, star, nw} */
+const PHASES=[
+{short:"序盤",title:"序盤(開始 〜 HP200)",goal:"まず「死なない足回り」と帰還手段。地下小屋の宝箱と 1.4.5 の相棒を拾うだけで、マスターの序盤が別ゲーになります。",
+ flow:"やること: 拠点 → 地下探索 → 雪原・砂漠 → 空島(Starfury)",
+ picks:{
+ all:[
+  {nm:"Starfury",star:1,why:"剣を振ると、カーソルの位置に空から星が落ちる。星は壁もブロックも無視して当たるので、穴の中の敵や空のEye of Cthulhuを安全な場所から叩ける。WoF前まで全クラスの保険になる。",tip:"振る距離は関係なく、星は「カーソルの真上」から落ちる。敵の少し上にカーソルを置くと命中が安定する。",src:"空島の Skyware Chest。1島目は Shiny Red Balloon、2島目で必ず Starfury が出る(固定順)"},
+  {nm:"Magic Mirror",star:1,why:"使うだけでベッド(初期地点)へ帰還。ラージワールドでは「帰り道」が移動時間の半分なので、これがあるだけで探索の密度が倍になる。",tip:"ホットバーの端に固定しておき、HPが減ったら戦わずに帰る。Nurseの家をベッドの横に置くと帰還=全回復になる。",src:"地下小屋(Underground Cabin)の Gold Chest。雪原の Ice Mirror でも同じ。3人分あると理想"},
+  {nm:"Hermes Boots + Cloud in a Bottle",w:"Hermes_Boots",why:"走る速度と二段ジャンプ。マスターの序盤は「当たらない」が最大の防御で、この2つで敵の攻撃を素通りできるようになる。後で Spectre → Lightning → Terraspark Boots に育つ土台。",tip:"Cloud in a Bottle は空島の Shiny Red Balloon と合わせると Cloud in a Balloon(高い二段跳び)になる。",src:"地下小屋の Gold Chest。砂漠・ジャングルの地下小屋では Dunerider / Flurry など同系の靴が出る"},
+  {nm:"Band of Regeneration",why:"常時HP回復。マスターでは回復薬にクールダウンがあるため「待てば戻る」この指輪の価値が高い。後の Charm of Myths の素材。",src:"地下の Gold Chest"},
+  {nm:"Dead Man's Sweater",nw:1,why:"1.4.5で防御4・罠ダメージ半減に強化された胴防具。鉄防具を作る前に拾えれば、序盤の胴はこれで十分。",tip:"Dead Man's Chest は開けた瞬間に上からボルダーが落ちる。先に天井を3マス掘ってから開ける。",src:"Dead Man's Chest(ラージに20〜40個)。1/3 の確率"},
+ ],
+ tank:[
+  {nm:"Gold / Platinum 防具 + Starfury",w:"Platinum_armor",why:"この段階は防御が正義。マスターは防御が100%反映されるので、防御20(Platinum一式)なら敵の攻撃を20も減らせる。EoCまではこれで戦える。",tip:"金と白金はワールドでどちらか一方しか出ない。鉱石が足りなければ Extractinator(地下砂漠)にSiltを入れる。",src:"地下の金・白金鉱石"},
+  {nm:"Enchanted Sword",why:"振ると剣型のビームが飛ぶ。序盤では破格の射程と威力で、出れば近接役の悩みがひとつ消える。",tip:"地表に背景として刺さっている剣(Enchanted Sword Shrine)を壊すと出る。偽物(Terragrim)のこともある。",src:"地表の剣の祠。地下の Gold Chest からも低確率"},
+  {nm:"Spear / Storm Spear",w:"Storm_Spear",why:"槍は貫通するのでゾンビの列やSlime Rainに強い。Storm Spearは1.4.5で射程が1.6倍になり、突くたびに雷が落ちる。",tip:"ショートソードはノックバック耐性+20%のマスターでは役に立たない。初日から槍か弓へ。",src:"Spear は鉄床で作成。Storm Spear は地下砂漠の Sandstone Chest"},
+ ],
+ ranged:[
+  {nm:"Wooden Bow + 炎の矢",w:"Flaming_Arrow",why:"木の矢とTorchを合成するだけで炎上ダメージが付き、威力が1.5倍になる。初日の遠距離役の最適解。",tip:"Frostburn Arrow(雪原の Ice Torch で合成)はさらに上。ジャングルで Jester's Arrows(貫通)を覚えると EoW が楽。",src:"Wood 10 で弓、Wood 1 + Stone 1 で矢"},
+  {nm:"Poison Barb",nw:1,why:"矢に毒を付与するアクセサリー。1.4.5.7の新規で、後に Sweet Barb(蜂と Honey が付く)や Catalyst Band に育つ。",src:"地表の宝箱(1/11)。Wooden / Pearlwood Crate からも"},
+  {nm:"Harpy Charm",nw:1,why:"遠距離クリティカル+5%に加えて、外れた矢を一定間隔で最寄りの敵に向け直してくれる。EoCの第2形態のような「動き回る相手」に効く。",tip:"空島のハーピーがFeatherを落とす。Starfuryを取りに行くついでに7枚集める。",src:"Amber 3 + Feather 7 + Silver Bar 5 を鉄床で"},
+  {nm:"Fossil armor",why:"防御とクリ率がまとまった遠距離の序盤防具。投擲(Bone Throwing Knife・Bone Javelin)の威力も上がる。",src:"地下砂漠の Sturdy Fossil を Extractinator にかける"},
+  {nm:"Snapping Stone",nw:1,why:"6秒ごとに次の遠距離攻撃に最大+60の追加ダメージと周囲2体への拡散が乗る。ボスの開幕や、大物1発の武器(Musket)と相性がよい。",tip:"あとで Magma Stone と合成すると Pyroclastic Stone(近接も強化)になる。近接武器を使う人にも1個ほしい。",src:"花崗岩洞窟の Granite Golem / Granite Elemental(1/80)"},
+ ],
+ summon:[
+  {nm:"Flinx Staff + Flinx Fur Coat",w:"Flinx_Staff",why:"雪原の素材だけで召喚ビルドが完成する。Flinxは敵に飛びついて削り続けるので、本人は逃げ回るだけでよい。マスターの序盤では意外なほど安定する。",tip:"Fur Coat はミニオン枠+1。Mana Crystal は召喚職には不要(1.4.5で召喚武器のマナ消費が撤廃)。",src:"雪原の Snow Flinx が落とす Flinx Fur(Staff に 6、Coat に 8)+ Gold/Platinum Bar / Silk"},
+  {nm:"Finch Staff",why:"最初の相棒。Flinxが出るまでのつなぎで、地表の生きている木の宝箱から取れる。",src:"Living Tree 内の宝箱(Living Wood Chest)"},
+  {nm:"Snapthorn",why:"最初のまともなムチ。叩いた敵にミニオンが集中し、振るたびに召喚速度が上がる。Flinx + Snapthorn で EoC が倒せる。",src:"Stinger 12 + Vine 3 + Jungle Spores 3(ジャングル)"},
+ ],
+ magic:[
+  {nm:"Thunder Zapper",star:1,why:"1.4.5.4で威力24に強化された砂漠の杖。マナ消費6で連射でき、WoF前まで主力になれる。1.4.5.7からハードモードで Lightning Strike に進化する。",tip:"地下砂漠の深い層(下3/7)の Sandstone Chest にだけ入る。浅い層の宝箱には出ない。",src:"Sandstone Chest(1/3)、Oasis / Mirage Crate"},
+  {nm:"宝石の杖(Amethyst / Topaz Staff)",w:"Gem_staffs",why:"1.4.5.7で作成コストが約3割減り、性能も見直された。初日に宝石が2〜3個あれば作れる。",src:"宝石 + 対応する鉱石のBar(鉄床)"},
+  {nm:"Glacier Fang",nw:1,why:"クリ率15%の氷の杖。雪原で手に入るので Thunder Zapper と二刀流に。",tip:"Frozen Chest の Ice Blade / Ice Boomerang / Snowball Cannon は Shimmer に投げると順に変換でき、Glacier Fang にも変わる。",src:"Frozen Chest、Frozen / Boreal Crate"},
+  {nm:"Mana Crystal ×9",w:"Mana_Crystal",why:"マナ上限を200にする。魔法職はこれが終わるまで本領が出ない。",tip:"Fallen Star は夜に地表に落ちる。3人で拾うと早い。Shimmer に Mana Crystal を1個投げると Arcane Crystal(マナ回復が速くなる永続強化)。",src:"Fallen Star 5 個で 1 つ"},
+ ],
+ pet:[
+  {nm:"Foxparks / Cattiva",w:"Foxparks",star:1,nw:1,why:"ミニオン枠を使わない無料の相棒。Foxparks は火炎弾20で序盤の火力が倍になり、Cattiva は殴りながら採掘・伐採も手伝う。クラスを問わず3人全員が持つべき。",tip:"昼の地表(草原・雪原・ジャングル)で Goblin Archer 2体に囲まれた Distressed Pal を見つけたら、弓兵を倒して近づくだけ。1.4.5.7から持っていない方が確定で出る。ハードモードで Kinship Peach を使うと Trusty 版に進化。",src:"Distressed Pal を助ける(地表、昼、ワールド中央1/4以外)"},
+  {nm:"Chillet",star:1,nw:1,why:"騎乗中ダメージ+10%、ダッシュ攻撃つきの乗り物。ラージの移動がこれ1つで楽になり、戦闘中に逃げる足にもなる。",tip:"卵は Cavern 層に12個。Spelunker Potion か Metal Detector で光る。Chillet と Chillet Ignis の2種は50/50。",src:"Huge Dragon Egg を拾う"},
+  {nm:"Slasher's Mysterious Skull",nw:1,why:"時速38で走るラプトル変身マウント。地上戦なら Chillet より速く、翼も乗ったまま使える。",src:"Sturdy Fossil 20 + Amber 5 + Fallen Star 5 を鉄床で"},
+ ]},
+ builds:[
+  {t:"拠点: 住居 3 + NPC 用 6 軒を縦に積む",spec:["内寸 7×5 以上、背景壁(手で貼ったもの)・扉・机・椅子・明かり。Housing Query で確認","Merchant(銀50)→ Nurse(Life Crystal使用)→ Demolitionist(爆弾所持)の順で呼ぶ","Piggy Bank を各自1つ(Merchant)。戻るたびに入金する"],why:"NPCが増えるほど周囲の敵の湧きが減る。Nurse は全ボス戦の保険で、ベッドの隣が定位置"},
+  {t:"メインシャフト: 拠点の真下に 1 本",spec:["ロープ or 足場で往復できる縦穴。幅2","途中(地下・Cavern境)に Campfire と避難用の小部屋"],why:"Life Crystal 集めの往復と、後の Hellevator の下地になる"},
+  {t:"空島へのロープタワー + 空中橋",spec:["Depth Meter で高度を測り、ロープで真上へ(目安 650〜1200ft)","島の高さに着いたら左右に木の足場を伸ばす。ラージは最大6島"],why:"Starfury・Lucky Horseshoe・Shiny Red Balloon が固定順で出る。Fledgling Wings(1/40)も"},
+ ],
+ boss:[
+  {b:"King Slime(任意)",t:"Gold/Platinum Crown + Gel 20 で Slime Crown。1.4.5から Slime Crown を Shimmer に投げると Slime Rain を起こせる。足場にテレポートしてくるので平地で戦う。Slimy Saddle(急降下できる乗り物)と Royal Gel が目当て"},
+ ],
+ warns:["腕つきゾンビ(Zombie Arm持ち)に近接しない。ロープと足場で飛び越える","ハーピーはマスターだと一撃が重い。空島は HP200・銀以上の防具で","Dead Man's Chest はボルダー付き。天井から先に掘る"]},
+
+{short:"最初のボス群",title:"最初のボス群(Eye of Cthulhu 〜 Skeletron)",goal:"Shield of Cthulhu と Worm Scarf が3人分そろうフェーズ。ここで取れる Beenade と蜂マウントが WoF までの主役です。",
+ flow:"順番: Eye of Cthulhu → Shadow Orb 1個(Musket)→ Goblin Army → Eater of Worlds → 隕石 → Queen Bee → Skeletron",
+ picks:{
+ all:[
+  {nm:"Shield of Cthulhu",star:1,why:"方向キー2度押しでダッシュ。無敵ではないが、ボスの突進をすれ違う形で避けられる。マスターの回避はここから始まる。Treasure Bag は3人全員に出る。",tip:"ダッシュ中は敵に体当たりダメージが入る。Master Ninja Gear を作るまで外さない。",src:"Eye of Cthulhu の Treasure Bag(確定)"},
+  {nm:"Worm Scarf",star:1,why:"受けるダメージを17%カット。堕落ワールドで最も価値のある一品で、Moon Lord まで外す理由がない。マスターでは確定ドロップ。",src:"Eater of Worlds の Treasure Bag(確定)"},
+  {nm:"Lightning Boots",why:"Rocket Boots + Hermes 系 + Aglet + Anklet of the Wind。地上の移動はこれで完成し、Terraspark Boots まで持つ。",tip:"Rocket Boots は Goblin Tinkerer から5G。Anklet はジャングルの Ivy Chest、Aglet は地表の宝箱。",src:"Tinkerer's Workshop で合成"},
+  {nm:"Beenade ×50 / 人",w:"Beenade",why:"投げると蜂が大量に湧く手榴弾。WoF の目と Hungry を同時に削る前半最強の投擲で、安いので3人分を今から作る。",src:"Queen Bee のドロップと、Bee Wax から作成"},
+  {nm:"Void Bag + Void Vault",w:"Void_Bag",why:"Void Bag はインベントリが満杯のとき拾ったものを自動で Void Vault(拠点の金庫)へ送る。荷物が実質2倍になり、探索中に「捨てる」判断が消える。",src:"Jungle Spores 30 + Bone 15 + Shadow Scale 15(Demon Altar)"},
+  {nm:"Restoration Shield",nw:1,why:"ノックバック無効 + 毎秒1回復 + マナ上限40 + マナ回復。1.4.5.7の新規で、wiki は「非魔法職でも Obsidian Shield より上になりうる」と評価。Obsidian Shield を作らない人の盾はこれでよい。",src:"Cobalt Shield(Dungeon)+ Mana Regeneration Band(Band of Regeneration + Band of Starpower)"},
+ ],
+ tank:[
+  {nm:"Shadow armor",star:1,why:"近接速度+15%の前半近接防具。Molten armor が作れるまでの主防具で、Nightmare Pickaxe と同じ素材で作れる。",src:"Demonite Bar + Shadow Scale(Eater of Worlds)"},
+  {nm:"Ball O' Hurt → Hive-Five",w:"Ball_O%27_Hurt",why:"フレイルは射程が長く地形越しに振れる。Hive-Five は Queen Bee のヨーヨーで、当てると蜂が出る。どちらも「近接なのに近づかなくていい」のがマスター向け。",src:"Shadow Orb / Queen Bee"},
+  {nm:"Blade of Grass",why:"毒が入る広い剣。Night's Edge の素材なので、どのみち作る。",src:"Jungle Spores 12 + Stinger 12"},
+  {nm:"Obsidian Shield",why:"ノックバック無効。被弾で吹き飛ばされて溶岩や敵の群れに落ちる事故が消える。Ankh Shield の土台。",src:"Obsidian Skull(Obsidian 20)+ Cobalt Shield(Dungeon の鍵つき宝箱)"},
+  {nm:"Feral Claws / Stinger Necklace",w:"Feral_Claws",why:"近接速度+12%と防御貫通5。Stinger Necklace は被弾時に蜂が湧いて Honey 回復もつく。近接の空き枠に。",src:"ジャングルの Ivy Chest / Shark Tooth Necklace(Blood Moon)+ Honey Comb(Queen Bee の Bag)"},
+ ],
+ ranged:[
+  {nm:"Minishark",star:1,why:"35Gで買える連射銃。弾代はかかるが、EoW・Skeletron・Queen Bee のどれにも通る安定火力。Megashark の素材でもある。",tip:"Silver / Tungsten Bullet にするだけで威力が上がる。Meteor Shot(隕石)は貫通して跳ね返る。",src:"Arms Dealer(Shadow Orb 1個目で来る)"},
+  {nm:"The Bee's Knees",star:1,why:"木の矢を撃つと蜂に変わり、敵を追尾する。WoF 前の弓では最強格で、弾代が木だけで済む。",src:"Queen Bee(1/3)"},
+  {nm:"Jester's Arrows",why:"貫通して複数体に当たる矢。Eater of Worlds の長い胴体に沿って撃つと一瞬で削れる。Poison Barb と合わせると毒も乗る。",src:"Wooden Arrow 50 + Fallen Star 1"},
+  {nm:"Necro armor",why:"遠距離の防具はこれで WoF まで。弾の消費を2割減らす。",src:"Bone 150 + Cobweb 135(Dungeon)"},
+  {nm:"Sweet Barb",nw:1,why:"Poison Barb に Honey Comb の効果(被弾で蜂と Honey 回復)と、矢の命中で追尾蜂が出る効果が乗る。",src:"Poison Barb + Honey Comb"},
+ ],
+ summon:[
+  {nm:"Hornet Staff + Bee armor",w:"Hornet_Staff",why:"Queen Bee の素材だけで WoF 前の召喚が完成する。Hornet は空中から毒針を撃つので、地形を選ばない。",src:"Bee Wax(Queen Bee)"},
+  {nm:"Soulscourge",nw:1,why:"堕落ワールド専用の序盤ムチ。叩いた敵をミニオンが集中攻撃する。1.4.5の新規で、Snapthorn と二本持ち。",src:"Demonite Bar 12 を鉄床で"},
+  {nm:"Spinal Tap",why:"WoF 前の最強ムチ。複数の敵をまとめて叩ける。Snapthorn で速度を上げてから Spinal Tap で殴るのが定石。",src:"Cobweb 90 + Bone 90(Dungeon)"},
+  {nm:"Pygmy Necklace",why:"ミニオン枠 +1。召喚職の火力が単純に 1.25〜1.5 倍になる。",src:"Witch Doctor(夜間に販売。Queen Bee 撃破後)"},
+  {nm:"Silver Bracer",nw:1,why:"ムチのタグ効果の枠が +1 され、持続が3倍に。1.4.5.7 のムチ強化の中核で、後の Silver Shield / Twilight Grasp の素材。",src:"Dungeon の鍵つき Gold Chest(25%)"},
+ ],
+ magic:[
+  {nm:"Space Gun + Meteor armor",w:"Space_Gun",star:1,why:"Meteor armor を一式着ると Space Gun のマナ消費がゼロになる。撃ち放題の貫通レーザーで、魔法職はここで一気に楽になる。",tip:"隕石は EoW 撃破後に落ちる(1.4.5.5から空島には落ちない)。Gold / Tungsten 以上のツルハシが必要。",src:"Meteorite Bar(Space Gun 20、防具 45)"},
+  {nm:"Water Bolt",why:"壁で跳ね返る貫通弾。Skeletron の腕と Dungeon の廊下で特に強い。",src:"Dungeon の本棚(青い本)。1.4.5から Water Bolt Mimic も落とす"},
+  {nm:"Vilethorn",why:"壁を貫通する棘の列。Eater of Worlds の胴と Goblin Army の列をまとめて削る。",src:"Shadow Orb(20%)"},
+  {nm:"Bee Gun",why:"追尾する蜂を連射する。ボス戦で「撃っていれば当たる」安定火力。",src:"Queen Bee(1/3)"},
+  {nm:"Band of Starpower → Magic Cuffs",w:"Magic_Cuffs",nw:1,why:"1.4.5.7 で Band of Starpower がマナ+40 に強化され、Magic Cuffs(被弾でマナ回復)の素材にもなった。Celestial Cuffs への道。",src:"Shadow Orb / Shackle と合成"},
+ ],
+ pet:[
+  {nm:"Honeyed Goggles",star:1,why:"蜂に乗って飛べる最初の乗り物。EoW の地下戦と Skeletron で落下死が消え、Dungeon 探索も安全になる。",tip:"低確率なので、Queen Bee は3人で2〜3回戦う。Abeemination(Honey Block + Stinger + Hive + Bottled Honey)で再召喚。",src:"Queen Bee(1/20)"},
+  {nm:"Slimy Saddle",why:"スライムに乗ると急降下できる。空島や Dungeon の縦移動が速く、敵を踏んでダメージも出る。",src:"King Slime(1/4)"},
+  {nm:"Imp Staff",why:"壁を無視して火球を飛ばすミニオン。召喚職でなくても1体置いて損がない。",src:"Hellstone Bar 17(次のフェーズで)"},
+ ]},
+ builds:[
+  {t:"ボス用アリーナ(拠点の横)",spec:["幅 150〜200 の木の足場を 3 段(間隔 10 ブロック)","Campfire・Heart Lantern(Life Crystal 1 + Chain 4)を 50 ブロックおき。Sunflower を数本","すぐ横に Nurse の家。できれば Dryad も(Dryad's Blessing はマスターで防御+20)"],why:"EoC・Skeletron・Goblin Army・Blood Moon まで同じ場所で戦える"},
+  {t:"Goblin Army の迎撃壁",spec:["拠点の両脇に高さ 6 の壁 + 上に足場。扉は閉じておく","壁の内側から Minishark・Vilethorn・Jester's Arrows で撃つ"],why:"Shadow Orb を壊すと来る。Goblin Tinkerer(合成台・リフォージ)を必ず救出する"},
+  {t:"堕落の裂け目への道",spec:["Purification Powder(Dryad)か爆弾で Ebonstone を抜く","ロープを垂らし、底に Campfire と足場"],why:"Shadow Orb を3つ壊す動線。EoW は裂け目の底で戦うのが安全"},
+  {t:"海に釣り小屋",spec:["Angler を起こしてから、海辺に小部屋 + 水面まで足場","Bug Net と Reinforced Fishing Pole(Merchant)。詳しくは「釣り」タブ"],why:"Cell Phone の Fish Finder 系と、Sailfish Boots・Water Walking Boots はここから"},
+ ],
+ boss:[
+  {b:"Eye of Cthulhu",t:"HP200・防御10超・NPC3人で夜に来る。第2形態(マスターは65%)の突進は横に走って縦に避ける。Starfury と Minishark で十分。マスター専用の 0x33's Aviators も出る"},
+  {b:"Eater of Worlds",t:"貫通武器の祭り。Jester's Arrows・Vilethorn・Ball O' Hurt・Grenade。頭だけ狙わず胴を削る。裂け目の底に足場を敷いて戦う"},
+  {b:"Queen Bee",t:"蜂蜜の上で戦うと回復が速い。横移動の突進は上に、蜂は Beenade や Bee Gun で巻き込む。1.4.5から蜂が生きている間は敵同士で傷つけ合わない"},
+  {b:"Skeletron",t:"日没直後に開始。マスターは腕1本で頭の防御+25 なので両腕から。Water Bolt と Minishark が楽"},
+ ],
+ warns:["昼になった Skeletron は 9999 ダメージ(回避アクセも無効)。夜明けが近いなら仕切り直す","Old Man を無視して Dungeon に入ると Dungeon Guardian に即死","Goblin Army は Shadow Orb を壊した翌朝から来る。壁を先に作る"]},
+
+{short:"地底とWoF",title:"地底と Wall of Flesh",goal:"Molten 装備・Night's Edge・Star Cannon で前半の完成形に。WoF を倒す前に「ハードモードの準備」を済ませるのがストレスを減らす最大のコツです。",
+ flow:"やること: Hellevator → 地底で素材集め → 橋を架ける → 準備リスト → WoF",
+ picks:{
+ all:[
+  {nm:"Demon Heart",star:1,why:"アクセサリーの7枠目(マスターは元から6枠)。WoF の Treasure Bag から3人全員が使う。Moon Lord まで効く最大の永続強化。",src:"Wall of Flesh の Treasure Bag(確定)"},
+  {nm:"Alchemy Flask",star:1,nw:1,why:"Shimmer で変換した Alchemy Table。近くで作ったポーションの素材を節約するだけでなく、使った人に「ポーション効果時間+20%」のバフが付く。以後の全ボス戦に効く。",src:"Dungeon の Alchemy Table を Shimmer に投げる"},
+  {nm:"Obsidian Skin Potion / Lava Charm",w:"Lava_Charm",why:"溶岩を無効化する薬と、溶岩に7秒耐えるお守り。地底の死因はほぼ溶岩なので、どちらかは常備。Lava Charm は Terraspark Boots の素材。",src:"Fireblossom + Obsidian + Waterleaf / Cavern 層の Gold Chest(低確率)・Obsidian / Hellstone Crate"},
+  {nm:"Warding(防御+4)リフォージ",w:"Modifier",why:"アクセサリー6枠×防御4 = 防御+24。マスターは防御が100%反映なので、武器の更新より効く。Goblin Tinkerer に話しかけるだけ。",tip:"ボス戦前にまとめて。お金が余っていれば Menacing(ダメージ+4%)より Warding を優先。",src:"Goblin Tinkerer のリフォージ"},
+  {nm:"Cloud in a Balloon / Lucky Horseshoe",w:"Lucky_Horseshoe",why:"落下ダメージ無効と高い二段跳び。空島で拾った2つを合成して1枠に。後で Bundle of Horseshoe Balloons にまとまる。",src:"Shiny Red Balloon + Cloud in a Bottle / 空島3島目"},
+ ],
+ tank:[
+  {nm:"Molten armor",star:1,why:"前半最大の防御25。溶岩や Meteorite の炎上も無効になる。近接ならこれ一択で、WoF 直後まで着る。",src:"Hellstone Bar 45(Hellstone 3 + Obsidian 1 で Bar 1)"},
+  {nm:"Night's Edge",star:1,why:"前半最強の剣。振りが大きく多段ヒットする。True Night's Edge → Terra Blade → Zenith と最後まで素材として生き続ける。",src:"Light's Bane + Muramasa(Dungeon)+ Blade of Grass + Fiery Greatsword(Hellstone Bar 20)を Demon Altar で"},
+  {nm:"Sunfury / Dark Lance",w:"Sunfury",why:"Shadow Chest の当たり武器。Sunfury は炎上つきフレイルで WoF の Hungry 払いに、Dark Lance は貫通する槍。",src:"地底の Shadow Chest(Shadow Key は Dungeon の Gold Chest)"},
+  {nm:"Pyroclastic Stone",nw:1,why:"近接攻撃に Hellfire を付与し、6秒ごとに次の一撃が爆発して周囲2体を巻き込む。近接の攻撃力を1枠で底上げ。",src:"Snapping Stone(花崗岩)+ Magma Stone(地底の Hellbat / Lava Bat)"},
+  {nm:"Cascade",why:"地底で出る前半最強ヨーヨー。炎上つきで、壁越しに安全圏から殴れる。",src:"地底の敵(Hellbat・Lava Slime・Fire Imp など)が低確率で落とす"},
+ ],
+ ranged:[
+  {nm:"Star Cannon",star:1,why:"前半最大の DPS。Fallen Star を弾にするので弾代は「夜に拾う手間」だけ。WoF の目を一瞬で削る。",tip:"3人で毎晩 Fallen Star を拾う習慣をつける。100発あれば WoF は十分。",src:"Minishark + Meteorite Bar 20 + Fallen Star 5(鉄床)"},
+  {nm:"Phoenix Blaster",why:"Star Cannon の弾を節約したいときの主力。単発火力が高く、ハードモード序盤までつなげる。",src:"Handgun(Dungeon の鍵つき宝箱)+ Hellstone Bar 10"},
+  {nm:"Hellwing Bow",why:"木の矢がコウモリになって貫通する。WoF の Hungry をまとめて払える。",src:"Shadow Chest"},
+  {nm:"Molten Fury + Hellfire Arrows",w:"Molten_Fury",why:"木の矢が炎の矢に変わる弓。Hellfire Arrow(爆発)を撃つと範囲攻撃になる。",src:"Hellstone Bar 25 / Hellfire Arrow は Wooden Arrow + Hellstone Bar"},
+ ],
+ summon:[
+  {nm:"Imp Staff",star:1,why:"壁を無視する火球を撃つミニオン。WoF の上の目を上から焼ける。前半の召喚の到達点。",src:"Hellstone Bar 17"},
+  {nm:"Obsidian armor",star:1,why:"ムチの射程と速度が大きく上がる前半のムチ用最強防具。ミニオン枠も +1。",src:"Obsidian 60 + Silk 30 + Shadow Scale 20"},
+  {nm:"Spinal Tap + Snapthorn",w:"Spinal_Tap",why:"Snapthorn で速度バフ、Spinal Tap で火力。2本持ちで切り替える。",src:"Dungeon / ジャングル"},
+  {nm:"Vampire Frog Staff",why:"地上の雑魚戦に強い跳ねるカエル。WoF の上の目に1体置くと、ずっと噛みついてくれる。",src:"Blood Moon 中の釣り(Zombie Merman / Wandering Eye Fish)"},
+ ],
+ magic:[
+  {nm:"Demon Scythe",star:1,why:"前半魔法の頂点。加速する貫通弾で、WoF も Skeletron も溶ける。ハードモード序盤まで現役。",tip:"地底の Demon が低確率で落とす。3人で Demon だけ狩る時間を30分取る価値がある。",src:"地底の Demon(1/35)"},
+  {nm:"Flamelash / Flower of Fire",w:"Flamelash",why:"Shadow Chest の魔法武器。Flamelash はカーソルで操作できる火球、Flower of Fire は跳ねる火球。",src:"Shadow Chest"},
+  {nm:"Water Bolt",why:"引き続き現役。橋の上で跳ね返しながら Hungry を払う。",src:"Dungeon"},
+  {nm:"Celestial Cuffs",why:"被弾でマナ回復 + マナ星を引き寄せる。魔法職の防御枠はこれ。",src:"Magic Cuffs + Celestial Magnet(空島4島目)"},
+ ],
+ pet:[
+  {nm:"Honeyed Goggles",why:"地底の溶岩越えはこれ。落ちても飛び直せる。",src:"Queen Bee"},
+  {nm:"Chillet",why:"橋の上の長距離移動。WoF 戦は「走れる乗り物」が強い。",src:"Huge Dragon Egg"},
+  {nm:"Goat Skull",why:"WoF 撃破後にマスター限定で出る高速地上マウント(山羊)。橋の上を走るのに最適。",src:"Wall of Flesh(マスター 25%)"},
+ ]},
+ builds:[
+  {t:"Hellevator を 3 本",spec:["拠点の真下、ジャングルの両脇の計3本。爆弾で一気に","幅3で掘り、ロープを垂らす。Obsidian Skin を飲んでから底へ"],why:"ハードモード後の侵食の防波堤にもなる。3人で同時に掘れば1日で終わる"},
+  {t:"地底の橋(WoF 用)",spec:["長さ 1000 ブロック以上。Ash Block か Wood Platform を一直線に","50 ブロックごとに Campfire と Heart Lantern","橋の端に Nurse の家(撃破後も使う)"],why:"WoF は 3 人マスターで HP 約2万7千。長い直線があれば負けない"},
+  {t:"地表のキノコバイオーム + 家",spec:["泥ブロック 100 以上に Mushroom Grass Seeds。地表に作る","家を1軒。後で Mushroom Pylon もここ"],why:"ハードモード後に Truffle(Autohammer・Mushroom Spear)が住む"},
+  {t:"拠点の防腐処理",spec:["住居の外周を加工レンガ・木・Gray Brick など侵食されない素材で","NPC の家の下に 4 ブロック以上の非土ブロック層"],why:"WoF 撃破の瞬間に出る V 字の侵食で拠点が死なないように"},
+ ],
+ boss:[
+  {b:"Wall of Flesh",t:"Guide が生きているか確認してから Voodoo Demon を狩る。開幕に Beenade を全員で投げ、目を Star Cannon と Imp で焼く。Hungry は Hellwing Bow か Sunfury で払う。ポーションは Obsidian Skin・Ironskin・Regeneration・Swiftness・Endurance・Wrath(Ebonkoi)。Emblem は Shimmer で別クラスに変換できる"},
+ ],
+ warns:["Shadow Key は Dungeon の Gold Chest から。先に取っておくと Shadow Chest が開く","WoF 撃破と同時に Hallow と Corruption の V 字が出る。拠点が巻き込まれていないか最初に確認","Hellstone は掘ると溶岩が湧く。Obsidian Skin か Lava Charm を必ず"]},
+
+{short:"HM序盤",title:"ハードモード序盤(メカ前)",goal:"敵が一気に強くなる山場。翼・Flesh Knuckles・Greater Healing Potion・Hallowed Mimic の3点セットで安定します。Queen Slime は先に倒すと楽。",
+ flow:"やること: 祭壇 → 鉱石チェーン → 翼 → Mimic 狩り → Queen Slime → アリーナ建設",
+ picks:{
+ all:[
+  {nm:"翼(Leaf Wings → Soul of Flight の翼)",w:"Wings",star:1,why:"飛べるかどうかでマスターの生存率が変わる。Leaf Wings は Witch Doctor から1プラチナで即買いでき、Angel / Demon Wings(Soul of Flight 20)に乗り換える。",tip:"Wyvern は宇宙(空島より上)に出る。足場を宇宙まで伸ばして3人で待つと Soul of Flight が早い。",src:"Witch Doctor(ジャングルの夜)/ Wyvern の Soul of Flight 20 + Feather"},
+  {nm:"Greater Healing Potion",star:1,why:"回復量が150に(Healing は100)。マスターの被弾はこの差で生き死にが変わる。日本語wikiが「真っ先に回収」と書く理由。",src:"Pixie Dust 3 + Crystal Shard 1 + Bottled Water 3(聖域)"},
+  {nm:"Charm of Myths / Star Veil",w:"Charm_of_Myths",why:"Charm は回復薬のクールダウン −15% と常時回復、Star Veil は被弾後の無敵時間を延長。両方つけると死ににくさが段違い。",src:"Philosopher's Stone(Mimic)+ Band of Regeneration / Cross Necklace(Mimic)+ Star Cloak(Mimic)"},
+  {nm:"Crystal Assassin armor",why:"ダッシュつきの汎用防具。全クラスのダメージ+15%で、装備を迷ったらこれを着ておけば間違いない。",src:"Queen Slime"},
+  {nm:"Terraspark Boots",why:"Lightning Boots + 溶岩歩き + 氷で滑らない。探索のストレスが消える靴の完成形(ボス戦は翼が主役)。",src:"Frostspark Boots(Lightning + Ice Skates)+ Lava Waders(Lava Charm + Obsidian Rose + Water Walking Boots)"},
+  {nm:"Amphibian Boots",why:"ジャンプ速度と飛行の立ち上がりが速くなる。ボス戦の靴はこちらが上という評価。",src:"Sailfish Boots(釣りの木箱)+ Frog Leg(ジャングルの釣り)"},
+ ],
+ tank:[
+  {nm:"Flesh Knuckles",star:1,nw:1,why:"敵の狙いを自分に集めるアクセサリー。役割を固定しなくても、その戦いで一番防御が高い人が付けるだけで他の2人の被弾が減る。本来 Crimson 限定だが、1.4.5.0 から堕落の Putrid Scent を Shimmer に投げると変換できる。",tip:"後で Paladin's Shield と合成して Hero Shield(味方の被ダメを25%肩代わり)に。",src:"Corrupt Mimic の Putrid Scent → Shimmer"},
+  {nm:"Titanium armor / Frost armor",w:"Frost_armor",star:1,why:"Titanium(Mask)は防御49と被弾時の自動反撃、Frost は Frostburn 付与で攻めも立つ。どちらも Hallowed までの近接防具。",src:"Titanium 鉱石(3つ目の祭壇) / Ice Golem(吹雪の雪原)の Frost Core"},
+  {nm:"Shadowflame Knife",why:"投げナイフに Shadowflame(毎秒15ダメージの持続)。メカ3体すべてに強く、近接なのに射程がある。",src:"ハードモードの Goblin Army に出る Goblin Summoner"},
+  {nm:"Chain Guillotines / Amarok",w:"Chain_Guillotines",why:"堕落 Mimic の鎖鎌と雪原のヨーヨー。どちらも安全圏から多段ヒットする。",src:"Corrupt Mimic / 雪原の敵(ハードモード)"},
+  {nm:"Berserker's Glove",why:"Power Glove + Flesh Knuckles。敵の狙いを集める効果 + 近接速度12% + 防御8 が1枠に。",src:"Titan Glove(Mimic)+ Feral Claws + Flesh Knuckles"},
+ ],
+ ranged:[
+  {nm:"Daedalus Stormbow + Holy Arrows",w:"Daedalus_Stormbow",star:1,why:"空から矢の雨を降らせる弓。Holy Arrow を使うと星が追加で落ち、The Destroyer を1分で溶かす定番。Twins にも通る。",src:"Hallowed Mimic(Key of Light = Soul of Light 15 を空の Chest に入れる)"},
+  {nm:"Dart Rifle + Cursed Darts",w:"Dart_Rifle",why:"堕落ワールドの単体火力。Cursed Dart は着弾後に炎が残り、Skeletron Prime の腕払いに向く。",src:"Corrupt Mimic / Cursed Flame + Dart"},
+  {nm:"Chaos Cylinder",nw:1,why:"遠距離ダメージ+8% と、弾種を自動で切り替える機能。1.4.5.7 の新規。",src:"Hallowed Mimic(20%)"},
+  {nm:"Adamantite armor / Frost armor",w:"Adamantite_armor",why:"遠距離の防具。Frost は近接でも使うので、Frost Core が人数分出るまでは Adamantite(Mask)。",src:"Adamantite 鉱石 / Frost Core"},
+  {nm:"Phoenix Quiver",nw:1,why:"Magic Quiver の上位。矢の速度・ダメージ・誘導が1枠に。遠距離役の最終アクセの1つ。",src:"Harpy Charm + Molten Quiver(Magic Quiver〈Skeleton Archer〉+ Molten Fury)"},
+ ],
+ summon:[
+  {nm:"Spider armor + Spider Staff",w:"Spider_Staff",star:1,why:"ハードモード直後に作れる召喚の定番。蜘蛛は壁に張り付いて噛み続けるので The Destroyer に強い。",tip:"Black Recluse は壁を通り抜けない。巣の端に壁1枚を挟んで通路を作ると安全に狩れる。",src:"地下の蜘蛛の巣(Black Recluse)の Spider Fang"},
+  {nm:"Sanguine Staff",star:1,why:"追尾するコウモリ。メカ前の最強ミニオンで、Firecracker と組むと爆発ダメージが伸びる。",src:"Blood Moon 中の釣りで出る Dreadnautilus(1/2)"},
+  {nm:"Blade Staff + Cool Whip",w:"Blade_Staff",why:"手数で防御を無視する組み合わせ。Blade Staff は Queen Slime、Cool Whip は Frost Core から。",src:"Queen Slime / Soul of Light 8 + Soul of Night 8 + Frost Core"},
+  {nm:"Firecracker",why:"WoF から出るムチ。叩いた敵へのミニオンの次の一撃が爆発する。Sanguine / Spider と相性がよい。",src:"Wall of Flesh"},
+  {nm:"Ruinous Staff",nw:1,why:"召喚40の新ミニオン。Dark Shard と Light Shard が余ったら。",src:"Dark Shard + Light Shard + Forbidden Fragment 2 + Soul of Night 5 + Soul of Light 5"},
+ ],
+ magic:[
+  {nm:"Crystal Serpent",star:1,why:"聖域で釣れる。弾が割れて破片が飛ぶため雑に強く、メカ前の魔法では最も手軽。釣り竿と餌だけで取れる。",src:"聖域(地表・地下どちらでも)の水場で釣り"},
+  {nm:"Sky Fracture",why:"貫通する剣の雨。The Destroyer の長い胴体に刺さる。",src:"Magic Missile(Dungeon)+ Light Shard 3 + Soul of Light 16"},
+  {nm:"Cursed Flames(魔導書)",w:"Cursed_Flames",why:"堕落の呪炎。跳ねる火球で Twins の単体火力に。",src:"Spell Tome(Wizard)+ Cursed Flame 20 + Soul of Night 15"},
+  {nm:"Forbidden armor / Adamantite(Headgear)",w:"Forbidden_armor",why:"Forbidden はミニオン枠つきで、召喚と魔法の両立ができるハイブリッド防具。",src:"Sand Elemental(砂嵐の砂漠)の Forbidden Fragment + Adamantite / Titanium Bar"},
+  {nm:"Spirit Flame",why:"壁を無視して追尾する炎。Skeletron Prime の腕払いと Dungeon に向く。",src:"Desert Spirit Lamp(Desert Spirit)+ Forbidden Fragment 2 + Soul of Night 12"},
+ ],
+ pet:[
+  {nm:"Gelatinous Pillion",star:1,why:"飛べる乗り物。翼より速く、燃料切れがない。1人分出れば偵察と救助が楽になる。",src:"Queen Slime(1/4)"},
+  {nm:"Blessed Apple",why:"ユニコーンに乗る。地上最速級 + ダッシュ攻撃。Hallow の掃除と Pixie Dust 集めに。",src:"聖域の Unicorn(低確率)"},
+  {nm:"Enchanted Pixie Dust",nw:1,why:"妖精に変身してホバリングできる。メカ1体撃破後から。",src:"Pixie(メカ1体撃破後)"},
+  {nm:"Roller Skates",nw:1,why:"乗り物なのに翼・フック・ダッシュがそのまま使える。地上速度 +5mph が常時乗る。",src:"Traveling Merchant(15G)/ Skeleton Merchant(10G、月齢で色違い)"},
+ ]},
+ builds:[
+  {t:"メカ用の空中アリーナ",spec:["地表から 40〜60 ブロック上に、幅 300 の足場を 3 段(間隔 12)","Heart Statue を 1 秒タイマーで 2〜3 体(Mechanic の Wire)","Campfire・Heart Lantern・Bast Statue・Honey の浅い溜まり","端に Nurse と Dryad の家。Pylon を1本置く(1.4.5 からボス戦中も使える)"],why:"3体とも同じ場所で戦える。Plantera 以外はここが本拠地"},
+  {t:"蜘蛛の巣の狩り場",spec:["Black Recluse の巣を見つけたら、巣の端に幅 3 の通路 + 壁1枚","通路から Spider Fang を集める"],why:"召喚職の最初の山。壁越しなら安全"},
+  {t:"Mimic 部屋",spec:["地下の何もない小部屋に Key of Night / Key of Light を空の Chest に入れて置く","上に足場、下に Campfire。1人が囮、2人が撃つ"],why:"Daedalus Stormbow・Flesh Knuckles(経由)・Chaos Cylinder がここから"},
+  {t:"Pylon 網の開始",spec:["Forest・Snow・Desert・Jungle・Ocean・Cavern の各バイオームに住民 2 人 + 家","1.4.5 から幸福度の条件なしで買える"],why:"ラージの移動時間を消す。Hallow と Mushroom は次のフェーズ"},
+  {t:"Blood Moon 釣り場",spec:["拠点の近くに幅 75 以上・300 マス以上の水場","Blood Moon の夜はここで Dreadnautilus と Vampire Frog を狙う"],why:"Sanguine Staff と Money Trough(携帯貯金箱)。詳しくは「釣り」タブ"},
+ ],
+ boss:[
+  {b:"Queen Slime(先に倒す)",t:"地下聖域の Gelatin Crystal で召喚。メカより弱く、Crystal Assassin armor と Blade Staff、飛行マウントが出る。地表の聖域で、足場にテレポするので平地を広く"},
+  {b:"Pirate Invasion / Goblin Army(HM)",t:"海の敵が落とす Pirate Map で海賊、通常発生でゴブリン。Shadowflame Knife・Lucky Coin・Coin Gun・Barrel Launcher(1.4.5新規)が目当て"},
+ ],
+ warns:["祭壇を壊すのは Pwnhammer だけ。Dynamite では壊れない","地下ジャングルは Hallow と Corruption に侵食される。Hellevator の外側はこの段階では放置してよい(Plantera 後に半減)","Ice Golem と Sand Elemental は吹雪・砂嵐のときだけ出る。天気を待つ"]},
+
+{short:"メカ〜Plantera",title:"メカニカルボス 〜 Plantera",goal:"Hallowed armor を全員が着て、Life Fruit で HP500 に。Plantera はアリーナの出来で9割決まります。",
+ flow:"順番: Destroyer → Twins → Skeletron Prime → Life Fruit / Chlorophyte → Plantera",
+ picks:{
+ all:[
+  {nm:"Hallowed armor",star:1,why:"セット効果 Holy Protection: 一定時間ごとに被弾を1回無効化。3人全員が着ると事故が激減する。クラスごとの頭で性能が変わる。",src:"Hallowed Bar(メカ3体のドロップ)"},
+  {nm:"Life Fruit ×20 → HP500",w:"Life_Fruit",star:1,why:"HP が 25% 増える。1個だけ Shimmer に投げると Aegis Fruit(防御+4 の永続強化)になる。",tip:"メカを1体倒すと地下ジャングルに生え始める。Spelunker Potion で光る。",src:"メカ1体撃破後の地下ジャングル"},
+  {nm:"Avenger Emblem",why:"全ダメージ+12%。各クラスの Emblem + 各 Soul 5。後の Destroyer Emblem / Celestial Emblem / Mechanical Glove の素材。",src:"WoF の Emblem + Soul of Might / Sight / Fright 各 5"},
+  {nm:"Jetpack / Butterfly Wings 系",w:"Jetpack",why:"翼の2段階目。Jetpack は上昇が速く、Butterfly / Bee / Flame Wings は飛行時間が長い。",src:"Steampunker(メカ1体後)/ Butterfly Dust(Moth)・Tattered Bee Wing・Fire Feather"},
+  {nm:"Clentaminator + Green Solution",w:"Clentaminator",why:"侵食の掃除機。Plantera 後に本格使用だが、拠点とジャングルの周りは先に。",src:"Steampunker(2プラチナ)"},
+  {nm:"Lifeforce Potion",why:"最大 HP +20%。Prismite は聖域で釣る。Endurance・Ironskin・Regeneration と合わせてボス戦の4点セット。",src:"Prismite + Moonglow + Waterleaf + Shiverthorn"},
+ ],
+ tank:[
+  {nm:"Turtle armor",star:1,why:"防御65 + 受けたダメージを反射 + 敵の狙いを集める。Plantera と Golem を近接で戦うならこれ。Beetle armor の素材にもなる。",src:"Giant Tortoise(ジャングル)の Turtle Shell 3 + Chlorophyte Bar 54"},
+  {nm:"True Night's Edge / True Excalibur",w:"True_Night%27s_Edge",star:1,why:"Terra Blade の2つの素材。どちらも Plantera に十分通る。Excalibur は Hallowed Bar 12。",src:"Night's Edge + Soul of Fright / Might / Sight 各 20 ／ Excalibur + Chlorophyte Bar 24"},
+  {nm:"Death Sickle",why:"壁を抜ける鎌の弾。日食の Reaper が落とす。Plantera の部屋で地形を気にせず振れる。",src:"Solar Eclipse(メカ3体後)の Reaper(1/40)"},
+  {nm:"Yelets",why:"ジャングル最強ヨーヨー。毒つきで、Plantera と相性がよい。",src:"メカ3体後の地下ジャングルの敵(1/400)"},
+  {nm:"Mechanical Glove → Fire Gauntlet",w:"Fire_Gauntlet",why:"近接ダメージ・速度 +12%。Magma Stone を足すと炎上も付く。近接の攻撃枠はこれ。",src:"Power Glove + Avenger Emblem / + Magma Stone"},
+ ],
+ ranged:[
+  {nm:"Megashark + Crystal Bullets",w:"Megashark",star:1,why:"Twins・Prime・Plantera まで通る定番。Crystal Bullet は着弾で割れて周囲にも当たる。弾を半分の確率で消費しない。",src:"Minishark + Illegal Gun Parts(Arms Dealer、夜)+ Soul of Might 20 + Shark Fin 5"},
+  {nm:"Chlorophyte Shotbow + Holy Arrows",w:"Chlorophyte_Shotbow",why:"Plantera 戦の弓。1発で矢が複数に分かれ、Holy Arrow の星が降る。",src:"Chlorophyte Bar 12"},
+  {nm:"Flamethrower",why:"Prime の後に作れる火炎放射。Plantera の触手払いと Dungeon に。",src:"Illegal Gun Parts + Soul of Fright 20 + Iron Bar 20"},
+  {nm:"Chlorophyte armor(Helmet)",w:"Chlorophyte_armor",why:"遠距離の防具。Leaf Crystal が勝手に敵を撃つ。Shroomite が作れるまで。",src:"Chlorophyte Bar"},
+  {nm:"Uzi",why:"単体 DPS が高い。出れば Megashark より上。",src:"ジャングルの Angry Trapper(1/100)"},
+ ],
+ summon:[
+  {nm:"Optic Staff",star:1,why:"Twins のミニチュアを2体1組で呼ぶ。メカ後の召喚の軸で、Plantera まで主力。",src:"Soul of Sight 20 + Lens 2 + Black Lens 1 + Hallowed Bar 12"},
+  {nm:"Durendal",star:1,why:"Hallowed Bar のムチ。振ると召喚速度が上がり、Firecracker や Cool Whip と組み合わせる。",src:"Hallowed Bar 12"},
+  {nm:"Hallowed armor(Hood)",w:"Hallowed_armor",why:"召喚ダメージ+ミニオン枠+Holy Protection。Spider armor から乗り換える。",src:"Hallowed Bar"},
+  {nm:"Queen Spider Staff",why:"置き型セントリー。Plantera の部屋に2つ置くだけで削れる。",src:"Spider Fang 24"},
+  {nm:"Summoner Emblem → Papyrus Scarab(後)",w:"Papyrus_Scarab",why:"召喚ダメージ +15%。Plantera 後に Hercules Beetle と Necromantic Scroll で Papyrus Scarab に。",src:"WoF / Witch Doctor + Mourning Wood"},
+ ],
+ magic:[
+  {nm:"Magical Harp",star:1,why:"壁で跳ねる貫通音符。The Destroyer と Plantera の答えで、Dungeon の廊下でも強い。",src:"Soul of Sight 20 + Crystal Shard 8 + Pixie Dust 20 + Hallowed Bar 12"},
+  {nm:"Rainbow Rod",why:"カーソルで操作できる高威力の虹弾。Twins の単体火力。",src:"Soul of Light 10 + Soul of Sight 10 + Crystal Shard 8 + Pixie Dust 8 + Unicorn Horn 2 + Hallowed Bar 12"},
+  {nm:"Unholy Trident",why:"Red Devil が落とす三叉槍。壁を抜け、Plantera に刺さる。",src:"メカ1体後の地底の Red Devil(1/30)"},
+  {nm:"Chlorophyte armor(Headgear)",w:"Chlorophyte_armor",why:"魔法の防具。Hallowed Headgear との差は好みで、Spectre が作れるまで。",src:"Chlorophyte Bar"},
+  {nm:"Celestial Emblem",why:"魔法ダメージ +15% + マナ星吸引。Sorcerer Emblem の上位。",src:"Avenger Emblem + Celestial Magnet"},
+ ],
+ pet:[
+  {nm:"Winged Slime",w:"Gelatinous_Pillion",why:"引き続き飛行マウントの本命。Plantera の部屋でも使える。",src:"Queen Slime"},
+  {nm:"Spider Staff ×3 / Optic Staff",w:"Optic_Staff",why:"Plantera 第2形態の触手はミニオンが勝手に処理する。召喚職以外も1体置く。",src:"上記"},
+  {nm:"Minecart Upgrade Kit",why:"Minecart の最高速が上がる永続強化。Plantera や Moon Lord の周回アリーナで効く。",src:"メカ3体の Expert Bag の部品3種(Mythril Anvil)"},
+ ]},
+ builds:[
+  {t:"Plantera アリーナ(地下ジャングル)",spec:["Bulb を中心に 70×45 を掘り抜く(Bulb に Dynamite 禁止)","足場を 8 ブロック間隔で横に。中央に厚さ 3 の柱を1本(回り込み用)","Campfire・Heart Lantern・Heart Statue、Queen Spider Staff の置き場","近くに Nurse の家 + Jungle Pylon"],why:"Plantera は地表に出ると激怒する。部屋の広さがそのまま難易度"},
+  {t:"Chlorophyte 農場",spec:["泥ブロック 200 を 6 ブロック間隔で碁盤目に、Chlorophyte Ore を 1 個ずつ埋める","地下ジャングルの深さに作る"],why:"3人分の Chlorophyte 装備は掘るより育てる方が早い"},
+  {t:"Hallow / Mushroom Pylon",spec:["Hallow に住民 2 人、地表キノコに Truffle + 1 人","Truffle の家を Mushroom Pylon の横に"],why:"Autohammer・Mushroom Spear・Hammush の買い出しが一瞬で"},
+  {t:"日食用の拠点アリーナ",spec:["拠点の地表を幅 120 平らに。両端に壁、上に足場","Nurse と Dryad を隣接"],why:"メカ1体後から日食が来る。Death Sickle・Moon Stone は Plantera 後に"},
+ ],
+ boss:[
+  {b:"The Destroyer",t:"Mechanical Worm(Rotten Chunk 6 + Iron Bar 5 + Soul of Night 6)。貫通の祭り: Daedalus + Holy Arrows、Magical Harp、Spider Staff。足場の上段に居続ける"},
+  {b:"The Twins",t:"Spazmatism(緑)から落とす。突進は縦に避ける。Megashark + Crystal、Rainbow Rod、Shadowflame Knife"},
+  {b:"Skeletron Prime",t:"Prime Laser → Prime Cannon の順に腕を壊す。夜明け前に必ず倒し切る(昼は即死)"},
+  {b:"Plantera",t:"第1形態は距離を取って Megashark・Harp・Turtle。第2形態(50%)は触手をミニオンに任せ、中央の柱を回りながら削る"},
+ ],
+ warns:["Plantera's Bulb の近くで Dynamite を使うと Bulb が消える。Pickaxe で割る","地下ジャングルで Dark Blue Solution を撒くと Bulb を壊した扱いで Plantera が来る","日食は Plantera 後に敵が増える。Reaper(Death Sickle)はメカ3体後なら出る"]},
+
+{short:"Plantera後",title:"Plantera 後 〜 Golem 〜 Empress of Light",goal:"侵食が半減し、Dungeon と日食とイベントが一気に開く「ご褒美フェーズ」。無限飛行(UFO)と Celestial Shell、Spectre Hood の回復が3人プレイを楽にします。",
+ flow:"順番: Dungeon 後半 → Golem → Martian Madness → OOA Tier3 → Empress of Light(夜)→ Pumpkin Moon(→ Fishron は任意)",
+ picks:{
+ all:[
+  {nm:"Cosmic Car Key",star:1,why:"UFO に乗って無限に飛べる。これ以降の移動と回避のストレスがほぼ消える。3人分出るまで火星人を回す価値がある。",src:"Martian Madness の Martian Saucer(1/6)"},
+  {nm:"Celestial Shell",star:1,why:"昼夜で全ステータスが上がり、水中で無限に息ができる。日本語wikiは「遠距離・魔法でも外す理由がない」と評価。",src:"Celestial Stone(Sun Stone〈Golem〉+ Moon Stone〈日食 Vampire〉)+ Moon Shell(Moon Charm〈Werewolf〉+ Neptune's Shell〈日食 Creature from the Deep〉)"},
+  {nm:"Master Ninja Gear",why:"10% の完全回避 + 長いダッシュ + 壁張りつき。Shield of Cthulhu の卒業先。",src:"Black Belt + Tabi(Plantera 後 Dungeon の Bone Lee)+ Tiger Climbing Gear(Climbing Claws + Shoe Spikes)"},
+  {nm:"Ankh Shield",why:"ほぼ全ての状態異常を無効化 + ノックバック無効 + 防御5(1.4.5.7で強化)。デバフ 2.5 倍のマスターでは誰が持っても強い。",tip:"Ankh Charm の素材10種は、対になる2つを Shimmer で相互変換できる。片方が2個出たら変換する。詳細は「アクセサリー」タブ。",src:"Obsidian Shield + Ankh Charm"},
+  {nm:"Soaring Insignia",why:"翼の飛行時間が無限になり、空中の加速も上がる。UFO が出ない人の救済で、Treasure Bag なので3人全員に出る。",src:"Empress of Light の Treasure Bag"},
+  {nm:"Rod of Discord",why:"カーソル位置にテレポート。Moon Lord まで最強の回避手段。撃破後は Shimmer で Rod of Harmony(ペナルティなし)に。",src:"地下聖域の Chaos Elemental(低確率)"},
+ ],
+ tank:[
+  {nm:"Terra Blade",star:1,why:"近接の象徴。遠くまで飛ぶ剣気で、Golem と火星人を安全に削れる。Zenith の素材でもある。",src:"True Night's Edge + True Excalibur + Broken Hero Sword(Plantera 後の日食の Mothron)"},
+  {nm:"Beetle armor(Shell)",w:"Beetle_armor",star:1,why:"防御73 + 時間とともに被ダメ減少が溜まる。近接の最終防具候補。",src:"Golem の Beetle Husk + Turtle armor"},
+  {nm:"Hero Shield",why:"Paladin's Shield + Flesh Knuckles。味方の被ダメージを 25% 肩代わりし、敵の狙いも集める。3人のうち防御が一番高い人が付けると全員が楽になる。",src:"Paladin's Shield(Plantera 後の Dungeon の Paladin)+ Flesh Knuckles"},
+  {nm:"Frozen Shield",why:"Hero Shield と二枚持ちにする。HP 半分以下で防御が上がり、ノックバック無効。",src:"Paladin's Shield + Frozen Turtle Shell(Ice Tortoise)"},
+  {nm:"Scourge of the Corruptor / Flying Dragon",w:"Scourge_of_the_Corruptor",why:"堕落の Biome Chest の投げ武器と、Betsy の剣。どちらも Moon Lord まで現役。",src:"Corruption Key で Dungeon の Corruption Chest / Old One's Army Tier3"},
+ ],
+ ranged:[
+  {nm:"Shroomite armor",star:1,why:"遠距離の本命防具。静止すると透明化して大ダメージ。頭を弾種(矢・弾・ロケット)で選ぶ。",src:"Autohammer(Truffle、Plantera 後)で Chlorophyte Bar + Glowing Mushroom"},
+  {nm:"Chlorophyte Bullets",star:1,why:"追尾弾。狙わなくても当たるので、Megashark や Uzi がそのまま終盤武器になる。",src:"Chlorophyte Bar 1 + Musket Ball 70"},
+  {nm:"Xenopopper / Tsunami / Aerial Bane",w:"Xenopopper",why:"火星人・Fishron・Betsy の遠距離3強。どれか1つあれば Moon Lord まで持つ。",src:"Martian Saucer / Duke Fishron / Old One's Army Tier3"},
+  {nm:"Sniper Rifle / Tactical Shotgun",w:"Sniper_Rifle",why:"Plantera 後の Dungeon 産。Sniper は Golem の頭を安全に狙える。",src:"Dungeon の Skeleton Sniper / Tactical Skeleton"},
+  {nm:"Piranha Gun / Venus Magnum",w:"Piranha_Gun",why:"Jungle Chest の張りつき銃と Plantera の拳銃。弾を消費しない Piranha Gun は雑魚処理に。",src:"Jungle Key / Plantera"},
+ ],
+ summon:[
+  {nm:"Xeno Staff",star:1,why:"UFO のミニオン。壁を無視して追尾し、Moon Lord 直前まで主力。",src:"Martian Saucer(1/6)"},
+  {nm:"Kaleidoscope",star:1,why:"最強のムチ。タグダメージが大きく、Terraprisma と組むと召喚の完成形。",src:"Empress of Light(1/4)"},
+  {nm:"Tiki armor / Spooky armor",w:"Tiki_armor",why:"Tiki は Witch Doctor から買える手堅い防具(ミニオン +4)、Spooky は攻め寄り。",src:"Witch Doctor(Pygmy Staff 所持で解禁)/ Pumpkin Moon の Spooky Wood"},
+  {nm:"Deadly Sphere Staff / Raven Staff",w:"Deadly_Sphere_Staff",why:"日食と Pumpkin Moon のミニオン。Xeno までのつなぎ。",src:"Solar Eclipse の Deadly Sphere / Pumpkin Moon の Pumpking"},
+  {nm:"Papyrus Scarab",why:"召喚ダメージ・ミニオン +1・ノックバック。召喚職の最終アクセ。",src:"Hercules Beetle(Witch Doctor)+ Necromantic Scroll(Mourning Wood)"},
+  {nm:"Terraprisma(やりたい人だけ)",w:"Terraprisma",why:"最強ミニオン。ただし昼間の Empress of Light を倒す必要があり、ゲーム最高難度。",src:"昼間の Empress of Light(確定)"},
+ ],
+ magic:[
+  {nm:"Spectre armor(Hood)",w:"Spectre_armor",star:1,why:"与えたダメージの一部が回復の玉になり、HPの低い味方に飛ぶ。3人プレイでは Mask(火力)より Hood(回復)が強い。",src:"Ectoplasm(Plantera 後の Dungeon の Dungeon Spirit)+ Chlorophyte Bar"},
+  {nm:"Razorblade Typhoon",star:1,why:"追尾する刃を撃ち続ける。Fishron を倒せれば Moon Lord まで主力。",src:"Duke Fishron(1/7)"},
+  {nm:"Inferno Fork / Shadowbeam Staff / Spectre Staff",w:"Inferno_Fork",why:"Dungeon 産の3本。Golem と火星人はこれで十分。",src:"Plantera 後の Dungeon(Diabolist / Necromancer / Ragged Caster)"},
+  {nm:"Rainbow Gun",why:"置き型の虹。設置しておくだけで Golem と Pumpkin Moon が楽。",src:"Hallowed Key で Dungeon の Hallowed Chest"},
+  {nm:"Betsy's Wrath / Nightglow",w:"Betsy%27s_Wrath",why:"Betsy の防御デバフ(全員の火力が上がる)と、Empress の追尾弾。",src:"Old One's Army Tier3 / Empress of Light"},
+  {nm:"Arc Surge",nw:1,why:"魔法180の新武器。火星人周回のついでに狙う。",src:"Martian Saucer(2%)"},
+ ],
+ pet:[
+  {nm:"Cosmic Car Key",star:1,why:"相棒の最終回答。上の全員欄と同じ。",src:"Martian Saucer"},
+  {nm:"Shrimpy Truffle",why:"HP が減るほど速くなる飛行マウント。Fishron を倒せた人のご褒美。",src:"Duke Fishron の Treasure Bag"},
+  {nm:"Scutlix",w:"Brain_Scrambler",why:"レーザーを撃てる地上マウント。",src:"Martian Madness の Scutlix Gunner"},
+  {nm:"Hexxed Branch",why:"マスター限定の木のマウント。Pumpkin Moon の Mourning Wood が落とす。",src:"Mourning Wood(マスター 25%)"},
+ ]},
+ builds:[
+  {t:"Teleporter ハブ + Pylon 完成",spec:["拠点に Teleporter を 4〜6 台並べ、各アリーナ・Dungeon・Temple・海へ","Universal Pylon は Bestiary 100%(終盤でよい)"],why:"イベント周回と採集の往復が消える"},
+  {t:"イベント用の地表アリーナ(拡張)",spec:["幅 150、足場 3 段、両端に Lava の溝(Obsidian Platform で蓋)","Nurse・Dryad・Steampunker を隣接。Heart Statue ×3"],why:"日食・Pumpkin Moon・Frost Moon・火星人を同じ場所で回す"},
+  {t:"Lihzahrd Temple の下ごしらえ",spec:["Dangersense Potion で罠を見ながら主通路だけ掘り抜く(Golem まで Wire は見えない)","Golem の部屋を幅 60 まで広げ、足場を 2 段"],why:"Golem は拳から壊せば3人なら楽。部屋が狭いと溶岩で事故る"},
+  {t:"Empress of Light のアリーナ(地表の聖域)",spec:["空を広く開けた聖域の平地。足場 2 段と Campfire だけ","夜に Prismatic Lacewing を倒して召喚"],why:"弾幕を見るための視界。Soaring Insignia は3人分出る"},
+  {t:"Truffle Worm 牧場(Fishron を狙うなら)",spec:["地下に幅 170 × 高さ 100 の Mushroom Grass 平地。段差をなくす","Bug Net で捕獲、海で釣る。詳しくは「釣り」タブ"],why:"Fishron は任意だが、Razorblade Typhoon と Shrimpy Truffle は破格"},
+ ],
+ boss:[
+  {b:"Golem",t:"Temple Key で入り、Lihzahrd Power Cell を祭壇に。拳 → 頭。第2形態は飛ぶ頭を Sniper・Xeno Staff で。3人なら最も楽なボス。1.4.5.7 から Mobius Strip(召喚)も落とす"},
+  {b:"Martian Madness",t:"Golem 後に Martian Probe に見つかって開始。Saucer はアリーナの Nurse 前で戦う。UFO・Xeno Staff・Influx Waver"},
+  {b:"Empress of Light(夜)",t:"弾幕ゲー。UFO か Soaring Insignia で大きく円を描く。Spectre Hood の回復が効く。Kaleidoscope・Soaring Insignia・Empress Wings"},
+  {b:"Duke Fishron(任意)",t:"Golem より格段に強い。Inferno Potion(泡を割る)と横移動。Razorblade Typhoon・Tsunami・Fishron Wings。Kraken も 1.4.5.7 からここ"},
+ ],
+ warns:["Plantera 前の Lihzahrd Temple には入らない(入れても即死)","Nailhead の釘ダメージはマスターで 270 → 150 に緩和済み(1.4.5.7)。それでも日食は Nurse を近くに","Pumpkin Moon / Frost Moon は夜の間だけ。Wave 15 を目指すなら Nurse 横の集中火力アリーナで"]},
+
+{short:"終盤",title:"終盤(Lunatic Cultist 〜 Moon Lord)",goal:"柱のかけらで作る Super Healing Potion と各クラスの柱防具がそろえば、Moon Lord は「長い直線と Nurse」で倒せます。",
+ flow:"順番: Cultist 4体 → Lunatic Cultist → 自分のクラスの柱 → 残り3本 → Moon Lord",
+ picks:{
+ all:[
+  {nm:"Super Healing Potion",star:1,why:"回復 200。Moon Lord 戦は各自 15 個。Alchemy Flask で作ると効果時間も延びる。",src:"Greater Healing Potion 3 + 各柱のかけら 3"},
+  {nm:"柱のかけらの防具(Solar / Vortex / Nebula / Stardust)",w:"Solar_Flare_armor",star:1,why:"クラスごとの最終防具。自分の柱を最初に倒す理由。Moon Lord 後に Luminite で上位版になる。",src:"各 Fragment + Luminite Bar(Ancient Manipulator)"},
+  {nm:"Lunar Hook",why:"4本同時に飛ぶフック。柱戦の機動力と、Moon Lord 戦の橋での位置取りに。",src:"各 Fragment 6"},
+  {nm:"Destroyer Emblem",why:"ダメージ+10%・クリ+8%。Avenger Emblem の卒業先。",src:"Avenger Emblem + Eye of the Golem"},
+  {nm:"Celestial Shell / Frozen Shield / Star Veil / Master Ninja Gear / Worm Scarf",w:"Guide:Class_setups",why:"この5枠が終盤の基本形。残り2枠を翼(または Soaring Insignia)とクラス枠に。",src:"前フェーズまでに完成"},
+ ],
+ tank:[
+  {nm:"Solar Flare armor + Daybreak / Solar Eruption",w:"Solar_Flare_armor",star:1,why:"Solar の盾ダッシュは無敵移動で、Solar Eruption は壁を無視する範囲攻撃。Moon Lord の手と目をまとめて削れる。",src:"Solar Fragment + Luminite Bar / Solar Fragment 18"},
+  {nm:"Flying Dragon / Influx Waver",w:"Flying_Dragon",why:"Betsy と火星人の剣。Solar が出るまでの主力。",src:"Old One's Army Tier3 / Martian Saucer"},
+  {nm:"Zenith(撃破後)",w:"Zenith",why:"全剣の集大成。素材は Terra Blade・Meowmere・Star Wrath・Influx Waver・The Horseman's Blade・Seedler・Starfury・Bee Keeper・Enchanted Sword・Copper Shortsword。",src:"Moon Lord 撃破後に Ancient Manipulator で"},
+ ],
+ ranged:[
+  {nm:"Vortex armor + Phantasm",w:"Phantasm",star:1,why:"Vortex のステルスと Phantasm の連射。Moon Lord の目を最速で削る。",src:"Vortex Fragment + Luminite Bar / Vortex Fragment 18"},
+  {nm:"Vortex Beater + Chlorophyte Bullets",w:"Vortex_Beater",why:"追尾弾で雑に強い。柱の雑魚処理にも。",src:"Vortex Fragment 18"},
+  {nm:"Snowman Cannon",why:"Frost Moon 産の追尾ロケット。Moon Lord の本体に。",src:"Frost Moon の Ice Queen"},
+  {nm:"S.D.M.G. / Celebration Mk2(撃破後)",w:"S.D.M.G.",why:"周回用の最終銃。",src:"Moon Lord"},
+ ],
+ summon:[
+  {nm:"Stardust armor + Stardust Dragon Staff",w:"Stardust_Dragon_Staff",star:1,why:"全枠を1本の竜に注ぐと長くなり、Guardian が盾になる。3人プレイでは Guardian が囮にもなる。",src:"Stardust Fragment + Luminite Bar / Stardust Fragment 18"},
+  {nm:"Kaleidoscope + Terraprisma(あれば)",w:"Kaleidoscope",why:"ムチは Kaleidoscope 一択。Terraprisma は昼 Empress のご褒美。",src:"Empress of Light"},
+  {nm:"Stardust Cell Staff",why:"単体火力ならこちら。竜と使い分け。",src:"Stardust Fragment 18"},
+  {nm:"Constellation / Possession(撃破後)",w:"Constellation",nw:1,why:"1.4.5 の新ムチ。Constellation は Stardust のかけらで作れる。",src:"Stardust Fragment 18 / Moon Lord(20%)"},
+ ],
+ magic:[
+  {nm:"Nebula armor + Nebula Blaze / Nebula Arcanum",w:"Nebula_armor",star:1,why:"Nebula のバフ(ダメージ・回復・マナ)は味方にも効く。Arcanum は雑魚、Blaze は単体。",src:"Nebula Fragment + Luminite Bar / Nebula Fragment 18"},
+  {nm:"Razorblade Typhoon / Betsy's Wrath",w:"Razorblade_Typhoon",why:"Fishron と Betsy を倒せていれば Nebula 前から Moon Lord に通る。",src:"Duke Fishron / Old One's Army Tier3"},
+  {nm:"Last Prism / Lunar Flare(撃破後)",w:"Last_Prism",why:"周回用の最終魔法。",src:"Moon Lord"},
+ ],
+ pet:[
+  {nm:"Cosmic Car Key",star:1,why:"Moon Lord 戦の移動は UFO か Minecart。翼だけだと息切れする。",src:"Martian Saucer"},
+  {nm:"Stardust Dragon / Guardian",w:"Stardust_Guardian",why:"召喚職の竜は Moon Lord の True Eye を勝手に追う。",src:"Stardust 柱"},
+  {nm:"Celestial Starboard(撃破後)",w:"Celestial_Starboard",why:"翼とマウントの最終回答。",src:"Moon Lord の Treasure Bag"},
+ ]},
+ builds:[
+  {t:"Moon Lord アリーナ",spec:["地表から 60 ブロック上に Asphalt(Steampunker)の直線 1500 ブロック。または Minecart の長い周回路","300 ブロックごとに Nurse の家(Teleporter で結ぶ)と Heart Statue","Campfire・Heart Lantern・Bast Statue・Star in a Bottle を並べる"],why:"3人マスターの Moon Lord は HP 約 53 万。横に走り続ければ Phantasmal Deathray は当たらない"},
+  {t:"柱戦の下地",spec:["Dungeon 前の Cultist の場所に Pylon と Nurse の家","各柱の周辺を平らに。Solar は地上戦なので足場を撤去、Nebula は逆に足場を増やす"],why:"柱は 100 体倒すまで無敵。全滅してもイベントは続く"},
+  {t:"Ancient Manipulator の部屋",spec:["拠点に設置し、Luminite 用の Luminite Pickaxe(撃破後)と並べる"],why:"かけらの加工はここだけ"},
+ ],
+ boss:[
+  {b:"Lunatic Cultist",t:"Dungeon 入口の 4 体を倒すと出る。儀式中は本物を狙う(偽物を叩くと Phantasm Dragon)。3人全員が死ぬと消滅し翌日の昼にやり直し"},
+  {b:"Celestial Pillars",t:"自分のクラスの柱から。Solar は地上で Crawltipede を避け、Vortex は Storm Diver を先に、Nebula は空中で Brain Suckler を即処理、Stardust は Star Cell を分裂前に"},
+  {b:"Moon Lord",t:"手 → 頭 → 心臓。1.4.5.7 で本体と True Eye の接触ダメージが撤廃され、かなり読みやすい。Nurse のそばで戦い、Super Healing を惜しまない。フルバフ: Lifeforce・Ironskin・Endurance・Wrath・クラス別・料理"},
+ ],
+ warns:["Lunatic Cultist と Moon Lord は全滅でやり直し。1人は必ず生き残る位置取りを","Shimmer に浸かる無敵待避はボス戦では無効(1.4.5)","撃破後の Celestial Sigil(各 Fragment 20)で何度でも再戦できる。周回は武器が出そろってから"]},
+];
+
+/* ---------- 釣り・アクセサリー(自由記述) ---------- */
+const EXTRA=[
+{short:"釣り",title:"釣り: 掘らずに強くなる最短ルート",goal:"釣りは「戦わずに装備が増える」唯一の手段。Angler のクエスト報酬、木箱(Crate)、ポーション素材の魚、そして Fishron 召喚まで、3人のうち1人が釣り役を兼ねると全体が楽になります。",
+ html:`
+<h4>まず知っておくこと(釣りの仕組み)</h4>
+<p>釣果は <b>釣り力(Fishing Power)</b> で決まり、「竿 + 餌 + ポーション + 天気/時間 + 水場の広さ」の合計です。水場は <b>300 マス以上</b>(地表なら幅 75 × 深さ 4 が目安)で補正が最大になります。小さい水たまりでは何も釣れません。</p>
+<ul>
+<li><b>竿</b>: Wood(5%) → Reinforced(Merchant、15%) → Fiberglass(ジャングルの Ivy Chest、27%) → Fleshcatcher(Crimson のみ) → Mechanic's(Mechanic、35%) → Sitting Duck's(Traveling Merchant、40%) → <b>Hotline(溶岩釣り可、45%)</b> → <b>Golden Fishing Rod(50%)</b>。Hotline と Golden は Angler の報酬。</li>
+<li><b>餌</b>: Worm(雨の日に地表、石を壊す)、Firefly / Lightning Bug(夜の草原・聖域)、Grasshopper(草を刈る)。良餌は <b>Enchanted Nightcrawler(Worm + Fallen Star、35%)</b>、<b>Master Bait(Angler 報酬、50%)</b>、Truffle Worm(Fishron 専用)。Bug Net は Merchant、Golden Bug Net は Angler の報酬。</li>
+<li><b>ポーション</b>: Fishing Potion(+15%)、<b>Sonar Potion(何が掛かったか見えるので外れを逃がせる)</b>、Crate Potion(木箱率 +10%)。3つ同時が基本。</li>
+<li><b>Chum Bucket</b>(Blood Moon の敵、Angler 報酬)を水に投げると +11〜20%。</li>
+<li><b>時間と天気</b>: 雨 +20%、朝夕 +30%、夜 −20%、新月 −10%、満月 +10%。「雨の朝」が最高。</li>
+<li><b>Angler の釣りクエスト</b>: 1日1回、話しかけると指定の魚を頼まれる。納品ごとに報酬(下表)。報酬は回数で解禁され、Cell Phone の部品(Fisherman's Pocket Guide・Weather Radio・Sextant)は <b>1人分あれば共有できる</b>(情報アクセは近くの仲間にも効く)。</li>
+</ul>
+
+<h4>Angler の報酬で狙うもの</h4>
+<div class="tbl"><table>
+<tr><th>報酬</th><th>何が楽になるか</th><th>備考</th></tr>
+<tr><td><a href="${JP}Golden_Fishing_Rod">Golden Fishing Rod</a></td><td>最高の竿(50%)</td><td>クエスト 30 回以降に抽選。それまで Hotline</td></tr>
+<tr><td><a href="${JP}Hotline_Fishing_Hook">Hotline Fishing Hook</a></td><td>溶岩で釣れる(Flarefin Koi → Inferno Potion、Obsidian Swordfish、Hellstone Crate)</td><td>ハードモードのクエスト 25 回以降</td></tr>
+<tr><td><a href="${JP}Angler_Tackle_Bag">Angler Earring / High Test Fishing Line / Tackle Box</a></td><td>3つ合成で Angler Tackle Bag(釣り力 +10・糸が切れない・餌が減りにくい)</td><td>Lavaproof Fishing Hook(溶岩釣り)を足すと Lavaproof Tackle Bag</td></tr>
+<tr><td><a href="${JP}Fish_Finder">Fisherman's Pocket Guide / Weather Radio / Sextant</a></td><td>合成で Fish Finder → PDA → <b>Cell Phone</b></td><td>すでに持っている部品はインベントリか Piggy Bank に入れておくと重複を避けられる</td></tr>
+<tr><td><a href="${JP}Fin_Wings">Fin Wings</a></td><td>ハードモードで最初に手に入る翼の候補</td><td>ハードモードのクエスト報酬</td></tr>
+<tr><td><a href="${JP}Golden_Bug_Net">Golden Bug Net</a></td><td>餌集めが速くなる</td><td>Truffle Worm 捕獲にも</td></tr>
+<tr><td><a href="${JP}Angler_armor">Angler 装備一式</a></td><td>釣り力 +15</td><td>釣り役が着る</td></tr>
+<tr><td><a href="${JP}Fishing_Bobber">Fishing Bobber 系</a></td><td>釣り力 +10 のアクセサリー</td><td>釣り役の枠に</td></tr>
+</table></div>
+
+<h4>木箱(Crate)の中身: 掘らなくていい鉱石とアクセ</h4>
+<p>木箱はどの水場でも掛かります。<b>ハードモード以降に開けると、ハードモードの鉱石のBarが入る</b>ので、Adamantite/Titanium を掘らずに揃える手段になります(開けるタイミングを遅らせるのがコツ)。</p>
+<div class="tbl"><table>
+<tr><th>木箱</th><th>どこで</th><th>当たり</th></tr>
+<tr><td>Wooden / Iron / Golden(Pearlwood / Mythril / Titanium)</td><td>どこでも</td><td>Sailfish Boots、Aglet、Radar、Climbing Claws、鉱石、ポーション。Golden は Hardmode で Hardmode Bar</td></tr>
+<tr><td>Jungle(Bramble)</td><td>ジャングル</td><td><b>Anklet of the Wind</b>、Feral Claws、Boomstick、Staff of Regrowth、Fiberglass Fishing Pole</td></tr>
+<tr><td>Sky(Azure)</td><td>空島の湖</td><td><b>Starfury</b>、Shiny Red Balloon、Lucky Horseshoe、<b>Fledgling Wings(1/40)</b></td></tr>
+<tr><td>Frozen(Boreal)</td><td>雪原</td><td>Ice Skates、Flurry Boots、Blizzard in a Bottle、Ice Mirror、<b>Glacier Fang</b>(1.4.5)</td></tr>
+<tr><td>Oasis(Mirage)</td><td>砂漠</td><td><b>Thunder Zapper</b>、Storm Spear、Dunerider Boots、Sandstorm in a Bottle、Magic Conch</td></tr>
+<tr><td>Ocean(Seaside)</td><td>海</td><td>Water Walking Boots、Flipper、Trident、Breathing Reed</td></tr>
+<tr><td>Dungeon(Stockade)</td><td>Dungeon 内の水</td><td><b>Golden Lock Box(Cobalt Shield・Muramasa・Handgun など鍵つき宝箱の中身)</b>、Silver Bracer</td></tr>
+<tr><td>Obsidian / Hellstone</td><td>溶岩(Hotline 必須)</td><td><b>Lava Charm</b>、Obsidian Rose、Shadow Chest の武器、Magma Stone</td></tr>
+<tr><td>Corrupt(Defiled)</td><td>堕落</td><td>Ball O' Hurt、Vilethorn、Band of Starpower、Musket。ハードモードで Cursed Flame・Soul of Night</td></tr>
+<tr><td>Hallowed(Divine)</td><td>聖域(HM)</td><td>Crystal Shard、Pixie Dust、Soul of Light、Blessed Apple</td></tr>
+</table></div>
+
+<h4>釣れる武器・乗り物・ポーション素材</h4>
+<div class="tbl"><table>
+<tr><th>獲物</th><th>場所・条件</th><th>役に立つ理由</th></tr>
+<tr><td><a href="${JP}Crystal_Serpent">Crystal Serpent</a></td><td>聖域(HM)</td><td>メカ前の魔法職の主力。竿だけで取れる</td></tr>
+<tr><td><a href="${JP}Toxikarp">Toxikarp</a></td><td>堕落(HM)</td><td>堕落ワールドの魔法武器。毒の泡を連射</td></tr>
+<tr><td><a href="${JP}Scaly_Truffle">Scaly Truffle</a></td><td>雪原の Cavern 層(HM)</td><td>Pigron マウント(速い・壁登り・騎乗中に透明)</td></tr>
+<tr><td><a href="${JP}Zephyr_Fish">Zephyr Fish / Rockfish / Swordfish</a></td><td>各地</td><td>ペットと序盤武器</td></tr>
+<tr><td><a href="${JP}Dreadnautilus">Dreadnautilus</a></td><td><b>Blood Moon</b> の夜に釣る</td><td><b>Sanguine Staff</b>(メカ前最強ミニオン)。Vampire Frog Staff・Blood Rain Bow・Chum Caster も Blood Moon の釣りから</td></tr>
+<tr><td><a href="${JP}Truffle_Worm">Truffle Worm</a>(餌)</td><td>地下キノコ地帯で Bug Net</td><td>海で釣ると <b>Duke Fishron</b></td></tr>
+<tr><td><a href="${JP}Reaver_Shark">Reaver Shark</a></td><td>海</td><td>Hellstone の手前まで掘れるツルハシ(1.4 以降はやや弱体)</td></tr>
+<tr><td><a href="${JP}Honeyfin">Honeyfin</a></td><td>蜂蜜(ジャングルの Bee Hive)</td><td>回復 120 の食べ物扱い。Healing Potion とクールダウンが別</td></tr>
+<tr><td><a href="${JP}Prismite">Prismite</a></td><td>聖域(HM)</td><td><b>Lifeforce Potion</b>(最大 HP +20%)</td></tr>
+<tr><td><a href="${JP}Ebonkoi">Ebonkoi</a></td><td>堕落</td><td><b>Wrath Potion</b>(ダメージ +10%)</td></tr>
+<tr><td><a href="${JP}Armored_Cavefish">Armored Cavefish</a></td><td>地下・Cavern</td><td><b>Endurance Potion</b>(被ダメ −10%)</td></tr>
+<tr><td><a href="${JP}Specular_Fish">Specular Fish / Double Cod</a></td><td>地下 / ジャングル</td><td>Heartreach・Lifeforce・Titan など多数の素材</td></tr>
+<tr><td><a href="${JP}Flarefin_Koi">Flarefin Koi</a></td><td>溶岩(Hotline)</td><td><b>Inferno Potion</b>(Fishron の泡を割る)</td></tr>
+<tr><td><a href="${JP}Gold_Worm">Gold Worm → Gummy Worm</a></td><td>雨の日の金色の虫を Shimmer に</td><td>釣り力 +3 の永続強化</td></tr>
+</table></div>
+
+<h4>釣り役のおすすめ運用(3人なら1人)</h4>
+<ul>
+<li>拠点の横に <b>幅 75 × 深さ 5</b> の池を1つ。Bottomless Water Bucket(Angler 報酬)があれば一瞬。ここで Angler のクエストと Blood Moon の釣りをこなす。</li>
+<li>朝イチで Angler に話しかけ、クエストの魚がどこのものかを確認。<b>Pylon で飛んで釣って帰る</b>を日課にすると、30 回はすぐ。</li>
+<li>Crate Potion + Sonar Potion + Fishing Potion をまとめて作る。Alchemy Flask の近くで。</li>
+<li>ハードモードに入るまで Golden Crate と Iron Crate は<b>開けずに貯める</b>。入った直後に開けると Mythril / Adamantite のBarが出る。</li>
+<li>Blood Moon の夜は 3 人とも釣り竿を持って池へ。Dreadnautilus は3人で殴れば怖くない。</li>
+</ul>`},
+{short:"アクセサリー",title:"アクセサリー: 合成ツリーと「何を付けるか」",goal:"マスターは最初から6枠、Demon Heart で7枠。枠の価値が高いので「1枠に何個分の効果を詰めるか」が勝負です。ここでは最終形から逆算して、いつ何を拾うかをまとめます。",
+ html:`
+<h4>先に決めごと</h4>
+<ul>
+<li><b>リフォージは Warding(防御+4)</b> が基本。6〜7枠で防御 +24〜28 になり、マスターでは Menacing(ダメージ+4%)より生存に効く。火力役は余裕が出てから Menacing / Lucky に。</li>
+<li>同じアクセは2個付けられないが、<b>素材違いの同系統は併用できる</b>(例: Avenger Emblem と Warrior Emblem は不可、Avenger と Celestial Shell は可)。翼は1つだけ。</li>
+<li>情報系(Depth Meter・Fish Finder など)は<b>インベントリに入れておくだけで効き、近くの仲間にも共有される</b>。Cell Phone は1人分で足りる。</li>
+<li>合成はすべて Goblin Tinkerer の <b>Tinkerer's Workshop</b>。</li>
+</ul>
+
+<h4>移動系</h4>
+<div class="tree"><b class="t"><a href="${JP}Terraspark_Boots">Terraspark Boots</a> = Frostspark Boots + Lava Waders</b>
+<span class="l">Frostspark Boots = <b>Lightning Boots</b> + Ice Skates(Frozen Chest)</span>
+<span class="l">Lightning Boots = <b>Spectre Boots</b> + Aglet(地表の宝箱)+ Anklet of the Wind(Ivy Chest)</span>
+<span class="l">Spectre Boots = Rocket Boots(Goblin Tinkerer 5G)+ Hermes / Flurry / Sailfish / Dunerider Boots のどれか</span>
+<span class="l">Lava Waders = Obsidian Rose(Fire Imp)+ Water Walking Boots(Water Chest)+ Lava Charm(Cavern の Gold Chest / Obsidian Crate)+ Obsidian Skull</span>
+<span class="l">評価: 探索の靴の完成形。ボス戦では Amphibian Boots(Sailfish Boots + Frog Leg)か翼の方が上</span></div>
+<div class="tree"><b class="t"><a href="${JP}Bundle_of_Horseshoe_Balloons">Bundle of Horseshoe Balloons</a> = Bundle of Balloons + Lucky Horseshoe</b>
+<span class="l">Bundle of Balloons = Cloud in a Balloon + Blizzard in a Balloon + Sandstorm in a Balloon(各 Bottle + Shiny Red Balloon)</span>
+<span class="l">評価: 4段ジャンプ + 落下無効。翼を手に入れるまでの主役で、1.4.4 で落下耐性が付いて最後まで現役</span></div>
+<div class="tree"><b class="t"><a href="${JP}Master_Ninja_Gear">Master Ninja Gear</a> = Tiger Climbing Gear + Black Belt + Tabi</b>
+<span class="l">Tiger Climbing Gear = Climbing Claws(地表の宝箱)+ Shoe Spikes(地下の宝箱)。1.4.5 から Shimmer で相互変換可</span>
+<span class="l">Black Belt / Tabi = Plantera 後の Dungeon の Bone Lee</span>
+<span class="l">評価: 10% 完全回避 + ダッシュ + 壁張りつき。Shield of Cthulhu を外せるのはこれを作ってから</span></div>
+<div class="tree"><b class="t">翼の順番</b>
+<span class="l">Fledgling Wings(空島 1/40)→ Leaf Wings(Witch Doctor 1P)→ Angel / Demon / Harpy Wings(Soul of Flight 20)→ Jetpack(Steampunker)/ Butterfly・Bee・Flame Wings → Spectre / Bone / Mothron Wings → Fishron / Betsy's / Empress Wings → 柱の翼(Solar など)→ Celestial Starboard</span>
+<span class="l">Soaring Insignia(Empress of Light)を付けると翼の飛行時間が無限になる</span></div>
+
+<h4>防御・生存系</h4>
+<div class="tree"><b class="t"><a href="${JP}Ankh_Shield">Ankh Shield</a> = Obsidian Shield + Ankh Charm</b>(防御5・ノックバック無効・12種の状態異常無効)
+<span class="l">Obsidian Shield = Obsidian Skull(Obsidian 20)+ Cobalt Shield(Dungeon の鍵つき Gold Chest / Golden Lock Box)</span>
+<span class="l">Ankh Charm = Armor Bracing + Medicated Bandage + The Plan + Countercurse Mantra + Reflective Shades</span>
+<span class="l">Armor Bracing = Armor Polish(Armored Skeleton)+ Vitamins(Corruptor)</span>
+<span class="l">Medicated Bandage = Bezoar(Hornet)+ Adhesive Bandage(Werewolf / Angler Fish)</span>
+<span class="l">The Plan = Fast Clock(Mummy / Pixie)+ Trifold Map(Giant Bat / Clown)</span>
+<span class="l">Countercurse Mantra = Megaphone(Pixie / Green Jellyfish)+ Nazar(Cursed Skull / Enchanted Sword)</span>
+<span class="l">Reflective Shades = Blindfold(Corrupt Slime / Dark Mummy)+ Pocket Mirror(Medusa)</span>
+<span class="l"><b>コツ</b>: 上の各行の「対になる2つ」は Shimmer で相互変換できる。片方が2個出たら変換する。急ぐなら3人分は要らず、まず1個。残りは Charm of Myths と Restoration Shield で代用</span></div>
+<div class="tree"><b class="t"><a href="${JP}Celestial_Shell">Celestial Shell</a> = Celestial Stone + Moon Shell</b>
+<span class="l">Celestial Stone = Sun Stone(Golem)+ Moon Stone(日食の Vampire)</span>
+<span class="l">Moon Shell = Moon Charm(Werewolf、満月の夜)+ Neptune's Shell(日食の Creature from the Deep)</span>
+<span class="l">評価: 昼は近接速度・ダメージ・クリ・回復・防御・採掘が上がり、夜はさらに防御+7。水中で無限呼吸。全クラス必携</span></div>
+<div class="tree"><b class="t">防御寄りの2枚(付ける人を固定しなくてよい)</b>
+<span class="l"><a href="${JP}Hero_Shield">Hero Shield</a> = Paladin's Shield(Plantera 後 Dungeon の Paladin)+ Flesh Knuckles(Putrid Scent を Shimmer)。味方の被ダメ 25% を肩代わり + 敵の狙いを集める</span>
+<span class="l"><a href="${JP}Frozen_Shield">Frozen Shield</a> = Paladin's Shield + Frozen Turtle Shell(Ice Tortoise)。HP 50% 以下で被ダメ −25%</span>
+<span class="l">Paladin's Shield は2枚要るので、Paladin は3人で狩る(1/7)</span></div>
+<div class="tree"><b class="t">回復・無敵系</b>
+<span class="l"><a href="${JP}Charm_of_Myths">Charm of Myths</a> = Philosopher's Stone(Mimic)+ Band of Regeneration。回復薬のクールダウン −15%</span>
+<span class="l"><a href="${JP}Star_Veil">Star Veil</a> = Cross Necklace(Mimic)+ Star Cloak(Mimic)。被弾後の無敵時間が倍</span>
+<span class="l"><a href="${EN}Crossed_Heart_Necklace">Crossed Heart Necklace</a>(1.4.5)= Panic Necklace + Cross Necklace。Panic Necklace は堕落ワールドでは Band of Starpower + Life Crystal を Graveyard で合成</span>
+<span class="l"><a href="${JP}Worm_Scarf">Worm Scarf</a>(EoW の Bag)被ダメ −17%。合成なしで最後まで使う</span>
+<span class="l"><a href="${EN}Restoration_Shield">Restoration Shield</a>(1.4.5)= Cobalt Shield + Mana Regeneration Band。Obsidian Shield と併用しない人の盾</span></div>
+
+<h4>情報系</h4>
+<div class="tree"><b class="t"><a href="${JP}Cell_Phone">Cell Phone</a> = PDA + Magic Mirror</b>(全情報表示 + 帰還。インベントリに入れるだけで効く)
+<span class="l">PDA = GPS + Goblin Tech + R.E.K. 3000 + Fish Finder</span>
+<span class="l">GPS = Gold / Platinum Watch + Depth Meter(洞窟のコウモリ)+ Compass(Salamander / Piranha / Snow Flinx)</span>
+<span class="l">Goblin Tech = Metal Detector(Nymph)+ Stopwatch + DPS Meter(Traveling Merchant 各 5G)</span>
+<span class="l">R.E.K. 3000 = Lifeform Analyzer(Traveling Merchant 5G)+ Tally Counter(Angry Bones)+ Radar(地表の宝箱)</span>
+<span class="l">Fish Finder = Fisherman's Pocket Guide + Weather Radio + Sextant(Angler の報酬)</span>
+<span class="l">さらに + Magic Conch + Demon Conch で <a href="${JP}Shellphone">Shellphone</a>(海・地底へも帰還)。1人分で3人に効く</span></div>
+
+<h4>火力系(クラス別の最終枠)</h4>
+<div class="tbl"><table>
+<tr><th>クラス</th><th>最終形</th><th>合成</th></tr>
+<tr><td>全員</td><td><a href="${JP}Destroyer_Emblem">Destroyer Emblem</a></td><td>Avenger Emblem(クラス Emblem + 各 Soul 5)+ Eye of the Golem</td></tr>
+<tr><td>近接</td><td><a href="${JP}Fire_Gauntlet">Fire Gauntlet</a> / <a href="${JP}Berserker%27s_Glove">Berserker's Glove</a></td><td>Mechanical Glove(Power Glove + Avenger)+ Magma Stone / Power Glove + Flesh Knuckles</td></tr>
+<tr><td>近接(ヨーヨー)</td><td><a href="${EN}Magic_Yoyo_Bag">Magic Yoyo Bag</a>(1.4.5)</td><td>Yoyo Bag(Yoyo Glove + Strung Counterweight〈White String + Counterweight〉)+ Magic String(Skeleton Merchant)</td></tr>
+<tr><td>遠距離</td><td><a href="${EN}Phoenix_Quiver">Phoenix Quiver</a>(1.4.5)/ <a href="${JP}Recon_Scope">Recon Scope</a> / <a href="${EN}Chaos_Cylinder">Chaos Cylinder</a></td><td>Harpy Charm + Molten Quiver(Magic Quiver + Molten Fury)/ Sniper Scope + Ranger Emblem / Hallowed Mimic</td></tr>
+<tr><td>遠距離</td><td><a href="${EN}Seraph_Necklace">Seraph Necklace</a>(1.4.5)</td><td>Harpy Charm + Cross Necklace</td></tr>
+<tr><td>魔法</td><td><a href="${JP}Celestial_Emblem">Celestial Emblem</a> / <a href="${JP}Celestial_Cuffs">Celestial Cuffs</a> / <a href="${JP}Mana_Cloak">Mana Cloak</a></td><td>Avenger + Celestial Magnet / Magic Cuffs + Celestial Magnet / Mana Flower + Star Cloak</td></tr>
+<tr><td>魔法</td><td><a href="${EN}Mystic_Arts_Sash">Mystic Arts Sash</a>(1.4.5)</td><td>Mana Regeneration Band + Black Belt(回避 + マナ)</td></tr>
+<tr><td>召喚</td><td><a href="${JP}Papyrus_Scarab">Papyrus Scarab</a> / <a href="${JP}Pygmy_Necklace">Pygmy Necklace</a></td><td>Hercules Beetle(Witch Doctor)+ Necromantic Scroll(Mourning Wood)/ Witch Doctor</td></tr>
+<tr><td>召喚(ムチ)</td><td><a href="${EN}Twilight_Grasp">Twilight Grasp</a> / <a href="${EN}Ouroboros_Ring">Ouroboros Ring</a>(1.4.5)</td><td>Silver Bracer(Dungeon)+ Wicked Armlet(Cursed Hammer)/ Snake Band(Lamia)+ Mobius Strip(Golem)</td></tr>
+<tr><td>召喚(セントリー)</td><td><a href="${EN}Heavy_Sling">Heavy Sling</a> 系(1.4.5)</td><td>Ice Mimic。+ Putrid Scent で Scout's Sling、+ Cobalt Shield で Royal Guard's Harness</td></tr>
+</table></div>
+
+<h4>フェーズ別の「6〜7枠」の例(近接で戦う日)</h4>
+<div class="tbl"><table>
+<tr><th>時期</th><th>枠の中身</th></tr>
+<tr><td>EoC 前</td><td>Hermes Boots / Cloud in a Bottle / Band of Regeneration / Shackle(ゾンビ、防御+1)/ Lucky Horseshoe / 空き</td></tr>
+<tr><td>WoF 前</td><td>Shield of Cthulhu / Worm Scarf / Lightning Boots / Obsidian Shield / Cloud in a Balloon / Feral Claws</td></tr>
+<tr><td>メカ前</td><td>Shield of Cthulhu / Worm Scarf / 翼 / Flesh Knuckles / Charm of Myths / Star Veil / Amphibian Boots</td></tr>
+<tr><td>Plantera 後</td><td>Master Ninja Gear / Worm Scarf / 翼 / Hero Shield / Frozen Shield / Celestial Shell / Ankh Shield</td></tr>
+<tr><td>Moon Lord</td><td>Master Ninja Gear / Worm Scarf / Soaring Insignia(翼と併用)/ Hero Shield / Frozen Shield / Celestial Shell / Ankh Shield</td></tr>
+</table></div>
+<p>遠距離・魔法・召喚で戦う日は、「Hero Shield / Frozen Shield / Ankh Shield」のうち2枠を「クラス Emblem / クラス専用アクセ(上の表)」に差し替え、残りは同じ。役割は固定せず、ロードアウト(F1〜F3)で切り替えるのがおすすめ。</p>`},
+];
+
+/* ---------- render ---------- */
+function h(tag,attrs,...kids){const el=document.createElement(tag);
+  for(const k in (attrs||{})){const v=attrs[k];if(v==null||v===false)continue;if(k==="class")el.className=v;else if(k==="text")el.textContent=v;else if(k==="html")el.innerHTML=v;else if(k.startsWith("on"))el.addEventListener(k.slice(2),v);else el.setAttribute(k,v);}
+  for(const c of kids){if(c==null||c===false)continue;el.append(c.nodeType?c:document.createTextNode(c));}return el;}
+function pageName(it){
+  if(it.w)return it.w;
+  let s=it.nm.split(/ \+ | \/ | → |\(|×| ×/)[0].trim();
+  return s.replace(/ /g,"_");
+}
+function linkFor(it){
+  const name=pageName(it);
+  if(name.startsWith("Guide:"))return {jp:null,en:EN+name};
+  return {jp:it.nw?null:JP+name,en:EN+name};
+}
+
+const tabs=document.getElementById("tabs"),main=document.getElementById("phases");
+const ALL=[...PHASES,...EXTRA];
+let cur=0;
+try{const s=parseInt(localStorage.getItem("tr3-tab")||"",10);if(s>=0&&s<ALL.length)cur=s;}catch(e){}
+const m=location.hash.match(/^#(p[1-7]|fishing|acc)$/);
+if(m){cur=m[1]==="fishing"?7:m[1]==="acc"?8:parseInt(m[1].slice(1),10)-1;}
+const HASHES=["p1","p2","p3","p4","p5","p6","p7","fishing","acc"];
+
+ALL.forEach((p,i)=>{
+  const extra=i>=PHASES.length;
+  tabs.append(h("button",{class:"tab"+(extra?" extra":""),role:"tab","aria-selected":"false",id:"tab"+i,onclick:()=>show(i)},h("b",{text:extra?"＋":"0"+(i+1)}),h("span",{text:p.short})));
+  const sec=h("section",{class:"phase",id:HASHES[i],role:"tabpanel","aria-labelledby":"tab"+i});
+  sec.append(h("div",{class:"ph"},extra?null:h("div",{class:"n",text:"0"+(i+1)}),h("div",{},h("h2",{text:p.title}),h("p",{class:"goal",text:p.goal}),p.flow?h("p",{class:"flow",text:p.flow}):null)));
+  if(extra){
+    sec.append(h("div",{class:"sec prose",html:p.html}));
+  }else{
+    const grid=h("div",{class:"grid"});
+    for(const r of ["all","tank","ranged","summon","magic","pet"]){
+      const list=p.picks[r];if(!list||!list.length)continue;
+      const card=h("div",{class:"card",style:"--c:var(--"+r+")"},h("h4",{},ROLES[r],h("small",{text:"上ほど優先"})));
+      for(const it of list){
+        const L=linkFor(it);
+        const nm=h("div",{class:"nm"},
+          h("a",{href:L.jp||L.en,target:"_blank",rel:"noopener",title:"画像つきの解説ページを開く"},it.nm),
+          it.star?h("span",{class:"tag star",text:"本命"}):null,
+          it.nw?h("span",{class:"tag new",text:"1.4.5"}):null,
+          L.jp?h("a",{class:"ext",href:L.en,target:"_blank",rel:"noopener",title:"公式wiki(英語)"},"EN"):null);
+        card.append(h("div",{class:"pick"},nm,h("div",{class:"why",text:it.why}),it.tip?h("div",{class:"tip",text:it.tip}):null,h("div",{class:"src",text:it.src})));
+      }
+      grid.append(card);
+    }
+    sec.append(h("div",{class:"sec"},h("h3",{text:"これがあると一気に楽"}),grid));
+    const bl=h("div",{class:"builds"});
+    for(const b of p.builds){const ul=h("ul");b.spec.forEach(s=>ul.append(h("li",{text:s})));bl.append(h("div",{class:"build"},h("b",{text:b.t}),ul,h("div",{class:"why",text:b.why})));}
+    sec.append(h("div",{class:"sec"},h("h3",{text:"建築はここを目指す"}),bl));
+    if(p.boss&&p.boss.length){const bo=h("div",{class:"boss"});p.boss.forEach(x=>bo.append(h("div",{class:"bs"},h("b",{text:x.b}),x.t)));sec.append(h("div",{class:"sec"},h("h3",{text:"このフェーズのボスと一言コツ"}),bo));}
+    const wl=h("ul");p.warns.forEach(w=>wl.append(h("li",{text:w})));
+    sec.append(h("div",{class:"sec"},h("h3",{text:"落とし穴"}),h("div",{class:"warn"},wl)));
+  }
+  sec.append(h("div",{class:"nav"},
+    h("button",{onclick:()=>show(i-1),disabled:i===0?"":null},"← "+(i>0?ALL[i-1].short:"")),
+    h("button",{onclick:()=>show(i+1),disabled:i===ALL.length-1?"":null},(i<ALL.length-1?ALL[i+1].short:"")+" →")));
+  main.append(sec);
+});
+function show(i,scroll){
+  cur=i;
+  document.querySelectorAll(".phase").forEach((s,k)=>s.classList.toggle("on",k===i));
+  document.querySelectorAll(".tab").forEach((t,k)=>t.setAttribute("aria-selected",String(k===i)));
+  try{localStorage.setItem("tr3-tab",String(i));}catch(e){}
+  if(history.replaceState)history.replaceState(null,"","#"+HASHES[i]);
+  const t=document.getElementById("tab"+i);if(t&&t.scrollIntoView)t.scrollIntoView({block:"nearest",inline:"center"});
+  if(scroll!==false)window.scrollTo({top:document.getElementById("tabs").offsetTop-4,behavior:"auto"});
+}
+show(cur,false);
+window.addEventListener("hashchange",()=>{const k=HASHES.indexOf(location.hash.slice(1));if(k>=0&&k!==cur)show(k,false);});
+</script>
+
+</body>
+</html>
