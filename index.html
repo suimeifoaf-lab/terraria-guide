@@ -186,9 +186,9 @@ const PHASES=[
  ],
  magic:[
   {nm:"Thunder Zapper",star:1,why:"1.4.5.4で威力24に強化された砂漠の杖。マナ消費6で連射でき、WoF前まで主力になれる。1.4.5.7からハードモードで Lightning Strike に進化する。",tip:"地下砂漠の深い層(下3/7)の Sandstone Chest にだけ入る。浅い層の宝箱には出ない。",src:"Sandstone Chest(1/3)、Oasis / Mirage Crate"},
-  {nm:"宝石の杖(Amethyst / Topaz Staff)",w:"Gem_staffs",why:"1.4.5.7で作成コストが約3割減り、性能も見直された。初日に宝石が2〜3個あれば作れる。",src:"宝石 + 対応する鉱石のBar(鉄床)"},
+  {nm:"宝石の杖(Amethyst / Topaz Staff)",w:"Amethyst_Staff",why:"1.4.5.7で金属コストが約3割減り、7種それぞれに固有性能が付いた。Amethyst=追尾、Topaz=消える瞬間に爆発、Sapphire=2発、Emerald=貫通して壁で止まる、Ruby=連射+防御貫通、Diamond=貫通+大判定、Amber=壁で跳ね返る。",tip:"同じ宝石の Robe を着るとその杖が強化される。序盤はどれでもよく、手持ちの宝石が8個たまったものから作る。",src:"宝石 8 + 対応する鉱石の Bar 7(鉄床)。Amber は Sturdy Fossil 10"},
   {nm:"Glacier Fang",nw:1,why:"クリ率15%の氷の杖。雪原で手に入るので Thunder Zapper と二刀流に。",tip:"Frozen Chest の Ice Blade / Ice Boomerang / Snowball Cannon は Shimmer に投げると順に変換でき、Glacier Fang にも変わる。",src:"Frozen Chest、Frozen / Boreal Crate"},
-  {nm:"Mana Crystal ×9",w:"Mana_Crystal",why:"マナ上限を200にする。魔法職はこれが終わるまで本領が出ない。",tip:"Fallen Star は夜に地表に落ちる。3人で拾うと早い。Shimmer に Mana Crystal を1個投げると Arcane Crystal(マナ回復が速くなる永続強化)。",src:"Fallen Star 5 個で 1 つ"},
+  {nm:"Mana Crystal ×9",w:"Mana_Crystal",why:"マナ上限を200にする。魔法職はこれが終わるまで本領が出ない。",tip:"Fallen Star は夜に地表に落ちる。3人で拾うと早い。Shimmer に Mana Crystal を1個投げると Arcane Crystal(マナ回復が速くなる永続強化)。1.4.5.7 から「攻撃後にマナ回復が止まる」仕様がなくなり、立ち止まると回復2倍、マナが足りなくても攻撃速度40%で撃てる。Mana Potion は保険程度でよい。",src:"Fallen Star 5 個で 1 つ"},
  ],
  pet:[
   {nm:"Foxparks / Cattiva",w:"Foxparks",star:1,nw:1,why:"ミニオン枠を使わない無料の相棒。Foxparks は火炎弾20で序盤の火力が倍になり、Cattiva は殴りながら採掘・伐採も手伝う。クラスを問わず3人全員が持つべき。",tip:"昼の地表(草原・雪原・ジャングル)で Goblin Archer 2体に囲まれた Distressed Pal を見つけたら、弓兵を倒して近づくだけ。1.4.5.7から持っていない方が確定で出る。ハードモードで Kinship Peach を使うと Trusty 版に進化。",src:"Distressed Pal を助ける(地表、昼、ワールド中央1/4以外)"},
@@ -242,7 +242,7 @@ const PHASES=[
   {nm:"Water Bolt",why:"壁で跳ね返る貫通弾。Skeletron の腕と Dungeon の廊下で特に強い。",src:"Dungeon の本棚(青い本)。1.4.5から Water Bolt Mimic も落とす"},
   {nm:"Vilethorn",why:"壁を貫通する棘の列。Eater of Worlds の胴と Goblin Army の列をまとめて削る。",src:"Shadow Orb(20%)"},
   {nm:"Bee Gun",why:"追尾する蜂を連射する。ボス戦で「撃っていれば当たる」安定火力。",src:"Queen Bee(1/3)"},
-  {nm:"Band of Starpower → Magic Cuffs",w:"Magic_Cuffs",nw:1,why:"1.4.5.7 で Band of Starpower がマナ+40 に強化され、Magic Cuffs(被弾でマナ回復)の素材にもなった。Celestial Cuffs への道。",src:"Shadow Orb / Shackle と合成"},
+  {nm:"Band of Starpower → Magic Cuffs",w:"Magic_Cuffs",nw:1,why:"1.4.5.7 で Band of Starpower がマナ+40 に強化された。Shackle と合成すると Magic Cuffs(被弾でマナ回復)。Celestial Cuffs への道。",src:"Shadow Orb / Shackle(ゾンビ)と Tinkerer's Workshop で合成"},
  ],
  pet:[
   {nm:"Honeyed Goggles",star:1,why:"蜂に乗って飛べる最初の乗り物。EoW の地下戦と Skeletron で落下死が消え、Dungeon 探索も安全になる。",tip:"低確率なので、Queen Bee は3人で2〜3回戦う。Abeemination(Honey Block + Stinger + Hive + Bottled Honey)で再召喚。",src:"Queen Bee(1/20)"},
@@ -307,7 +307,7 @@ const PHASES=[
   {t:"Hellevator を 3 本",spec:["拠点の真下、ジャングルの両脇の計3本。爆弾で一気に","幅3で掘り、ロープを垂らす。Obsidian Skin を飲んでから底へ"],why:"ハードモード後の侵食の防波堤にもなる。3人で同時に掘れば1日で終わる"},
   {t:"地底の橋(WoF 用)",spec:["長さ 1000 ブロック以上。Ash Block か Wood Platform を一直線に","50 ブロックごとに Campfire と Heart Lantern","橋の端に Nurse の家(撃破後も使う)"],why:"WoF は 3 人マスターで HP 約2万7千。長い直線があれば負けない"},
   {t:"地表のキノコバイオーム + 家",spec:["泥ブロック 100 以上に Mushroom Grass Seeds。地表に作る","家を1軒。後で Mushroom Pylon もここ"],why:"ハードモード後に Truffle(Autohammer・Mushroom Spear)が住む"},
-  {t:"拠点の防腐処理",spec:["住居の外周を加工レンガ・木・Gray Brick など侵食されない素材で","NPC の家の下に 4 ブロック以上の非土ブロック層"],why:"WoF 撃破の瞬間に出る V 字の侵食で拠点が死なないように"},
+  {t:"拠点の防腐処理(コの字の溝)",spec:["拠点の左右と真下を、幅 3 マス以上の溝でコの字に囲む(ハードモードの侵食は 3 マス先まで飛ぶ)","溝の内側を木・加工レンガ・Gray Brick など侵食されない素材で裏打ちし、溝の上端の土には足場を置いて Thorns(イバラ)を止める","隣がジャングルならジャングル側にも同じ壁。NPC は堕落の中には住めない"],why:"WoF 撃破の瞬間に出る V 字の侵食で拠点が死なないように。ノーマル中に済ませる"},
  ],
  boss:[
   {b:"Wall of Flesh",t:"Guide が生きているか確認してから Voodoo Demon を狩る。開幕に Beenade を全員で投げ、目を Star Cannon と Imp で焼く。Hungry は Hellwing Bow か Sunfury で払う。ポーションは Obsidian Skin・Ironskin・Regeneration・Swiftness・Endurance・Wrath(Ebonkoi)。Emblem は Shimmer で別クラスに変換できる"},
@@ -338,6 +338,7 @@ const PHASES=[
   {nm:"Chaos Cylinder",nw:1,why:"遠距離ダメージ+8% と、弾種を自動で切り替える機能。1.4.5.7 の新規。",src:"Hallowed Mimic(20%)"},
   {nm:"Adamantite armor / Frost armor",w:"Adamantite_armor",why:"遠距離の防具。Frost は近接でも使うので、Frost Core が人数分出るまでは Adamantite(Mask)。",src:"Adamantite 鉱石 / Frost Core"},
   {nm:"Phoenix Quiver",nw:1,why:"Magic Quiver の上位。矢の速度・ダメージ・誘導が1枠に。遠距離役の最終アクセの1つ。",src:"Harpy Charm + Molten Quiver(Magic Quiver〈Skeleton Archer〉+ Molten Fury)"},
+  {nm:"Catalyst Band",nw:1,why:"Poison Barb の進化先。矢に毒が付くのに加え、自分の攻撃で付けた毒・炎上・出血のダメージが2倍になり、回復薬のクールダウンも −25%。Cursed Dart や Frostburn と合わせると効く。",src:"Poison Barb + Philosopher's Stone(Mimic)を Tinkerer's Workshop で"},
  ],
  summon:[
   {nm:"Spider armor + Spider Staff",w:"Spider_Staff",star:1,why:"ハードモード直後に作れる召喚の定番。蜘蛛は壁に張り付いて噛み続けるので The Destroyer に強い。",tip:"Black Recluse は壁を通り抜けない。巣の端に壁1枚を挟んで通路を作ると安全に狩れる。",src:"地下の蜘蛛の巣(Black Recluse)の Spider Fang"},
@@ -345,6 +346,7 @@ const PHASES=[
   {nm:"Blade Staff + Cool Whip",w:"Blade_Staff",why:"手数で防御を無視する組み合わせ。Blade Staff は Queen Slime、Cool Whip は Frost Core から。",src:"Queen Slime / Soul of Light 8 + Soul of Night 8 + Frost Core"},
   {nm:"Firecracker",why:"WoF から出るムチ。叩いた敵へのミニオンの次の一撃が爆発する。Sanguine / Spider と相性がよい。",src:"Wall of Flesh"},
   {nm:"Ruinous Staff",nw:1,why:"召喚40の新ミニオン。Dark Shard と Light Shard が余ったら。",src:"Dark Shard + Light Shard + Forbidden Fragment 2 + Soul of Night 5 + Soul of Light 5"},
+  {nm:"Snake Band / Wicked Armlet",w:"Snake_Band",nw:1,why:"1.4.5.7 のムチ用アクセ。Snake Band は3振りごとに追加の1振り(威力30%)が出る。Wicked Armlet はタグの上限 +1 とノックバック。Silver Bracer と重ね付けでき、腕輪系3つでタグ最大4。",src:"Snake Band は地下砂漠の Lamia(1/40)、Wicked Armlet は堕落の Cursed Hammer(1/25)"},
  ],
  magic:[
   {nm:"Crystal Serpent",star:1,why:"聖域で釣れる。弾が割れて破片が飛ぶため雑に強く、メカ前の魔法では最も手軽。釣り竿と餌だけで取れる。",src:"聖域(地表・地下どちらでも)の水場で釣り"},
@@ -360,6 +362,7 @@ const PHASES=[
   {nm:"Roller Skates",nw:1,why:"乗り物なのに翼・フック・ダッシュがそのまま使える。地上速度 +5mph が常時乗る。",src:"Traveling Merchant(15G)/ Skeleton Merchant(10G、月齢で色違い)"},
  ]},
  builds:[
+  {t:"V 字汚染の封じ込め(最初にやる)",spec:["WoF 撃破直後に全画面地図で Hallow と Corruption の V 字の位置を確認","V 字の左右それぞれに幅 3 マス以上の縦穴を地表から Cavern 層まで掘る(Hellevator を流用してよい)","拠点側には Sunflower を多めに。バイオーム判定は打ち消せるが拡大は止まらないので、縦穴が本体"],why:"ハードモード移行直後が侵食の最速期。Plantera 後に半減するまで、この縦穴で抑える"},
   {t:"メカ用の空中アリーナ",spec:["地表から 40〜60 ブロック上に、幅 300 の足場を 3 段(間隔 12)","Heart Statue を 1 秒タイマーで 2〜3 体(Mechanic の Wire)","Campfire・Heart Lantern・Bast Statue・Honey の浅い溜まり","端に Nurse と Dryad の家。Pylon を1本置く(1.4.5 からボス戦中も使える)"],why:"3体とも同じ場所で戦える。Plantera 以外はここが本拠地"},
   {t:"蜘蛛の巣の狩り場",spec:["Black Recluse の巣を見つけたら、巣の端に幅 3 の通路 + 壁1枚","通路から Spider Fang を集める"],why:"召喚職の最初の山。壁越しなら安全"},
   {t:"Mimic 部屋",spec:["地下の何もない小部屋に Key of Night / Key of Light を空の Chest に入れて置く","上に足場、下に Campfire。1人が囮、2人が撃つ"],why:"Daedalus Stormbow・Flesh Knuckles(経由)・Chaos Cylinder がここから"},
@@ -449,7 +452,7 @@ const PHASES=[
   {nm:"Scourge of the Corruptor / Flying Dragon",w:"Scourge_of_the_Corruptor",why:"堕落の Biome Chest の投げ武器と、Betsy の剣。どちらも Moon Lord まで現役。",src:"Corruption Key で Dungeon の Corruption Chest / Old One's Army Tier3"},
  ],
  ranged:[
-  {nm:"Shroomite armor",star:1,why:"遠距離の本命防具。静止すると透明化して大ダメージ。頭を弾種(矢・弾・ロケット)で選ぶ。",src:"Autohammer(Truffle、Plantera 後)で Chlorophyte Bar + Glowing Mushroom"},
+  {nm:"Shroomite armor",star:1,why:"遠距離の本命防具。静止するとステルスになり大ダメージ(1.4.5.7 から撃っていても解けなくなり、上限は +50%)。頭を弾種(矢・弾・ロケット)で選ぶ。",src:"Autohammer(Truffle、Plantera 後)で Chlorophyte Bar + Glowing Mushroom"},
   {nm:"Chlorophyte Bullets",star:1,why:"追尾弾。狙わなくても当たるので、Megashark や Uzi がそのまま終盤武器になる。",src:"Chlorophyte Bar 1 + Musket Ball 70"},
   {nm:"Xenopopper / Tsunami / Aerial Bane",w:"Xenopopper",why:"火星人・Fishron・Betsy の遠距離3強。どれか1つあれば Moon Lord まで持つ。",src:"Martian Saucer / Duke Fishron / Old One's Army Tier3"},
   {nm:"Sniper Rifle / Tactical Shotgun",w:"Sniper_Rifle",why:"Plantera 後の Dungeon 産。Sniper は Golem の頭を安全に狙える。",src:"Dungeon の Skeleton Sniper / Tactical Skeleton"},
@@ -461,6 +464,7 @@ const PHASES=[
   {nm:"Tiki armor / Spooky armor",w:"Tiki_armor",why:"Tiki は Witch Doctor から買える手堅い防具(ミニオン +4)、Spooky は攻め寄り。",src:"Witch Doctor(Pygmy Staff 所持で解禁)/ Pumpkin Moon の Spooky Wood"},
   {nm:"Deadly Sphere Staff / Raven Staff",w:"Deadly_Sphere_Staff",why:"日食と Pumpkin Moon のミニオン。Xeno までのつなぎ。",src:"Solar Eclipse の Deadly Sphere / Pumpkin Moon の Pumpking"},
   {nm:"Papyrus Scarab",why:"召喚ダメージ・ミニオン +1・ノックバック。召喚職の最終アクセ。",src:"Hercules Beetle(Witch Doctor)+ Necromantic Scroll(Mourning Wood)"},
+  {nm:"Mobius Strip → Ouroboros Ring",w:"Mobius_Strip",nw:1,why:"Golem が落とすムチ用アクセ。タグ上限 +1 とムチの射程 +10%。Snake Band と合成すると Ouroboros Ring になり、腕輪2つ分が1枠にまとまる。",src:"Golem(1/6)/ + Snake Band を Tinkerer's Workshop で"},
   {nm:"Terraprisma(やりたい人だけ)",w:"Terraprisma",why:"最強ミニオン。ただし昼間の Empress of Light を倒す必要があり、ゲーム最高難度。",src:"昼間の Empress of Light(確定)"},
  ],
  magic:[

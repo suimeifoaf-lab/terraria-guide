@@ -47,6 +47,7 @@ a{color:var(--accent)}
 .chips a{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:.84rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
 .chips a:hover{color:var(--accent);border-color:var(--accent)}
 section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:16px;scroll-margin-top:64px}
+#video{scroll-margin-top:72px}
 section h2{font-size:1.2rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
 section h2 .no{font-size:.8rem;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
 section h3{font-size:1rem;margin:14px 0 4px}
@@ -86,7 +87,7 @@ dd{margin:0}
   </header>
 
   <nav class="chips" aria-label="目次">
-    <a href="#s1">操作</a><a href="#s2">最初の1時間</a><a href="#s2b">進め方の地図</a><a href="#s3">家とNPC</a><a href="#s4">クラフト</a><a href="#s5">体力・防御・クラス</a><a href="#s6">死んだら</a><a href="#s7">場所の見分け</a><a href="#s8">ポーションと料理</a><a href="#s9">ボスとは</a><a href="#s10">釣り入門</a><a href="#s11">3人で遊ぶ作法</a><a href="#s12">マスターの注意</a><a href="#s13">用語集</a>
+    <a href="#s1">操作</a><a href="#s2">最初の1時間</a><a href="#s2b">進め方の地図</a><a href="#video">動画で予習</a><a href="#s3">家とNPC</a><a href="#s4">クラフト</a><a href="#s5">体力・防御・クラス</a><a href="#s6">死んだら</a><a href="#s7">場所の見分け</a><a href="#s8">ポーションと料理</a><a href="#s9">ボスとは</a><a href="#s10">釣り入門</a><a href="#s11">3人で遊ぶ作法</a><a href="#s12">マスターの注意</a><a href="#s13">用語集</a>
   </nav>
 
   <section id="s1">
@@ -225,6 +226,14 @@ dd{margin:0}
         <dt>倒すと</dt><dd>Luminite(最終防具・翼)、最終武器、Zenith の素材。クリア。あとはコレクションと建築の時間</dd></dl></div>
     </div>
     <div class="box"><b>迷ったら</b>「次のボスは何で、どうすれば湧くか」を仲間に聞くか、この表で確認。湧く条件を満たす前に Nurse の家と足場のアリーナを作っておくのが、毎回同じ勝ちパターンです。</div>
+
+    <h3 id="video">動画で予習する</h3>
+    <p>文字より動画がいい人は、日本語の解説チャンネル「Taa テラリア解説ch」の次の3本を順に見ると、上の地図がそのまま頭に入ります。どれも<b>ネタバレなし・クラシック前提の動画</b>なので、マスター固有の数字(敵の強さなど)だけはこのページを優先してください。</p>
+    <ol>
+      <li><a href="https://youtu.be/-muCgIyLYfk" target="_blank" rel="noopener">ノーマルモード全体の流れ</a>: 前半(ステップ 1〜6)の予習に。始める前に1本目はこれ</li>
+      <li><a href="https://youtu.be/CNmb2i9JHDo" target="_blank" rel="noopener">ボス戦で役立つ知識</a>: 最初のボスの前に。行動パターンの観察・アリーナ作り・武器選びの3原則</li>
+      <li><a href="https://youtu.be/YuLLbQyG2io" target="_blank" rel="noopener">ハードモード全体の流れ</a>: Wall of Flesh を倒す前日に</li>
+    </ol>
   </section>
 
   <section id="s3">
@@ -281,7 +290,7 @@ dd{margin:0}
     <h2><span class="no">6</span>体力・マナ・防御・クラス</h2>
     <dl>
       <dt>体力(ハート)</dt><dd>Life Crystal(地下)で +20、最大 400。ハードモードの Life Fruit で最大 500</dd>
-      <dt>マナ(星)</dt><dd>Mana Crystal(夜に落ちる Fallen Star 5 個で作る)で +20、最大 200。魔法武器を使う人だけ</dd>
+      <dt>マナ(星)</dt><dd>Mana Crystal(夜に落ちる Fallen Star 5 個で作る)で +20、最大 200。魔法武器を使う人だけ。1.4.5.7 から立ち止まると回復が2倍になり、マナが足りなくても(遅くなるが)撃てる</dd>
       <dt>防御</dt><dd>防具とアクセの合計。マスターでは<b>その数字ぶんダメージがそのまま減る</b>ので、序盤はとにかく防具を更新する</dd>
       <dt>ノックバック</dt><dd>殴られると吹き飛ぶ。穴や溶岩に落ちる原因なので、Cobalt Shield 系で無効化できると楽になる</dd>
       <dt>バフ / デバフ</dt><dd>画面左上のアイコン。良い効果(ポーション)と悪い効果(毒・炎上・鈍足)。マスターではデバフが 2.5 倍長く続く</dd>
