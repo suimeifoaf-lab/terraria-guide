@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>1.4 以降で変わったテラリア</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one long read with a sticky chip nav; each section is a card with short paragraphs, key tables and a "これだけは" box. */
+:root{
+  --bg:#f1f0ec; --panel:#ffffff; --panel-2:#f6f5f1; --ink:#22251f; --ink-2:#5f655a; --line:#dcdad2;
+  --accent:#2f7a4f; --accent-ink:#ffffff; --accent-soft:#e2f0e6;
+  --key-bg:#eeede8; --key-ink:#2a2d26; --key-line:#c9c7bd;
+  --warn-bg:#fff3d6; --warn-ink:#6b4700; --warn-line:#e7c678;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+    --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+    --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+    --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+  --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+  --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+  --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.75;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.65rem;line-height:1.3}
+.sub{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+a{color:var(--accent)}
+.top{padding-block:18px 10px}
+.lead{color:var(--ink-2);margin:10px 0 0;font-size:.95rem}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:.84rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chips a:hover{color:var(--accent);border-color:var(--accent)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:16px;scroll-margin-top:64px}
+section h2{font-size:1.2rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+section h2 .no{font-size:.8rem;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+section h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}
+ul,ol{margin:4px 0 8px;padding-left:1.3em}
+li{margin:3px 0}
+kbd{font-family:inherit;font-size:.82em;background:var(--key-bg);color:var(--key-ink);border:1px solid var(--key-line);border-bottom-width:2px;border-radius:4px;padding:0 6px;white-space:nowrap}
+.tbl{overflow-x:auto;margin:8px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:480px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+.box{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:4px;padding:10px 14px;margin:12px 0 4px;font-size:.92rem}
+.box b{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:6px;padding:10px 14px;margin:10px 0 4px;font-size:.9rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px 16px}
+.cols>div{min-width:0}
+dl{margin:4px 0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:.92rem}
+dt{font-weight:700}
+dd{margin:0}
+@media (max-width:480px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.steps{display:grid;gap:8px;margin:6px 0 10px}
+.step{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.st-h{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.st-n{font-size:.78rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 7px;white-space:nowrap}
+.step dl{font-size:.9rem;grid-template-columns:max-content 1fr}
+.step dt{color:var(--ink-2);font-weight:700}
+@media (max-width:480px){.step dl{grid-template-columns:1fr}}
+.foot{margin-top:22px;font-size:.8rem;color:var(--ink-2)}
+.ver{display:inline-block;font-size:.72rem;border:1px solid var(--key-line);background:var(--key-bg);color:var(--key-ink);border-radius:4px;padding:0 5px;white-space:nowrap;vertical-align:middle;margin-right:4px}
+td .ver{margin:0}
+.tbl td:first-child{white-space:normal;min-width:9em}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>1.4 以降で変わったテラリア</h1>
+    <p class="sub">1.3 までの知識で遊ぶ人向け ・ 1.4.0(2020年5月)〜 1.4.5.8(2026年) ・ マスター3人旅の補足</p>
+    <p class="lead">「昔やったことがある」人ほど、1.4 で変わった所でつまずきます。Journey's End(1.4.0・2020年)から Labor of Love(1.4.4・2022年)、1.4.5(2026年1月)、1.4.5.7(同年8月)までの変更のうち、遊び方に効くものだけを「いつ・何が・どう使うか」でまとめました。装備の選び方は「<a href="index.html">3人旅の手引き</a>」、初めての人は「<a href="beginner.html">はじめてのテラリア</a>」へ。<b>アイテム名をクリックすると wiki が開きます</b>(日本語wiki、無いものは公式wiki)。</p>
+  </header>
+
+  <nav class="chips" aria-label="目次">
+    <a href="#c1">仕組み</a><a href="#c2">マスター</a><a href="#c3">新ボス</a><a href="#c4">召喚とムチ</a><a href="#c5">新武器</a><a href="#c6">新アクセ</a><a href="#c7">既存の改修</a><a href="#c8">1.4.5以降</a><a href="#c9">間違えやすい点</a>
+  </nav>
+
+  <section id="c1">
+    <h2><span class="no">1</span>仕組み(システム)の変更</h2>
+    <p>戦闘より先に、毎日触る部分が変わっています。上から順に「1.3 にはなかったもの」です。</p>
+    <div class="tbl"><table>
+      <tr><th>変更</th><th>いつ</th><th>何が変わったか</th><th>3人旅での使い方</th></tr>
+      <tr><td>ブロックスワップ</td><td><span class="ver">1.4.0</span></td><td>置いてあるブロックや壁の上に別のブロックを重ねて置くと、掘らずに置き換わる(ツールメニューで切替。元のブロックは落ちる)</td><td>拠点の防腐処理(土を木やレンガに替える)が一瞬で終わる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Pylons" target="_blank" rel="noopener">Pylon</a>(パイロン)</td><td><span class="ver">1.4.0</span><span class="ver">1.4.5</span></td><td>バイオームごとのワープ装置。NPC が2人以上住む場所で NPC から買え、Pylon 同士で飛べる。1.4.5 で幸福度の条件がなくなり、ボス戦中・侵略中も使えるように。Underworld / Aether 用も追加</td><td>ラージの移動はこれが前提。各バイオームに住民2人と家(手引きの「建築」欄)</td></tr>
+      <tr><td>NPC の幸福度</td><td><span class="ver">1.4.0</span><span class="ver">1.4.5</span></td><td>好きなバイオーム・隣人かどうかで売値が 75〜150% に変わる。1.4.5 から NPC が来るのにハウジングは不要(幸福度の計算には必要)</td><td>最初は無視でよい。値引きを詰めるのはクリア後の遊び</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Void_Bag" target="_blank" rel="noopener">Void Bag</a> / Void Vault</td><td><span class="ver">1.4.0</span></td><td>持ち物があふれたぶんを拠点の金庫(Void Vault)へ自動で送る携帯バッグ。Shadow Scale 30 + Jungle Spores 15 + Bone 30(Demon Altar)</td><td>3人分作る。探索中に「捨てる」判断が消える</td></tr>
+      <tr><td>Bestiary(図鑑)</td><td><span class="ver">1.4.0</span></td><td>倒した敵・NPC・生き物の図鑑。倒した数で情報が開く。マルチでは全員の討伐が共有</td><td>100% で Universal Pylon(どこへでも飛べる)。終盤のおまけ</td></tr>
+      <tr><td>墓場(Graveyard)</td><td><span class="ver">1.4.0</span></td><td>墓石が集まると成立するミニバイオーム。専用のクラフト(Ecto Mist)とレア敵</td><td>堕落ワールドで Panic Necklace を作る場所。NPC は嫌がるので拠点から離す</td></tr>
+      <tr><td>運(Luck)と <a href="https://terraria.arcenserv.info/wiki/Torch_God" target="_blank" rel="noopener">Torch God</a></td><td><span class="ver">1.4.0</span></td><td>隠しパラメータ「運」がドロップ率や釣果に効く。バイオームに合わない松明を置くと運が下がる。地下で松明を 101 本置くと Torch God が始まり、耐え切ると Torch God's Favor(置いた松明が自動でそのバイオーム用に変わる)</td><td>序盤に1人がやれば十分。普通の松明を雪原・砂漠・堕落に置かないだけでも違う</td></tr>
+      <tr><td>ロードアウト</td><td><span class="ver">1.4.4</span><span class="ver">1.4.5.7</span></td><td>防具・アクセ・衣装・染料のセットを3つ保存し <kbd>F1</kbd>〜<kbd>F3</kbd> で切替(インベントリを閉じたままでも可)。1.4.5.7 から <kbd>Alt</kbd>+クリックでロードアウト間の装備共有</td><td>役割を固定しないこのチームの軸。「探索」「ボス(近接)」「ボス(遠距離)」で分ける</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Shimmer" target="_blank" rel="noopener">Shimmer</a>(シマー)</td><td><span class="ver">1.4.4</span></td><td>ジャングル側のワールド端の地下に湧く紫の液体(Aether)。投げ込むと ①作った物を素材に戻す(リフォージ代ゼロで作り直せる)②上位化(Life Crystal → Vital Crystal、Mana Crystal → Arcane Crystal、Life Fruit → Aegis Fruit、Rod of Discord → Rod of Harmony)③同格の交換(WoF の Emblem 4種、Putrid Scent ↔ Flesh Knuckles〈1.4.5〉など)④鉱石は1段下へ</td><td>堕落ワールドで Crimson 限定品を手に入れる唯一の手段。入ると下に落ちるので足場を敷く</td></tr>
+      <tr><td>スタック 9999</td><td><span class="ver">1.4.4</span></td><td>ほぼ全てのアイテムが 9999 個まで重なる</td><td>共有箱の整理が楽</td></tr>
+      <tr><td>クラフトの刷新</td><td><span class="ver">1.4.5</span></td><td>クラフト欄にカテゴリと検索。<b>周囲の宝箱の中身をそのまま素材に使える</b>。同じ武器・ツールがスタックできる</td><td>作業台の周りに素材箱を並べれば出し入れ不要</td></tr>
+      <tr><td>マルチの機能</td><td><span class="ver">1.4.5</span></td><td>ボス撃破時のダメージランキング、死亡中は仲間の視点を観戦、Scrying Orb で生きたまま他人の視点、宝箱の錠前(Chest Lock)</td><td>「いまどこ?」が減る</td></tr>
+      <tr><td>死亡まわり</td><td><span class="ver">1.4.5.7</span></td><td>周囲が安全ならリスポーン待ちを飛ばせる(ボス戦中は不可)</td><td>探索中の死がさらに軽くなった</td></tr>
+      <tr><td>マナ</td><td><span class="ver">1.4.5.7</span></td><td>「攻撃後にマナ回復が止まる」仕様を廃止。立ち止まると回復2倍。マナ不足でも攻撃速度 40% で撃てる。マナ星を拾うと Mana Surge(魔法ダメージ最大 +20%)</td><td>魔法職の「マナ切れで棒立ち」が消えた。Mana Potion は保険程度</td></tr>
+      <tr><td>公式の日本語対応</td><td><span class="ver">1.4.5</span></td><td>Steam 版が設定から日本語を選べる(有志の日本語化パックは終了)</td><td>このサイトのアイテム名は英語のまま。クリック先の wiki で日本語名が引ける</td></tr>
+    </table></div>
+  </section>
+
+  <section id="c2">
+    <h2><span class="no">2</span>マスター難易度(1.4.0 で追加)</h2>
+    <p>Expert の上に増えた難易度で、病み村はこれです。1.3 の Expert 感覚との差は次のとおり。</p>
+    <ul>
+      <li><b>敵の HP・攻撃が Expert の約 1.5 倍</b>(クラシック比で攻撃3倍)。ノックバック耐性 20%</li>
+      <li><b>防御がダメージをそのまま 100% 減らす</b>(Expert は 50〜75%)。だから防具更新とアクセの Warding が最優先</li>
+      <li>アクセサリー枠が最初から <b>6</b>。Demon Heart で 7</li>
+      <li>デバフの持続が <b>2.5 倍</b>(Expert は 2 倍)</li>
+      <li>死ぬと所持金を<b>全部</b>落とす(Expert は 50〜75%)</li>
+      <li>ボスは Relic(置物)を確定で落とし、25% でペット・マウント。Eye of Cthulhu は 0x33's Aviators 確定</li>
+    </ul>
+    <div class="box"><b>この手引きの数字はすべてマスター準拠</b>敵が「硬くて痛い」ので、序盤は殴り合わず足場の上から撃つ。詳しくは「はじめてのテラリア」の 13 章。</div>
+  </section>
+
+  <section id="c3">
+    <h2><span class="no">3</span>新しいボス・イベント</h2>
+    <div class="steps">
+      <div class="step"><div class="st-h"><span class="st-n">1.4.0</span><b><a href="https://terraria.arcenserv.info/wiki/Queen_Slime" target="_blank" rel="noopener">Queen Slime</a>(ハードモード・任意)</b></div>
+        <dl><dt>呼び方</dt><dd>地下聖域で拾う Gelatin Crystal を聖域で使う。いつでも可</dd>
+        <dt>落とす</dt><dd>Crystal Assassin armor(必ず1部位)、Blade Staff(25%)、Gelatinous Pillion(飛行マウント 25%)、Expert 以上で Volatile Gelatin</dd>
+        <dt>位置づけ</dt><dd>メカ3体より弱い。ハードモードに入ったら先に倒すと装備が一段上がる</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">1.4.0</span><b><a href="https://terraria.arcenserv.info/wiki/Empress_of_Light" target="_blank" rel="noopener">Empress of Light</a>(Plantera 後・任意)</b></div>
+        <dl><dt>呼び方</dt><dd>Plantera 後、夜(19:30〜24:00)の地表聖域に飛ぶ Prismatic Lacewing を倒す</dd>
+        <dt>注意</dt><dd><b>昼は攻撃が即死級</b>になり回避アクセも効かない。昼だけでダメージを与え切ると Terraprisma(最強ミニオン)</dd>
+        <dt>落とす</dt><dd>Soaring Insignia(Expert 以上の Bag で確定)、Kaleidoscope、Starlight / Eventide / Nightglow(各 25%)、Stellar Tune(2%)、Empress Wings</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">1.4.3</span><b><a href="https://terraria.arcenserv.info/wiki/Deerclops" target="_blank" rel="noopener">Deerclops</a>(ハードモード前・任意)</b></div>
+        <dl><dt>呼び方</dt><dd>吹雪の夜中、雪原で HP200 か防御9 以上の人がいて近くに NPC がいないと来る。Deer Thing(Flinx Fur 3 + Lens 1 + Demonite Ore 5、Demon Altar)で雪原ならいつでも</dd>
+        <dt>落とす</dt><dd>Houndius Shootius(置き型の砲台)、Eye Bone(Chester: 持ち歩ける箱)、Weather Pain、Pew-matic Horn、Lucy the Axe(しゃべる斧)</dd>
+        <dt>位置づけ</dt><dd>Don't Starve コラボ。Chester があると序盤の持ち物問題が一気に軽くなる</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">1.4.0</span><b>Blood Moon の釣りと <a href="https://terraria.arcenserv.info/wiki/Dreadnautilus" target="_blank" rel="noopener">Dreadnautilus</a></b></div>
+        <dl><dt>やり方</dt><dd>Blood Moon の夜に釣ると、魚の代わりに敵が釣れる。Zombie Merman / Wandering Eye Fish(Blood Rain Bow・Vampire Frog Staff、各 1/8)、Hemogoblin Shark(Blood Thorn)、Blood Eel、Dreadnautilus(<b>Sanguine Staff 50%</b>)</dd>
+        <dt>位置づけ</dt><dd>Sanguine Staff はメカ前の最強ミニオン。拠点横の池で3人とも竿を持つ(手引きの「釣り」タブ)</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">1.4.0</span><b>地下砂漠とオアシスの刷新</b></div>
+        <dl><dt>何が</dt><dd>地下砂漠が構造物つきの迷宮になり、Sandstone Chest(Thunder Zapper・Storm Spear・Dunerider Boots・Sandstorm in a Bottle)、地表にオアシス(Oasis Crate・Magic Conch)</dd>
+        <dt>位置づけ</dt><dd>序盤の魔法職はここで決まる。1.3 の「砂漠は素通り」は損</dd></dl></div>
+
+      <div class="step"><div class="st-h"><span class="st-n">1.4.5</span><b>隠しボス(帽子のスケルトン)</b></div>
+        <dl><dt>何が</dt><dd>Clothier の人形と Skeletron 系が落とす家具を使って夜に呼ぶ隠しボス。通常の Skeletron より少し強い</dd>
+        <dt>位置づけ</dt><dd>コレクション要素。進行には関係ない。詳細は公式 wiki の Skeletron のページ</dd></dl></div>
+    </div>
+  </section>
+
+  <section id="c4">
+    <h2><span class="no">4</span>召喚職の大改修</h2>
+    <p>1.3 の召喚は「ミニオンを出して眺める」職でした。1.4.0 で<b>ムチ</b>が追加され、1.4.1 で Obsidian armor がムチ用の防具になり、1.4.5 で召喚武器のマナ消費が廃止、1.4.5.7 でタグ系アクセが大量に増えて、「自分でムチを振ってミニオンに指示する」職に変わっています。</p>
+    <h3>ムチとタグ(1.4.0)</h3>
+    <ul>
+      <li>ムチで叩いた敵に 4 秒の<b>タグ</b>が付く。タグ中はミニオンとセントリーの攻撃にムチの「タグダメージ」が上乗せされ、ミニオンがその敵に集中する</li>
+      <li>ムチごとの固有効果: 召喚速度アップ(Snapthorn・Durendal)、次の一撃が爆発(Firecracker)、Frostburn(Cool Whip)、タグクリティカル(Kaleidoscope)など</li>
+      <li>堕落ワールドでの順路: <a href="https://terraria.arcenserv.info/wiki/Leather_Whip" target="_blank" rel="noopener">Leather Whip</a>(Zoologist)→ <a href="https://terraria.arcenserv.info/wiki/Snapthorn" target="_blank" rel="noopener">Snapthorn</a> → <a href="https://terraria.wiki.gg/wiki/Soulscourge" target="_blank" rel="noopener">Soulscourge</a><span class="ver">1.4.5</span>(Demonite Bar 12)→ <a href="https://terraria.arcenserv.info/wiki/Spinal_Tap" target="_blank" rel="noopener">Spinal Tap</a><span class="ver">1.4.1</span>(Dungeon)→ <a href="https://terraria.arcenserv.info/wiki/Firecracker" target="_blank" rel="noopener">Firecracker</a>(WoF)→ <a href="https://terraria.arcenserv.info/wiki/Cool_Whip" target="_blank" rel="noopener">Cool Whip</a> → <a href="https://terraria.arcenserv.info/wiki/Durendal" target="_blank" rel="noopener">Durendal</a> → <a href="https://terraria.arcenserv.info/wiki/Morning_Star" target="_blank" rel="noopener">Morning Star</a> / <a href="https://terraria.arcenserv.info/wiki/Dark_Harvest" target="_blank" rel="noopener">Dark Harvest</a> → <a href="https://terraria.arcenserv.info/wiki/Kaleidoscope" target="_blank" rel="noopener">Kaleidoscope</a>(Empress)→ <a href="https://terraria.wiki.gg/wiki/Constellation" target="_blank" rel="noopener">Constellation</a><span class="ver">1.4.5</span>(Stardust Fragment)</li>
+    </ul>
+    <h3>新しいミニオン・防具</h3>
+    <ul>
+      <li><a href="https://terraria.arcenserv.info/wiki/Finch_Staff" target="_blank" rel="noopener">Finch Staff</a><span class="ver">1.4.0</span>(Living Wood Chest)、<a href="https://terraria.arcenserv.info/wiki/Flinx_Staff" target="_blank" rel="noopener">Flinx Staff</a> + Flinx Fur Coat<span class="ver">1.4.1</span>(雪原)、<a href="https://terraria.arcenserv.info/wiki/Vampire_Frog_Staff" target="_blank" rel="noopener">Vampire Frog Staff</a> / <a href="https://terraria.arcenserv.info/wiki/Sanguine_Staff" target="_blank" rel="noopener">Sanguine Staff</a><span class="ver">1.4.0</span>(Blood Moon の釣り)、<a href="https://terraria.arcenserv.info/wiki/Blade_Staff" target="_blank" rel="noopener">Blade Staff</a><span class="ver">1.4.0</span>(Queen Slime)、<a href="https://terraria.arcenserv.info/wiki/Terraprisma" target="_blank" rel="noopener">Terraprisma</a><span class="ver">1.4.0</span>(昼の Empress)、<a href="https://terraria.wiki.gg/wiki/Ruinous_Staff" target="_blank" rel="noopener">Ruinous Staff</a><span class="ver">1.4.5</span>、<a href="https://terraria.wiki.gg/wiki/Possession" target="_blank" rel="noopener">Possession</a><span class="ver">1.4.5</span>(Moon Lord のムチ)</li>
+      <li><a href="https://terraria.arcenserv.info/wiki/Obsidian_armor" target="_blank" rel="noopener">Obsidian armor</a><span class="ver">1.4.1</span>: ムチの射程 +30%・速度 +15%・ミニオン +1・召喚ダメージ +31%(1.4.4 で射程 50→30%、速度 35→15% に調整)。WoF 前のムチ使いの主防具</li>
+      <li><a href="https://terraria.arcenserv.info/wiki/Hallowed_Hood" target="_blank" rel="noopener">Hallowed Hood</a><span class="ver">1.4.0</span>: 召喚用の Hallowed 頭(1.3 では Titanium にあった召喚ボーナスが移った)。<a href="https://terraria.wiki.gg/wiki/Chlorophyte_armor" target="_blank" rel="noopener">Chlorophyte Visor</a><span class="ver">1.4.5</span> も召喚用</li>
+      <li>1.4.4: ミニオンの杖がオートファイアに、セントリーの持続が 2 分 → 10 分。Durendal(35→25%)と Dark Harvest(50→35%)の召喚速度バフは弱体</li>
+      <li>1.4.5: <b>召喚武器がマナを使わなくなった</b>。Mana Crystal は召喚職には不要</li>
+      <li>1.4.5.7: タグ系アクセ <a href="https://terraria.wiki.gg/wiki/Silver_Bracer" target="_blank" rel="noopener">Silver Bracer</a>(タグ枠 +1・持続3倍)、<a href="https://terraria.wiki.gg/wiki/Snake_Band" target="_blank" rel="noopener">Snake Band</a>、<a href="https://terraria.wiki.gg/wiki/Wicked_Armlet" target="_blank" rel="noopener">Wicked Armlet</a>、<a href="https://terraria.wiki.gg/wiki/Mobius_Strip" target="_blank" rel="noopener">Mobius Strip</a>、合成の <a href="https://terraria.wiki.gg/wiki/Twilight_Grasp" target="_blank" rel="noopener">Twilight Grasp</a> / <a href="https://terraria.wiki.gg/wiki/Ouroboros_Ring" target="_blank" rel="noopener">Ouroboros Ring</a>。腕輪系は3つでタグ最大4。入手段階は手引きの各フェーズに</li>
+    </ul>
+  </section>
+
+  <section id="c5">
+    <h2><span class="no">5</span>追加された武器(1.4.0〜1.4.4)</h2>
+    <p>1.4.5 以降の新武器は 8 章と手引きに。ここでは「1.3 の人が知らない定番」だけ。</p>
+    <h3>近接</h3>
+    <div class="tbl"><table>
+      <tr><th>武器</th><th>いつ</th><th>入手</th><th>何がいい</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Zenith" target="_blank" rel="noopener">Zenith</a></td><td><span class="ver">1.4.0</span></td><td>Moon Lord 後。Terra Blade・Meowmere・Star Wrath・Influx Waver・The Horseman's Blade・Seedler・Starfury・Bee Keeper・Enchanted Sword・Copper Shortsword</td><td>全ての剣の集大成。カーソル周りを剣群が飛び回る最強の近接武器。素材の剣は捨てずに取っておく</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Terragrim" target="_blank" rel="noopener">Terragrim</a></td><td><span class="ver">1.4.0</span></td><td>Enchanted Sword Shrine(1/30。それ以外は Enchanted Sword)</td><td>序盤の高速多段ヒット。1.3 で祠から出た Arkhalis は開発者装備に移った</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Storm_Spear" target="_blank" rel="noopener">Storm Spear</a></td><td><span class="ver">1.4.0</span></td><td>地下砂漠の Sandstone Chest</td><td>突くたびに雷。1.4.5 で射程 1.66 倍。序盤近接の本命</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Starlight" target="_blank" rel="noopener">Starlight</a></td><td><span class="ver">1.4.0</span></td><td>Empress of Light(25%)</td><td>貫通ビームを連射するショートソード。クリ率 14%。1.4.5.7 から攻撃速度で射程が伸びる</td></tr>
+    </table></div>
+    <h3>遠距離</h3>
+    <div class="tbl"><table>
+      <tr><th>武器</th><th>いつ</th><th>入手</th><th>何がいい</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Super_Star_Shooter" target="_blank" rel="noopener">Super Star Shooter</a></td><td><span class="ver">1.4.0</span></td><td>Star Cannon + Hallowed Bar 12</td><td>Fallen Star を撃つ。重力無視・無限貫通で、メカ期に Star Cannon が生まれ変わる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Eventide" target="_blank" rel="noopener">Eventide</a></td><td><span class="ver">1.4.0</span></td><td>Empress of Light(25%)</td><td>矢 4 本 + Twilight Lance(200%)。木の矢がランスに変わる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Blood_Rain_Bow" target="_blank" rel="noopener">Blood Rain Bow</a></td><td><span class="ver">1.4.0</span></td><td>Blood Moon の釣り: Zombie Merman / Wandering Eye Fish(1/8)</td><td>カーソルに向けて空から血の雨。EoW・Skeletron 前の弓</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Celebration_Mk2" target="_blank" rel="noopener">Celebration Mk2</a></td><td><span class="ver">1.4.0</span></td><td>Moon Lord</td><td>周回用の最終ロケットランチャー</td></tr>
+    </table></div>
+    <h3>魔法</h3>
+    <div class="tbl"><table>
+      <tr><th>武器</th><th>いつ</th><th>入手</th><th>何がいい</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Thunder_Zapper" target="_blank" rel="noopener">Thunder Zapper</a></td><td><span class="ver">1.4.0</span></td><td>地下砂漠の深い層の Sandstone Chest(1/3)</td><td>1.4.4 で威力 12→20、1.4.5 でマナ 6、1.4.5.4 で 24。WoF 前の魔法の本命(手引き 01)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Nightglow" target="_blank" rel="noopener">Nightglow</a></td><td><span class="ver">1.4.0</span></td><td>Empress of Light(25%)</td><td>追尾する虹弾 4 発。壁で跳ねる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Stellar_Tune" target="_blank" rel="noopener">Stellar Tune</a></td><td><span class="ver">1.4.0</span></td><td>Empress of Light(2%)</td><td>音符の追尾弾。出れば Moon Lord まで</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Blood_Thorn" target="_blank" rel="noopener">Blood Thorn</a></td><td><span class="ver">1.4.0</span></td><td>Blood Moon の釣り: Hemogoblin Shark(1/8、ハードモード)</td><td>カーソル周囲のブロックから棘が生える。壁越しの火力</td></tr>
+    </table></div>
+    <p>召喚の新武器は 4 章に。</p>
+  </section>
+
+  <section id="c6">
+    <h2><span class="no">6</span>追加された有用なアクセサリー(1.4.0〜1.4.4)</h2>
+    <div class="tbl"><table>
+      <tr><th>アクセ</th><th>いつ</th><th>合成・入手</th><th>効果</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Terraspark_Boots" target="_blank" rel="noopener">Terraspark Boots</a></td><td><span class="ver">1.4.0</span></td><td>Frostspark Boots + Lava Waders</td><td>靴の完成形。高速移動・溶岩歩き・氷で滑らない。1.4.1 で溶岩ダメージ軽減も</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Amphibian_Boots" target="_blank" rel="noopener">Amphibian Boots</a></td><td><span class="ver">1.4.0</span></td><td>Sailfish Boots + Frog Leg</td><td>自動ジャンプ・ジャンプ速度・落下耐性。ボス戦の靴はこちらが上</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Fledgling_Wings" target="_blank" rel="noopener">Fledgling Wings</a></td><td><span class="ver">1.4.0</span></td><td>空島の Skyware Chest(1/40)</td><td>ハードモード前で唯一の翼</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Soaring_Insignia" target="_blank" rel="noopener">Soaring Insignia</a></td><td><span class="ver">1.4.0</span></td><td>Empress of Light の Expert / Master Bag(確定)</td><td>翼か Rocket Boots と一緒に付けると<b>飛行時間が無限</b>、加速 +75%。1.4.4 で加速・ジャンプ補正が弱まったが無限飛行は健在。単体では飛べない</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Celestial_Starboard" target="_blank" rel="noopener">Celestial Starboard</a></td><td><span class="ver">1.4.0</span></td><td>Moon Lord の Expert / Master Bag(確定)</td><td>無限飛行 + ホバーの最終翼</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Hero_Shield" target="_blank" rel="noopener">Hero Shield</a></td><td><span class="ver">1.4.0</span></td><td>Paladin's Shield + Flesh Knuckles</td><td>味方の被ダメージ 25% を肩代わり + 敵の狙いを集める + ノックバック無効。防御 10。3人なら1人が持つ</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Berserker%27s_Glove" target="_blank" rel="noopener">Berserker's Glove</a></td><td><span class="ver">1.4.0</span></td><td>Power Glove + Flesh Knuckles</td><td>防御 8・近接速度 12%・敵の狙いを集める・オートスイング</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Molten_Quiver" target="_blank" rel="noopener">Molten Quiver</a> / <a href="https://terraria.arcenserv.info/wiki/Stalker%27s_Quiver" target="_blank" rel="noopener">Stalker's Quiver</a></td><td><span class="ver">1.4.0</span></td><td>Magic Quiver + Magma Stone / + Putrid Scent</td><td>矢に炎上 / 狙われにくく。1.4.5.7 で Molten Quiver + Harpy Charm = Phoenix Quiver</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Recon_Scope" target="_blank" rel="noopener">Recon Scope</a></td><td><span class="ver">1.4.0</span></td><td>Sniper Scope + Putrid Scent</td><td>遠距離ダメージ・クリ +10%、ズーム、狙われにくい</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Stinger_Necklace" target="_blank" rel="noopener">Stinger Necklace</a></td><td><span class="ver">1.4.0</span></td><td>Shark Tooth Necklace + Honey Comb</td><td>防御貫通 5。被弾で蜂が出て Honey 回復</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Mana_Cloak" target="_blank" rel="noopener">Mana Cloak</a></td><td><span class="ver">1.4.0</span></td><td>Mana Flower + Star Cloak</td><td>マナ消費 −8%、Mana Potion 自動使用、被弾で星が落ちる。1.4.5.7 から魔法命中でマナ星(50 回復 + Mana Surge)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Treasure_Magnet" target="_blank" rel="noopener">Treasure Magnet</a></td><td><span class="ver">1.4.0</span></td><td>地底の Shadow Chest(1/5)、Obsidian / Hellstone Crate</td><td>アイテム吸引範囲が 12 マスに。Hand of Creation の素材</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Volatile_Gelatin" target="_blank" rel="noopener">Volatile Gelatin</a></td><td><span class="ver">1.4.0</span></td><td>Queen Slime の Expert / Master Bag</td><td>勝手にスライム弾(65)を撃つ。枠が余る時期の火力</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Brain_of_Confusion" target="_blank" rel="noopener">Brain of Confusion</a></td><td><span class="ver">1.4.0</span></td><td>Brain of Cthulhu の Expert / Master Bag(Crimson ワールドのみ。病み村では出ない)</td><td>1/6 で攻撃を回避し、回避後はクリ・召喚ダメージ +10%。1.3 の「敵を混乱させるだけ」から別物に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Bone_Glove" target="_blank" rel="noopener">Bone Glove</a></td><td><span class="ver">1.4.1</span></td><td>Skeletron の Expert / Master Bag</td><td>武器からアクセサリーに。武器を使うと骨が飛ぶ(防御貫通 25)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Magiluminescence" target="_blank" rel="noopener">Magiluminescence</a></td><td><span class="ver">1.4.3</span></td><td>Demonite Bar 12 + Topaz 5(鉄床)</td><td>地上の移動速度 +15%・加速 75%・光る。Hermes 系と重複する序盤の移動枠</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Bundle_of_Horseshoe_Balloons" target="_blank" rel="noopener">Bundle of Horseshoe Balloons</a></td><td><span class="ver">1.4.4</span></td><td>Bundle of Balloons + Lucky Horseshoe</td><td>4段ジャンプ + 落下無効を1枠に。翼までの主役</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Shellphone" target="_blank" rel="noopener">Shellphone</a></td><td><span class="ver">1.4.4</span></td><td>Cell Phone + Magic Conch + Demon Conch</td><td>帰還先をスポーン / 海 / 地底 / ベッドで切り替え。1人分で3人に効く情報も込み</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Hand_Of_Creation" target="_blank" rel="noopener">Hand of Creation</a></td><td><span class="ver">1.4.4</span></td><td>Architect Gizmo Pack + Ancient Chisel + Treasure Magnet + Step Stool</td><td>建築の全部入り: 設置速度 +50%・設置射程・採掘 +25%・自動ペイント・吸引</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Rod_of_Harmony" target="_blank" rel="noopener">Rod of Harmony</a></td><td><span class="ver">1.4.4</span></td><td>Moon Lord 後に Rod of Discord を Shimmer へ</td><td>Chaos State なしでカーソル位置へテレポート</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Minecart_Upgrade_Kit" target="_blank" rel="noopener">Minecart Upgrade Kit</a></td><td><span class="ver">1.4.4</span></td><td>メカ3体の Expert / Master Bag の部品3種(Mythril Anvil)</td><td>全てのトロッコが永続強化(最高速・騎乗中の防御・レーザー)</td></tr>
+    </table></div>
+    <p>1.4.5 以降のアクセ(Restoration Shield・Harpy Charm・Catalyst Band・タグ系など)は 8 章。</p>
+  </section>
+
+  <section id="c7">
+    <h2><span class="no">7</span>既存の装備で性能が変わったもの</h2>
+    <p>「昔は強かった/弱かった」の記憶が当てにならないもの。上から新しい変更順ではなく、影響の大きい順です。</p>
+    <div class="tbl"><table>
+      <tr><th>装備</th><th>いつ</th><th>変更</th><th>影響</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Terra_Blade" target="_blank" rel="noopener">Terra Blade</a></td><td><span class="ver">1.4.1</span><span class="ver">1.4.4</span></td><td>1.4.1: True Night's Edge + True Excalibur + <b>Broken Hero Sword</b> が必要に、威力 115。1.4.4: 威力 85、毎振り高速の斬撃を飛ばし、振り自体に範囲判定、1振り 3 体まで</td><td>「たまにビームが出る剣」から「常に斬撃を飛ばす剣」へ。Mothron(Plantera 後の日食)が必須</td></tr>
+      <tr><td>True Night's Edge / True Excalibur</td><td><span class="ver">1.4.1</span></td><td>Broken Hero Sword が不要に(Soul 各 20 / Excalibur + Chlorophyte Bar 24)</td><td>メカ3体直後に作れる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Night%27s_Edge" target="_blank" rel="noopener">Night's Edge</a></td><td><span class="ver">1.4.4</span></td><td>振りにオーラ判定が付き、射程とダメージ増。1振り 3 体まで</td><td>前半の剣として価値が上がった</td></tr>
+      <tr><td>Flying Dragon / Sky Dragon's Fury</td><td><span class="ver">1.4.1</span></td><td>威力が 2 倍(180 / 140)</td><td>Old One's Army Tier3 の報酬が Moon Lord まで現役に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Razorblade_Typhoon" target="_blank" rel="noopener">Razorblade Typhoon</a></td><td><span class="ver">1.4.1</span></td><td>弱い2発 → 強い1発</td><td>単体ボスに強く</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Daedalus_Stormbow" target="_blank" rel="noopener">Daedalus Stormbow</a></td><td><span class="ver">1.4.0</span></td><td>威力 43→38、特殊矢の平均本数 3.33→2.67</td><td>弱体後も Holy Arrows で The Destroyer 最速は健在</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Reaver_Shark" target="_blank" rel="noopener">Reaver Shark</a></td><td><span class="ver">1.4.0</span></td><td>採掘力 100→59</td><td><b>Hellstone は掘れない</b>。1.3 の「海釣りで前半スキップ」は不可</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Obsidian_armor" target="_blank" rel="noopener">Obsidian armor</a></td><td><span class="ver">1.4.1</span><span class="ver">1.4.4</span></td><td>ムチ用の召喚防具に。1.4.4 で射程 50→30%、速度 35→15%</td><td>4 章参照</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Hallowed_Armor" target="_blank" rel="noopener">Hallowed armor</a></td><td><span class="ver">1.4.0</span></td><td>召喚用の Hallowed Hood 追加。セット効果は Holy Protection(一定時間ごとに被弾を1回無効)</td><td>3人全員が着ると事故が減る(手引き 05)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Spectre_armor" target="_blank" rel="noopener">Spectre Hood</a></td><td><span class="ver">1.4.4</span></td><td>回復の玉が届く範囲が 1200→3000、ひし形→円形</td><td>3人が離れて戦っても回復が届く</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Beetle_armor" target="_blank" rel="noopener">Beetle armor</a></td><td><span class="ver">1.4.4</span></td><td>Beetle's Might の持続が約 33% 増</td><td>近接の最終防具候補のまま</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Phoenix_Blaster" target="_blank" rel="noopener">Phoenix Blaster</a> / Handgun</td><td><span class="ver">1.4.4</span></td><td>威力 24→33 / 17→26</td><td>WoF 前の銃が主力になれる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Celestial_Shell" target="_blank" rel="noopener">Celestial Shell</a></td><td><span class="ver">1.4.0</span></td><td>Celestial Stone・Sun Stone・Moon Stone と重複しない</td><td>1.3 の「Shell + Stone の二枚持ち」は不可</td></tr>
+      <tr><td>Ichor / Venom</td><td><span class="ver">1.4.1</span></td><td>Ichor の防御低下 20→15。Venom は Acid Venom になり効く敵が増えた</td><td>堕落ワールドは Cursed Flame 側なので影響は小</td></tr>
+      <tr><td>Space Gun / Shadowflame Knife / Sniper Rifle / Tactical Shotgun</td><td><span class="ver">1.4.5</span></td><td>17→20 / 38→43 / 185→200 / 29→36</td><td>Meteor armor で Space Gun のマナ 0 は健在</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Dead_Man%27s_Sweater" target="_blank" rel="noopener">Dead Man's Sweater</a></td><td><span class="ver">1.4.5</span></td><td>防御 4、罠ダメージ半減</td><td>序盤の胴防具に(手引き 01)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Spider_armor" target="_blank" rel="noopener">Spider armor</a> / Spider Staff</td><td><span class="ver">1.4.5</span></td><td>作成に Mythril / Orichalcum Anvil が必要に</td><td>ハードモード直後ではなく、祭壇を壊して鉱石を掘った後</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Shroomite_armor" target="_blank" rel="noopener">Shroomite armor</a></td><td><span class="ver">1.4.5</span><span class="ver">1.4.5.7</span></td><td>頭の弾種ボーナス 15→12%。1.4.5.7 でアイテム使用中もステルス維持、ステルスの最大 60→50%</td><td>「止まって撃つ」が「撃っていても解けない」に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Amethyst_Staff" target="_blank" rel="noopener">宝石の杖 7 種</a></td><td><span class="ver">1.4.5.7</span></td><td>Amethyst=追尾、Topaz=爆発、Sapphire=2発、Emerald=貫通、Ruby=連射+防御貫通、Diamond=貫通+大判定、Amber=跳弾。金属コスト約3割減</td><td>初日の魔法武器が「どれも同じ」でなくなった</td></tr>
+      <tr><td>ブーメラン・ヨーヨー</td><td><span class="ver">1.4.5.7</span></td><td>ブーメランの戻り速度が近接速度に連動。Cascade(2ヒットで炎爆発)・Chik・Format:C・The Eye of Cthulhu・Kraken(Duke Fishron のドロップに)に固有効果</td><td>近接の「壁越しに殴る」選択肢が増えた</td></tr>
+      <tr><td>Chlorophyte Saber / Claymore / Paladin's Hammer</td><td><span class="ver">1.4.5.7</span></td><td>Saber は1振り5ヒット+胞子、Claymore は胞子爆発、Hammer はサイズ拡大・投げる前に1振り(1.4.5 で 100 + Broken Armor)</td><td>Plantera 前後の近接が選びやすく</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Band_of_Starpower" target="_blank" rel="noopener">Band of Starpower</a> / Mana Regeneration Band / Super Mana Potion</td><td><span class="ver">1.4.5.7</span></td><td>マナ +20→+40 / 静止時2倍・ライフ回復も継承 / 回復 300→400(Ectoplasm が素材)</td><td>Restoration Shield・Magic Cuffs の素材として価値が上がった</td></tr>
+      <tr><td>Unholy Trident / Magical Harp / Book of Skulls / Leaf Blower</td><td><span class="ver">1.4.5.7</span></td><td>威力ほぼ倍 / 最大 5 ヒット / ブロック貫通 / 3 発の螺旋</td><td>メカ〜Plantera の魔法の選択肢</td></tr>
+      <tr><td>ベルトコンベア・足場の上の湧き</td><td><span class="ver">1.4.5.7</span></td><td>足場やコンベアの上には、下のブロック由来の敵(Clinger など)が湧かなくなった</td><td>1.3 流の「Ebonstone を1マス下に敷く」トラップは作れない</td></tr>
+    </table></div>
+  </section>
+
+  <section id="c8">
+    <h2><span class="no">8</span>1.4.5 以降の新装備(手引きに載せたもの)</h2>
+    <p>2026 年の 1.4.5 と 1.4.5.7 で増えたもののうち、病み村で使うものは「3人旅の手引き」の各フェーズに入れてあります。ここでは所在だけ。</p>
+    <ul>
+      <li><b>相棒(ミニオン枠を使わない)</b>: <a href="https://terraria.wiki.gg/wiki/Foxparks" target="_blank" rel="noopener">Foxparks</a> / <a href="https://terraria.wiki.gg/wiki/Cattiva" target="_blank" rel="noopener">Cattiva</a>(昼の地表で Goblin Archer に囲まれた Distressed Pal を助ける)、<a href="https://terraria.wiki.gg/wiki/Chillet" target="_blank" rel="noopener">Chillet</a>(Cavern 層の Huge Dragon Egg)、<a href="https://terraria.wiki.gg/wiki/Slasher%27s_Mysterious_Skull" target="_blank" rel="noopener">Slasher's Mysterious Skull</a>、<a href="https://terraria.wiki.gg/wiki/Roller_Skates" target="_blank" rel="noopener">Roller Skates</a>、<a href="https://terraria.wiki.gg/wiki/Enchanted_Pixie_Dust" target="_blank" rel="noopener">Enchanted Pixie Dust</a> → <a href="index.html#p1">手引き 01</a></li>
+      <li><b>序盤</b>: Dead Man's Sweater、<a href="https://terraria.wiki.gg/wiki/Glacier_Fang" target="_blank" rel="noopener">Glacier Fang</a>、<a href="https://terraria.wiki.gg/wiki/Snapping_Stone" target="_blank" rel="noopener">Snapping Stone</a>、<a href="https://terraria.wiki.gg/wiki/Poison_Barb" target="_blank" rel="noopener">Poison Barb</a> → Sweet Barb → Catalyst Band、<a href="https://terraria.wiki.gg/wiki/Harpy_Charm" target="_blank" rel="noopener">Harpy Charm</a> → Phoenix Quiver / Seraph Necklace → <a href="index.html#p1">手引き 01</a>・<a href="index.html#p4">04</a></li>
+      <li><b>全員</b>: <a href="https://terraria.wiki.gg/wiki/Restoration_Shield" target="_blank" rel="noopener">Restoration Shield</a>(Cobalt Shield + Mana Regeneration Band)、<a href="https://terraria.wiki.gg/wiki/Alchemy_Flask" target="_blank" rel="noopener">Alchemy Flask</a>(Alchemy Table を Shimmer に。ポーション効果時間 +20%)、<a href="https://terraria.wiki.gg/wiki/Crossed_Heart_Necklace" target="_blank" rel="noopener">Crossed Heart Necklace</a>、<a href="https://terraria.wiki.gg/wiki/Mystic_Arts_Sash" target="_blank" rel="noopener">Mystic Arts Sash</a> → <a href="index.html#acc">アクセサリータブ</a></li>
+      <li><b>遠距離</b>: <a href="https://terraria.wiki.gg/wiki/Chaos_Cylinder" target="_blank" rel="noopener">Chaos Cylinder</a>(Hallowed Mimic)、<a href="https://terraria.wiki.gg/wiki/Barrel_Launcher" target="_blank" rel="noopener">Barrel Launcher</a>(海賊襲撃)、<a href="https://terraria.wiki.gg/wiki/Pyroclastic_Stone" target="_blank" rel="noopener">Pyroclastic Stone</a>(近接にも)</li>
+      <li><b>召喚</b>: Soulscourge、Ruinous Staff、<a href="https://terraria.wiki.gg/wiki/Heavy_Sling" target="_blank" rel="noopener">Heavy Sling</a>(Ice Mimic・セントリーを持ち運ぶ)、タグ系アクセ一式、Constellation / Possession → 4 章</li>
+      <li><b>魔法</b>: <a href="https://terraria.wiki.gg/wiki/Arc_Surge" target="_blank" rel="noopener">Arc Surge</a>(Martian Saucer)、Glacier Fang、宝石の杖の固有性能</li>
+      <li><b>マウント</b>: <a href="https://terraria.wiki.gg/wiki/Gelatinous_Pillion" target="_blank" rel="noopener">Gelatinous Pillion</a>(1.4.0・Queen Slime)に加えて、<a href="https://terraria.wiki.gg/wiki/Hexxed_Branch" target="_blank" rel="noopener">Hexxed Branch</a>(マスター限定・Mourning Wood)、Goat Skull(マスター限定・WoF)などマスター専用マウントが各ボスに</li>
+    </ul>
+    <div class="box"><b>病み村のワールドに付いている隠しシード</b>ワールド作成時に Pumpkin Season が自動で付いています。地上の草にかぼちゃが生え、Pumpkin armor がサボテン装備より上の性能になります。初日の防具はこれで足ります。</div>
+  </section>
+
+  <section id="c9">
+    <h2><span class="no">9</span>1.3 の知識で間違えやすい点</h2>
+    <ul>
+      <li>Enchanted Sword Shrine から <b>Arkhalis は出ない</b>(Terragrim になった)</li>
+      <li><b>Reaver Shark で Hellstone は掘れない</b>。地底は Nightmare Pickaxe 以上で</li>
+      <li>Terra Blade に <b>Broken Hero Sword が 1 本</b>要る。True 剣には要らない</li>
+      <li>Celestial Shell と Celestial Stone は<b>重複しない</b></li>
+      <li>Soaring Insignia は<b>翼とセット</b>で無限飛行。単体では飛べない</li>
+      <li>Bone Glove は武器ではなく<b>アクセサリー</b></li>
+      <li>Mana Crystal は<b>召喚職には不要</b>(1.4.5 でマナ消費が廃止)</li>
+      <li>Spider armor / Spider Staff は <b>Mythril Anvil</b> が要る(1.4.5)</li>
+      <li>遠くへの移動は Teleporter の配線より<b>先に Pylon</b>。幸福度の条件はもうない</li>
+      <li>Crimson 限定の Flesh Knuckles は、堕落 Mimic の Putrid Scent を <b>Shimmer</b> に投げれば手に入る(1.4.5)。堕落ワールドでも諦めなくてよい</li>
+      <li>魔法は<b>マナ切れでも撃てる</b>(1.4.5.7)。止まれば回復は 2 倍</li>
+      <li>足場やコンベアの上に<b>ブロック由来の敵は湧かない</b>(1.4.5.7)</li>
+    </ul>
+  </section>
+
+  <p class="foot">出典: <a href="https://terraria.wiki.gg/wiki/Journey%27s_End">Journey's End(1.4.0.1)</a> / <a href="https://terraria.wiki.gg/wiki/1.4.1">1.4.1</a> / <a href="https://terraria.wiki.gg/wiki/1.4.3">1.4.3</a> / <a href="https://terraria.wiki.gg/wiki/1.4.4">1.4.4</a> / <a href="https://terraria.wiki.gg/wiki/1.4.5">1.4.5</a> / <a href="https://terraria.wiki.gg/wiki/1.4.5.7">1.4.5.7</a>(いずれも公式 wiki の更新履歴)、各アイテムの History 欄、<a href="https://www.youtube.com/@Taa_Terraria/videos">Taa テラリア解説ch</a>(1.4.5.7 の仕様変更の解説)。確認日 2026-10-17</p>
+</div>
+
+</body>
+</html>

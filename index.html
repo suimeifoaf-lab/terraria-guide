@@ -126,7 +126,7 @@ td:first-child{font-weight:700;white-space:nowrap}
   <header class="top">
     <h1>テラリア3人旅の手引き</h1>
     <p class="sub">マスター / 3人 / クラシック / 堕落(Corruption) / ラージ ・ Terraria 1.4.5.8 準拠</p>
-    <p class="lead">フェーズごとに「これがあると一気に楽になるもの」と「建築はここを目指す」をまとめました。役割分担は決めず、3人とも何でもできる前提で、カードは武器の系統別です。<b>アイテム名をクリックすると、画像つきの日本語wikiのページが開きます</b>(新要素は公式wiki)。全部そろえる必要はなく、各カードの「本命」1〜2個が優先です。釣りとアクセサリーは右端の専用タブに。初めての人は先に <a href="beginner.html">はじめてのテラリア</a> を。</p>
+    <p class="lead">フェーズごとに「これがあると一気に楽になるもの」と「建築はここを目指す」をまとめました。役割分担は決めず、3人とも何でもできる前提で、カードは武器の系統別です。<b>アイテム名をクリックすると、画像つきの日本語wikiのページが開きます</b>(新要素は公式wiki)。全部そろえる必要はなく、各カードの「本命」1〜2個が優先です。釣りとアクセサリーは右端の専用タブに。初めての人は先に <a href="beginner.html">はじめてのテラリア</a> を。昔(1.3 まで)遊んだことがある人は <a href="changes.html">1.4 以降で変わったテラリア</a> を。</p>
     <div class="legend">
       <span><i style="--c:var(--all)"></i>全員</span>
       <span><i style="--c:var(--tank)"></i>近接</span>
@@ -155,7 +155,7 @@ td:first-child{font-weight:700;white-space:nowrap}
 <script>
 const ROLES={all:"全員",tank:"近接",ranged:"遠距離",summon:"召喚",magic:"魔法",pet:"相棒(ミニオン・乗り物)"};
 const JP="https://terraria.arcenserv.info/wiki/", EN="https://terraria.wiki.gg/wiki/";
-/* pick: {nm, w(wiki page name; default = first token of nm), why, tip, src, star, nw} */
+/* pick: {nm, w(wiki page name; default = first token of nm), j(日本語wikiだけ別名のとき), why, tip, src, star, nw} */
 const PHASES=[
 {short:"序盤",title:"序盤(開始 〜 HP200)",goal:"まず「死なない足回り」と帰還手段。地下小屋の宝箱と 1.4.5 の相棒を拾うだけで、マスターの序盤が別ゲーになります。",
  flow:"やること: 拠点 → 地下探索 → 雪原・砂漠 → 空島(Starfury)",
@@ -168,7 +168,7 @@ const PHASES=[
   {nm:"Dead Man's Sweater",nw:1,why:"1.4.5で防御4・罠ダメージ半減に強化された胴防具。鉄防具を作る前に拾えれば、序盤の胴はこれで十分。",tip:"Dead Man's Chest は開けた瞬間に上からボルダーが落ちる。先に天井を3マス掘ってから開ける。",src:"Dead Man's Chest(ラージに20〜40個)。1/3 の確率"},
  ],
  tank:[
-  {nm:"Gold / Platinum 防具 + Starfury",w:"Platinum_armor",why:"この段階は防御が正義。マスターは防御が100%反映されるので、防御20(Platinum一式)なら敵の攻撃を20も減らせる。EoCまではこれで戦える。",tip:"金と白金はワールドでどちらか一方しか出ない。鉱石が足りなければ Extractinator(地下砂漠)にSiltを入れる。",src:"地下の金・白金鉱石"},
+  {nm:"Gold / Platinum 防具 + Starfury",w:"Platinum_armor",j:"Platinum_Armor",why:"この段階は防御が正義。マスターは防御が100%反映されるので、防御20(Platinum一式)なら敵の攻撃を20も減らせる。EoCまではこれで戦える。",tip:"金と白金はワールドでどちらか一方しか出ない。鉱石が足りなければ Extractinator(地下砂漠)にSiltを入れる。",src:"地下の金・白金鉱石"},
   {nm:"Enchanted Sword",why:"振ると剣型のビームが飛ぶ。序盤では破格の射程と威力で、出れば近接役の悩みがひとつ消える。",tip:"地表に背景として刺さっている剣(Enchanted Sword Shrine)を壊すと出る。偽物(Terragrim)のこともある。",src:"地表の剣の祠。地下の Gold Chest からも低確率"},
   {nm:"Spear / Storm Spear",w:"Storm_Spear",why:"槍は貫通するのでゾンビの列やSlime Rainに強い。Storm Spearは1.4.5で射程が1.6倍になり、突くたびに雷が落ちる。",tip:"ショートソードはノックバック耐性+20%のマスターでは役に立たない。初日から槍か弓へ。",src:"Spear は鉄床で作成。Storm Spear は地下砂漠の Sandstone Chest"},
  ],
@@ -217,7 +217,7 @@ const PHASES=[
   {nm:"Restoration Shield",nw:1,why:"ノックバック無効 + 毎秒1回復 + マナ上限40 + マナ回復。1.4.5.7の新規で、wiki は「非魔法職でも Obsidian Shield より上になりうる」と評価。Obsidian Shield を作らない人の盾はこれでよい。",src:"Cobalt Shield(Dungeon)+ Mana Regeneration Band(Band of Regeneration + Band of Starpower)"},
  ],
  tank:[
-  {nm:"Shadow armor",star:1,why:"近接速度+15%の前半近接防具。Molten armor が作れるまでの主防具で、Nightmare Pickaxe と同じ素材で作れる。",src:"Demonite Bar + Shadow Scale(Eater of Worlds)"},
+  {nm:"Shadow armor",w:"Shadow_armor",j:"Shadow_Armor",star:1,why:"近接速度+15%の前半近接防具。Molten armor が作れるまでの主防具で、Nightmare Pickaxe と同じ素材で作れる。",src:"Demonite Bar + Shadow Scale(Eater of Worlds)"},
   {nm:"Ball O' Hurt → Hive-Five",w:"Ball_O%27_Hurt",why:"フレイルは射程が長く地形越しに振れる。Hive-Five は Queen Bee のヨーヨーで、当てると蜂が出る。どちらも「近接なのに近づかなくていい」のがマスター向け。",src:"Shadow Orb / Queen Bee"},
   {nm:"Blade of Grass",why:"毒が入る広い剣。Night's Edge の素材なので、どのみち作る。",src:"Jungle Spores 12 + Stinger 12"},
   {nm:"Obsidian Shield",why:"ノックバック無効。被弾で吹き飛ばされて溶岩や敵の群れに落ちる事故が消える。Ankh Shield の土台。",src:"Obsidian Skull(Obsidian 20)+ Cobalt Shield(Dungeon の鍵つき宝箱)"},
@@ -226,7 +226,7 @@ const PHASES=[
  ranged:[
   {nm:"Minishark",star:1,why:"35Gで買える連射銃。弾代はかかるが、EoW・Skeletron・Queen Bee のどれにも通る安定火力。Megashark の素材でもある。",tip:"Silver / Tungsten Bullet にするだけで威力が上がる。Meteor Shot(隕石)は貫通して跳ね返る。",src:"Arms Dealer(Shadow Orb 1個目で来る)"},
   {nm:"The Bee's Knees",star:1,why:"木の矢を撃つと蜂に変わり、敵を追尾する。WoF 前の弓では最強格で、弾代が木だけで済む。",src:"Queen Bee(1/3)"},
-  {nm:"Jester's Arrows",why:"貫通して複数体に当たる矢。Eater of Worlds の長い胴体に沿って撃つと一瞬で削れる。Poison Barb と合わせると毒も乗る。",src:"Wooden Arrow 50 + Fallen Star 1"},
+  {nm:"Jester's Arrows",w:"Jester's_Arrow",why:"貫通して複数体に当たる矢。Eater of Worlds の長い胴体に沿って撃つと一瞬で削れる。Poison Barb と合わせると毒も乗る。",src:"Wooden Arrow 50 + Fallen Star 1"},
   {nm:"Necro armor",why:"遠距離の防具はこれで WoF まで。弾の消費を2割減らす。",src:"Bone 150 + Cobweb 135(Dungeon)"},
   {nm:"Sweet Barb",nw:1,why:"Poison Barb に Honey Comb の効果(被弾で蜂と Honey 回復)と、矢の命中で追尾蜂が出る効果が乗る。",src:"Poison Barb + Honey Comb"},
  ],
@@ -379,7 +379,7 @@ const PHASES=[
  flow:"順番: Destroyer → Twins → Skeletron Prime → Life Fruit / Chlorophyte → Plantera",
  picks:{
  all:[
-  {nm:"Hallowed armor",star:1,why:"セット効果 Holy Protection: 一定時間ごとに被弾を1回無効化。3人全員が着ると事故が激減する。クラスごとの頭で性能が変わる。",src:"Hallowed Bar(メカ3体のドロップ)"},
+  {nm:"Hallowed armor",w:"Hallowed_armor",j:"Hallowed_Armor",star:1,why:"セット効果 Holy Protection: 一定時間ごとに被弾を1回無効化。3人全員が着ると事故が激減する。クラスごとの頭で性能が変わる。",src:"Hallowed Bar(メカ3体のドロップ)"},
   {nm:"Life Fruit ×20 → HP500",w:"Life_Fruit",star:1,why:"HP が 25% 増える。1個だけ Shimmer に投げると Aegis Fruit(防御+4 の永続強化)になる。",tip:"メカを1体倒すと地下ジャングルに生え始める。Spelunker Potion で光る。",src:"メカ1体撃破後の地下ジャングル"},
   {nm:"Avenger Emblem",why:"全ダメージ+12%。各クラスの Emblem + 各 Soul 5。後の Destroyer Emblem / Celestial Emblem / Mechanical Glove の素材。",src:"WoF の Emblem + Soul of Might / Sight / Fright 各 5"},
   {nm:"Jetpack / Butterfly Wings 系",w:"Jetpack",why:"翼の2段階目。Jetpack は上昇が速く、Butterfly / Bee / Flame Wings は飛行時間が長い。",src:"Steampunker(メカ1体後)/ Butterfly Dust(Moth)・Tattered Bee Wing・Fire Feather"},
@@ -387,7 +387,7 @@ const PHASES=[
   {nm:"Lifeforce Potion",why:"最大 HP +20%。Prismite は聖域で釣る。Endurance・Ironskin・Regeneration と合わせてボス戦の4点セット。",src:"Prismite + Moonglow + Waterleaf + Shiverthorn"},
  ],
  tank:[
-  {nm:"Turtle armor",star:1,why:"防御65 + 受けたダメージを反射 + 敵の狙いを集める。Plantera と Golem を近接で戦うならこれ。Beetle armor の素材にもなる。",src:"Giant Tortoise(ジャングル)の Turtle Shell 3 + Chlorophyte Bar 54"},
+  {nm:"Turtle armor",w:"Turtle_armor",j:"Turtle_Armor",star:1,why:"防御65 + 受けたダメージを反射 + 敵の狙いを集める。Plantera と Golem を近接で戦うならこれ。Beetle armor の素材にもなる。",src:"Giant Tortoise(ジャングル)の Turtle Shell 3 + Chlorophyte Bar 54"},
   {nm:"True Night's Edge / True Excalibur",w:"True_Night%27s_Edge",star:1,why:"Terra Blade の2つの素材。どちらも Plantera に十分通る。Excalibur は Hallowed Bar 12。",src:"Night's Edge + Soul of Fright / Might / Sight 各 20 ／ Excalibur + Chlorophyte Bar 24"},
   {nm:"Death Sickle",why:"壁を抜ける鎌の弾。日食の Reaper が落とす。Plantera の部屋で地形を気にせず振れる。",src:"Solar Eclipse(メカ3体後)の Reaper(1/40)"},
   {nm:"Yelets",why:"ジャングル最強ヨーヨー。毒つきで、Plantera と相性がよい。",src:"メカ3体後の地下ジャングルの敵(1/400)"},
@@ -403,7 +403,7 @@ const PHASES=[
  summon:[
   {nm:"Optic Staff",star:1,why:"Twins のミニチュアを2体1組で呼ぶ。メカ後の召喚の軸で、Plantera まで主力。",src:"Soul of Sight 20 + Lens 2 + Black Lens 1 + Hallowed Bar 12"},
   {nm:"Durendal",star:1,why:"Hallowed Bar のムチ。振ると召喚速度が上がり、Firecracker や Cool Whip と組み合わせる。",src:"Hallowed Bar 12"},
-  {nm:"Hallowed armor(Hood)",w:"Hallowed_armor",why:"召喚ダメージ+ミニオン枠+Holy Protection。Spider armor から乗り換える。",src:"Hallowed Bar"},
+  {nm:"Hallowed armor(Hood)",w:"Hallowed_armor",j:"Hallowed_Armor",why:"召喚ダメージ+ミニオン枠+Holy Protection。Spider armor から乗り換える。",src:"Hallowed Bar"},
   {nm:"Queen Spider Staff",why:"置き型セントリー。Plantera の部屋に2つ置くだけで削れる。",src:"Spider Fang 24"},
   {nm:"Summoner Emblem → Papyrus Scarab(後)",w:"Papyrus_Scarab",why:"召喚ダメージ +15%。Plantera 後に Hercules Beetle と Necromantic Scroll で Papyrus Scarab に。",src:"WoF / Witch Doctor + Mourning Wood"},
  ],
@@ -453,7 +453,7 @@ const PHASES=[
  ],
  ranged:[
   {nm:"Shroomite armor",star:1,why:"遠距離の本命防具。静止するとステルスになり大ダメージ(1.4.5.7 から撃っていても解けなくなり、上限は +50%)。頭を弾種(矢・弾・ロケット)で選ぶ。",src:"Autohammer(Truffle、Plantera 後)で Chlorophyte Bar + Glowing Mushroom"},
-  {nm:"Chlorophyte Bullets",star:1,why:"追尾弾。狙わなくても当たるので、Megashark や Uzi がそのまま終盤武器になる。",src:"Chlorophyte Bar 1 + Musket Ball 70"},
+  {nm:"Chlorophyte Bullets",w:"Chlorophyte_Bullet",star:1,why:"追尾弾。狙わなくても当たるので、Megashark や Uzi がそのまま終盤武器になる。",src:"Chlorophyte Bar 1 + Musket Ball 70"},
   {nm:"Xenopopper / Tsunami / Aerial Bane",w:"Xenopopper",why:"火星人・Fishron・Betsy の遠距離3強。どれか1つあれば Moon Lord まで持つ。",src:"Martian Saucer / Duke Fishron / Old One's Army Tier3"},
   {nm:"Sniper Rifle / Tactical Shotgun",w:"Sniper_Rifle",why:"Plantera 後の Dungeon 産。Sniper は Golem の頭を安全に狙える。",src:"Dungeon の Skeleton Sniper / Tactical Skeleton"},
   {nm:"Piranha Gun / Venus Magnum",w:"Piranha_Gun",why:"Jungle Chest の張りつき銃と Plantera の拳銃。弾を消費しない Piranha Gun は雑魚処理に。",src:"Jungle Key / Plantera"},
@@ -461,7 +461,7 @@ const PHASES=[
  summon:[
   {nm:"Xeno Staff",star:1,why:"UFO のミニオン。壁を無視して追尾し、Moon Lord 直前まで主力。",src:"Martian Saucer(1/6)"},
   {nm:"Kaleidoscope",star:1,why:"最強のムチ。タグダメージが大きく、Terraprisma と組むと召喚の完成形。",src:"Empress of Light(1/4)"},
-  {nm:"Tiki armor / Spooky armor",w:"Tiki_armor",why:"Tiki は Witch Doctor から買える手堅い防具(ミニオン +4)、Spooky は攻め寄り。",src:"Witch Doctor(Pygmy Staff 所持で解禁)/ Pumpkin Moon の Spooky Wood"},
+  {nm:"Tiki armor / Spooky armor",w:"Tiki_armor",j:"Tiki_Armor",why:"Tiki は Witch Doctor から買える手堅い防具(ミニオン +4)、Spooky は攻め寄り。",src:"Witch Doctor(Pygmy Staff 所持で解禁)/ Pumpkin Moon の Spooky Wood"},
   {nm:"Deadly Sphere Staff / Raven Staff",w:"Deadly_Sphere_Staff",why:"日食と Pumpkin Moon のミニオン。Xeno までのつなぎ。",src:"Solar Eclipse の Deadly Sphere / Pumpkin Moon の Pumpking"},
   {nm:"Papyrus Scarab",why:"召喚ダメージ・ミニオン +1・ノックバック。召喚職の最終アクセ。",src:"Hercules Beetle(Witch Doctor)+ Necromantic Scroll(Mourning Wood)"},
   {nm:"Mobius Strip → Ouroboros Ring",w:"Mobius_Strip",nw:1,why:"Golem が落とすムチ用アクセ。タグ上限 +1 とムチの射程 +10%。Snake Band と合成すると Ouroboros Ring になり、腕輪2つ分が1枠にまとまる。",src:"Golem(1/6)/ + Snake Band を Tinkerer's Workshop で"},
@@ -524,13 +524,13 @@ const PHASES=[
   {nm:"Constellation / Possession(撃破後)",w:"Constellation",nw:1,why:"1.4.5 の新ムチ。Constellation は Stardust のかけらで作れる。",src:"Stardust Fragment 18 / Moon Lord(20%)"},
  ],
  magic:[
-  {nm:"Nebula armor + Nebula Blaze / Nebula Arcanum",w:"Nebula_armor",star:1,why:"Nebula のバフ(ダメージ・回復・マナ)は味方にも効く。Arcanum は雑魚、Blaze は単体。",src:"Nebula Fragment + Luminite Bar / Nebula Fragment 18"},
+  {nm:"Nebula armor + Nebula Blaze / Nebula Arcanum",w:"Nebula_armor",j:"Nebula_Armor",star:1,why:"Nebula のバフ(ダメージ・回復・マナ)は味方にも効く。Arcanum は雑魚、Blaze は単体。",src:"Nebula Fragment + Luminite Bar / Nebula Fragment 18"},
   {nm:"Razorblade Typhoon / Betsy's Wrath",w:"Razorblade_Typhoon",why:"Fishron と Betsy を倒せていれば Nebula 前から Moon Lord に通る。",src:"Duke Fishron / Old One's Army Tier3"},
   {nm:"Last Prism / Lunar Flare(撃破後)",w:"Last_Prism",why:"周回用の最終魔法。",src:"Moon Lord"},
  ],
  pet:[
   {nm:"Cosmic Car Key",star:1,why:"Moon Lord 戦の移動は UFO か Minecart。翼だけだと息切れする。",src:"Martian Saucer"},
-  {nm:"Stardust Dragon / Guardian",w:"Stardust_Guardian",why:"召喚職の竜は Moon Lord の True Eye を勝手に追う。",src:"Stardust 柱"},
+  {nm:"Stardust Dragon / Guardian",w:"Stardust_Dragon_Staff",why:"召喚職の竜は Moon Lord の True Eye を勝手に追う。",src:"Stardust 柱"},
   {nm:"Celestial Starboard(撃破後)",w:"Celestial_Starboard",why:"翼とマウントの最終回答。",src:"Moon Lord の Treasure Bag"},
  ]},
  builds:[
@@ -570,7 +570,7 @@ const EXTRA=[
 <tr><td><a href="${JP}Fish_Finder">Fisherman's Pocket Guide / Weather Radio / Sextant</a></td><td>合成で Fish Finder → PDA → <b>Cell Phone</b></td><td>すでに持っている部品はインベントリか Piggy Bank に入れておくと重複を避けられる</td></tr>
 <tr><td><a href="${JP}Fin_Wings">Fin Wings</a></td><td>ハードモードで最初に手に入る翼の候補</td><td>ハードモードのクエスト報酬</td></tr>
 <tr><td><a href="${JP}Golden_Bug_Net">Golden Bug Net</a></td><td>餌集めが速くなる</td><td>Truffle Worm 捕獲にも</td></tr>
-<tr><td><a href="${JP}Angler_armor">Angler 装備一式</a></td><td>釣り力 +15</td><td>釣り役が着る</td></tr>
+<tr><td><a href="${JP}Angler_Armor">Angler 装備一式</a></td><td>釣り力 +15</td><td>釣り役が着る</td></tr>
 <tr><td><a href="${JP}Fishing_Bobber">Fishing Bobber 系</a></td><td>釣り力 +10 のアクセサリー</td><td>釣り役の枠に</td></tr>
 </table></div>
 
@@ -718,7 +718,7 @@ function pageName(it){
 function linkFor(it){
   const name=pageName(it);
   if(name.startsWith("Guide:"))return {jp:null,en:EN+name};
-  return {jp:it.nw?null:JP+name,en:EN+name};
+  return {jp:it.nw?null:JP+(it.j||name),en:EN+name};
 }
 
 const tabs=document.getElementById("tabs"),main=document.getElementById("phases");
