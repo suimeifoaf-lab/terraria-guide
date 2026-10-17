@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>集めるべきアクセサリーとミニオン</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one long read with a sticky chip nav; each section is a card with short paragraphs, key tables and a "これだけは" box. */
+:root{
+  --bg:#f1f0ec; --panel:#ffffff; --panel-2:#f6f5f1; --ink:#22251f; --ink-2:#5f655a; --line:#dcdad2;
+  --accent:#2f7a4f; --accent-ink:#ffffff; --accent-soft:#e2f0e6;
+  --key-bg:#eeede8; --key-ink:#2a2d26; --key-line:#c9c7bd;
+  --warn-bg:#fff3d6; --warn-ink:#6b4700; --warn-line:#e7c678;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+    --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+    --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+    --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+  --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+  --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+  --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.75;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.65rem;line-height:1.3}
+.sub{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+a{color:var(--accent)}
+.top{padding-block:18px 10px}
+.lead{color:var(--ink-2);margin:10px 0 0;font-size:.95rem}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:.84rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chips a:hover{color:var(--accent);border-color:var(--accent)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:16px;scroll-margin-top:64px}
+section h2{font-size:1.2rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+section h2 .no{font-size:.8rem;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+section h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}
+ul,ol{margin:4px 0 8px;padding-left:1.3em}
+li{margin:3px 0}
+kbd{font-family:inherit;font-size:.82em;background:var(--key-bg);color:var(--key-ink);border:1px solid var(--key-line);border-bottom-width:2px;border-radius:4px;padding:0 6px;white-space:nowrap}
+.tbl{overflow-x:auto;margin:8px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:480px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+.box{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:4px;padding:10px 14px;margin:12px 0 4px;font-size:.92rem}
+.box b{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:6px;padding:10px 14px;margin:10px 0 4px;font-size:.9rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px 16px}
+.cols>div{min-width:0}
+dl{margin:4px 0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:.92rem}
+dt{font-weight:700}
+dd{margin:0}
+@media (max-width:480px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.steps{display:grid;gap:8px;margin:6px 0 10px}
+.step{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.st-h{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.st-n{font-size:.78rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 7px;white-space:nowrap}
+.step dl{font-size:.9rem;grid-template-columns:max-content 1fr}
+.step dt{color:var(--ink-2);font-weight:700}
+@media (max-width:480px){.step dl{grid-template-columns:1fr}}
+.foot{margin-top:22px;font-size:.8rem;color:var(--ink-2)}
+.ver{display:inline-block;font-size:.72rem;border:1px solid var(--key-line);background:var(--key-bg);color:var(--key-ink);border-radius:4px;padding:0 5px;white-space:nowrap;vertical-align:middle;margin-right:4px}
+td .ver{margin:0}
+.tbl td:first-child{white-space:normal;min-width:9em}
+.star{display:inline-block;font-size:.72rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:middle}
+.src{color:var(--ink-2);font-size:.85rem}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>集めるべきアクセサリーとミニオン</h1>
+    <p class="sub">クラスを問わず「持っていると楽になる」もの ・ マスター / 3人 / 堕落 / Terraria 1.4.5.8</p>
+    <p class="lead">マスターはアクセ枠が 6、Demon Heart で 7。枠の価値が高いので「誰が持っても強いもの」から集め、残りをその日のクラスで差し替えるのが3人旅の形です。このページは wiki の各アイテムページと <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups" target="_blank" rel="noopener">Guide:Class setups</a>、<a href="https://terraria.wiki.gg/wiki/Modifiers" target="_blank" rel="noopener">Modifiers</a> を一次情報に、英語・日本語の攻略記事(2026 年)を照らし合わせています。合成の系統図は「<a href="index.html#acc">手引きのアクセサリータブ</a>」、クラス別の順路は「<a href="mage.html">魔法職</a>」「<a href="summoner.html">召喚職</a>」へ。<b>アイテム名をクリックすると wiki が開きます</b>。</p>
+  </header>
+
+  <nav class="chips" aria-label="目次">
+    <a href="#a0">前提</a><a href="#a1">移動</a><a href="#a2">生存</a><a href="#a3">便利</a><a href="#a4">クラス別</a><a href="#a5">永続強化</a><a href="#a6">相棒・乗り物</a><a href="#a7">リフォージ</a><a href="#a8">7枠の例</a><a href="#a9">未確認</a>
+  </nav>
+
+  <section id="a0">
+    <h2><span class="no">0</span>前提: マスターと3人で変わること</h2>
+    <ul>
+      <li><b>Treasure Bag は攻撃した全員に1つずつ</b>出る。Shield of Cthulhu・Worm Scarf・Demon Heart・Soaring Insignia など Bag 確定品は、取り合いにならず3人分そろう</li>
+      <li>Demon Heart は<b>1人1回</b>、自分の Bag から取る。クラシックのワールドに持ち込むと 6・7 枠目は無効</li>
+      <li>マスターのボスは <b>Relic(置物)確定</b>、<b>ペット・光ペット・マウントの召喚アイテムを 25%</b>(攻撃した各人が別々に抽選)。Eye of Cthulhu は 0x33's Aviators 確定</li>
+      <li>防御がダメージを 100% 減らす。だから<b>防御系アクセとリフォージの Warding</b> の価値が Expert より高い</li>
+      <li>同じアクセは2個付けられず、<b>素材違いの同系統も片方しか効かない</b>(Charm of Myths と Catalyst Band、Star Veil と Cross Necklace、Celestial Shell と Celestial Stone など)。例外は明記する</li>
+    </ul>
+  </section>
+
+  <section id="a1">
+    <h2><span class="no">1</span>移動系: まずこれで「当たらない」</h2>
+    <div class="tbl"><table>
+      <tr><th>アイテム</th><th>効果</th><th>入手</th><th>いつ・一言</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Shield_of_Cthulhu" target="_blank" rel="noopener">Shield of Cthulhu</a><span class="star">全員</span></td><td>方向2度押しでダッシュ(体当たり 30・被弾後 0.07 秒無敵)、防御 +2。ノックバック無効は<b>ない</b></td><td>Eye of Cthulhu の Bag(確定)</td><td>最初のボスから Master Ninja Gear まで外さない。MNG を下の枠に置くとそちらのダッシュが優先</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Amphibian_Boots" target="_blank" rel="noopener">Amphibian Boots</a><span class="star">全員</span></td><td>最高速 22.5 マス/秒・ジャンプ速度 +1.6・オートジャンプ・落下耐性 +10 マス</td><td>Sailfish Boots(釣りの木箱)+ Frog Leg(ジャングルの釣り)</td><td>wiki は<b>ボス戦とイベントでは Terraspark より上</b>と明記。釣り役が早めに</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Terraspark_Boots" target="_blank" rel="noopener">Terraspark Boots</a></td><td>35mph・溶岩 7 秒無効・水/蜂蜜/溶岩を歩く・氷で滑らない</td><td>Frostspark Boots + Lava Waders(素材の多くは木箱と宝箱)</td><td>探索用。ボス戦は Amphibian に履き替える(ロードアウト)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Bundle_of_Horseshoe_Balloons" target="_blank" rel="noopener">Bundle of Horseshoe Balloons</a></td><td>3 段ジャンプ・落下無効・運 +0.05</td><td>Bundle of Balloons(各 Bottle + Shiny Red Balloon)+ Lucky Horseshoe</td><td>wiki「Golem 後までは翼の代替になる」。翼が人数分ない時期の主役</td></tr>
+      <tr><td>翼</td><td>飛行時間の目安: Fledgling(0.67 秒)→ Leaf / Harpy / Frozen 系(2.2〜2.7 秒)→ Bat / Bee / Butterfly / Flame(2.67)→ Mothron(2.83)→ Steampunk / Fishron / 柱の翼(3.0)→ <a href="https://terraria.arcenserv.info/wiki/Celestial_Starboard" target="_blank" rel="noopener">Celestial Starboard</a>(Moon Lord の Bag。ホバー 82mph)</td><td>Soul of Flight 20 + 各素材</td><td>翼は1枠に1つ。順路は手引きの「アクセサリー」タブ</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Soaring_Insignia" target="_blank" rel="noopener">Soaring Insignia</a><span class="star">全員</span></td><td>翼・Rocket Boots と併用で<b>飛行時間が無限</b>、加速 +75%、移動 +7.5%。乗り物中は無効(Velociraptor だけ例外)</td><td>Empress of Light の Bag(確定)</td><td>3人分出る。これ以降の回避の質が変わる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Master_Ninja_Gear" target="_blank" rel="noopener">Master Ninja Gear</a></td><td>壁張りつき・長いダッシュ(体当たりなし)・<b>回避 10%</b></td><td>Tiger Climbing Gear + Black Belt + Tabi(Plantera 後 Dungeon の Bone Lee)</td><td>Shield of Cthulhu の卒業先。Mystic Arts Sash の回避とは別判定で重なる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Magiluminescence" target="_blank" rel="noopener">Magiluminescence</a></td><td>地上の移動 +15%・加減速 +75%・光源</td><td>Demonite Bar 12 + Topaz 5(鉄床)</td><td>ハードモード前の移動枠。Hermes 系と重なる</td></tr>
+    </table></div>
+  </section>
+
+  <section id="a2">
+    <h2><span class="no">2</span>生存系: マスターの「死なない」枠</h2>
+    <div class="tbl"><table>
+      <tr><th>アイテム</th><th>効果</th><th>入手</th><th>いつ・一言</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Worm_Scarf" target="_blank" rel="noopener">Worm Scarf</a><span class="star">全員</span></td><td>被ダメージ −17%(防御計算の後に掛け算)</td><td>Eater of Worlds の Bag(確定)</td><td>堕落ワールドの特権。Moon Lord まで外す理由がない。Crimson の Brain of Confusion は病み村では出ない</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Charm_of_Myths" target="_blank" rel="noopener">Charm of Myths</a></td><td>HP +1/秒、回復薬のクールダウン −25%(60 → 45 秒)</td><td>Band of Regeneration + Philosopher's Stone(Mimic)</td><td>ハードモード序盤。Catalyst Band とは重複しない(どちらか)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Star_Veil" target="_blank" rel="noopener">Star Veil</a> / <a href="https://terraria.wiki.gg/wiki/Crossed_Heart_Necklace" target="_blank" rel="noopener">Crossed Heart Necklace</a><span class="ver">1.4.5.7</span></td><td>被弾後の無敵 0.67 → 1.33 秒。Star Veil は星が落ち、Crossed Heart は被弾時に移動 +100%(8 秒)</td><td>Star Cloak + Cross Necklace(どちらも Mimic)/ Panic Necklace + Cross Necklace</td><td>どちらか1つ(Cross Necklace 系は重複しない)。弓使いは Seraph Necklace(Harpy Charm + Cross Necklace)という第3の選択肢</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Restoration_Shield" target="_blank" rel="noopener">Restoration Shield</a><span class="ver">1.4.5.7</span><span class="star">全員</span></td><td>HP +1/秒・マナ +40・マナ回復・防御 +1・ノックバック無効</td><td>Mana Regeneration Band(Band of Regeneration + Band of Starpower)+ Cobalt Shield(Dungeon)</td><td>Skeletron 後。wiki が「Obsidian Shield より上になりうる」と評価。盾の枠はこれで埋まる</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Mystic_Arts_Sash" target="_blank" rel="noopener">Mystic Arts Sash</a><span class="ver">1.4.5.7</span></td><td>HP +1/秒・マナ +40・マナ回復・<b>回避 10%</b></td><td>Mana Regeneration Band + Black Belt(Bone Lee)</td><td>Plantera 後。Master Ninja Gear と独立判定(両方で約 19%)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Ankh_Shield" target="_blank" rel="noopener">Ankh Shield</a><span class="star">全員</span></td><td>防御 +5(1.4.5.7 で +1)・ノックバック無効・12 種のデバフ無効</td><td>Obsidian Shield + Ankh Charm(素材 10 種)</td><td>デバフ 2.5 倍のマスターでは誰が持っても強い。素材のうち Shimmer で交換できると確認できたのは Vitamins ↔ Armor Polish。他の対は未確認</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Celestial_Shell" target="_blank" rel="noopener">Celestial Shell</a><span class="star">全員</span></td><td>常時 全ステータス強化、夜は人狼(ダメ +10%・防御 +4・HP +1/秒ほか)、水中は人魚</td><td>Celestial Stone(Sun Stone〈Golem〉+ Moon Stone〈日食 Vampire〉)+ Moon Shell(Moon Charm + Neptune's Shell)</td><td>Golem 後。Celestial / Sun / Moon Stone とは重複しない</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Paladin%27s_Shield" target="_blank" rel="noopener">Paladin's Shield</a> → <a href="https://terraria.arcenserv.info/wiki/Frozen_Shield" target="_blank" rel="noopener">Frozen Shield</a> / <a href="https://terraria.arcenserv.info/wiki/Hero_Shield" target="_blank" rel="noopener">Hero Shield</a><span class="star">3人の核</span></td><td>防御 +6・ノックバック無効・<b>50 マス内の味方の被ダメージ 25% を自分が肩代わり</b>。Frozen(+ Frozen Turtle Shell)は HP 50% 以下で −25%、Hero(+ Flesh Knuckles)は防御 10 と敵の狙いを集める</td><td>Plantera 後 Dungeon の Paladin(10%)/ Ice Tortoise(2%)</td><td>wiki: 全員が Paladin's 系を着けると互いに肩代わりし合わず「全員が実質 −25%」になる。<b>3人分そろえる価値がある</b></td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Flesh_Knuckles" target="_blank" rel="noopener">Flesh Knuckles</a> / <a href="https://terraria.arcenserv.info/wiki/Berserker%27s_Glove" target="_blank" rel="noopener">Berserker's Glove</a></td><td>防御 +8・敵の狙いを集める(+400)。Berserker's は近接・ムチのオートスイングと速度 +12% も</td><td>Corrupt Mimic の Putrid Scent を <b>Shimmer</b>(1.4.5)/ + Power Glove</td><td>その戦いで一番防御の高い人が付ける。wiki も「マルチの盾役はこれ」と明記</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Catalyst_Band" target="_blank" rel="noopener">Catalyst Band</a><span class="ver">1.4.5.7</span></td><td>回復薬のクールダウン −25%・矢に毒・自分の攻撃で付けた毒/炎上/出血のダメージ 2 倍(5 秒)</td><td>Poison Barb(地表の宝箱 1/11)+ Philosopher's Stone</td><td>Charm of Myths の代わりに持つ火力寄りの回復枠。Destroyer・Cultist・柱の多くはデバフ免疫</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Sweet_Barb" target="_blank" rel="noopener">Sweet Barb</a><span class="ver">1.4.5.7</span> / <a href="https://terraria.arcenserv.info/wiki/Stinger_Necklace" target="_blank" rel="noopener">Stinger Necklace</a></td><td>被弾で蜂 1〜3 と Honey 5 秒。Sweet Barb は矢に毒と追尾蜂、Stinger は防御貫通 5</td><td>Poison Barb + Honey Comb / Shark Tooth Necklace + Honey Comb</td><td>ハードモード前の防御枠。Honey Comb 系は効果が重ならないので1つでよい</td></tr>
+    </table></div>
+  </section>
+
+  <section id="a3">
+    <h2><span class="no">3</span>便利系: 枠を使わないもの・放置が楽になるもの</h2>
+    <div class="tbl"><table>
+      <tr><th>アイテム</th><th>効果</th><th>入手</th><th>一言</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Cell_Phone" target="_blank" rel="noopener">Cell Phone</a> / <a href="https://terraria.arcenserv.info/wiki/Shellphone" target="_blank" rel="noopener">Shellphone</a><span class="star">1人分</span></td><td>全情報表示 + 帰還(Shellphone は帰還先をスポーン / 海 / 地底 / ベッドで切替)。<b>アクセ枠に入れなくてもインベントリで効く</b></td><td>PDA + Magic Mirror / + Magic Conch + Demon Conch</td><td>wiki: PDA とその構成品の情報は<b>同じチームの 50 マス以内の仲間に共有</b>される。1人が持てば3人に効く。Shellphone 単体の共有記述は未確認</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Treasure_Magnet" target="_blank" rel="noopener">Treasure Magnet</a> → <a href="https://terraria.arcenserv.info/wiki/Hand_Of_Creation" target="_blank" rel="noopener">Hand of Creation</a></td><td>拾う範囲 2.6 → 12 マス(ハート・マナ星も)。Hand of Creation は建築の全部入り</td><td>地底の Shadow Chest(1/5)/ + Architect Gizmo Pack + Ancient Chisel + Step Stool</td><td>建築の日のロードアウトに</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Lucky_Coin" target="_blank" rel="noopener">Lucky Coin</a> / <a href="https://terraria.arcenserv.info/wiki/Coin_Ring" target="_blank" rel="noopener">Coin Ring</a></td><td>敵を叩くと 20% で追加のコイン、運 +0.05</td><td>Flying Dutchman(1/15)/ Pirate Captain(1/500)</td><td>金策。Greedy Ring(+ Discount Card)で値引き 20% も</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Stress_Ball" target="_blank" rel="noopener">Stress Ball</a><span class="ver">1.4.5</span></td><td>立ち止まっていると手持ちのアイテムを自動で使い続ける(1.4.5.7 からウィンドウが非アクティブでも)</td><td>大理石の Hoplite(1%)</td><td>放置釣り・放置採掘・ミニオンの置き直しに。竿とバケツには効かない</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Volatile_Gelatin" target="_blank" rel="noopener">Volatile Gelatin</a> / <a href="https://terraria.arcenserv.info/wiki/Spore_Sac" target="_blank" rel="noopener">Spore Sac</a></td><td>勝手に敵を攻撃する(0.67 秒ごとに 65 / 胞子の雲)</td><td>Queen Slime の Bag / Plantera の Bag</td><td>wiki は「釣り・採掘中向け。戦闘では他に劣る」。枠が余る時期だけ</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Bone_Glove" target="_blank" rel="noopener">Bone Glove</a> / <a href="https://terraria.arcenserv.info/wiki/Royal_Gel" target="_blank" rel="noopener">Royal Gel</a> / <a href="https://terraria.arcenserv.info/wiki/Hive_Pack" target="_blank" rel="noopener">Hive Pack</a></td><td>武器を使うと骨が飛ぶ(25・防御貫通 25)/ スライムが無害に / 蜂の 50% が Giant Bee</td><td>Skeletron / King Slime / Queen Bee の Bag</td><td>序盤の空き枠。Royal Gel は Slime Rain と King Slime 戦が消える</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Ram_Rune" target="_blank" rel="noopener">Ram Rune</a><span class="ver">1.4.5</span></td><td>急降下攻撃(30、強化で 60)</td><td>Dungeon の鍵つき Gold Chest(1/8。最初の1個は確定)</td><td>Dead Cells コラボ。移動の遊び枠</td></tr>
+    </table></div>
+  </section>
+
+  <section id="a4">
+    <h2><span class="no">4</span>クラス別の「火力枠」の系統</h2>
+    <p>その日のクラスで差し替える枠。合成の系統図は<a href="index.html#acc">手引きのアクセサリータブ</a>に。</p>
+    <ul>
+      <li><b>全クラス共通</b>: <a href="https://terraria.arcenserv.info/wiki/Avenger_Emblem" target="_blank" rel="noopener">Avenger Emblem</a>(クラス Emblem + 各 Soul 5)→ <a href="https://terraria.arcenserv.info/wiki/Destroyer_Emblem" target="_blank" rel="noopener">Destroyer Emblem</a>(+ Eye of the Golem)。ただし<b>召喚職は Destroyer Emblem にしない</b>(ミニオンはクリティカルしないので Avenger のまま)</li>
+      <li><b>近接</b>: <a href="https://terraria.arcenserv.info/wiki/Feral_Claws" target="_blank" rel="noopener">Feral Claws</a> → <a href="https://terraria.arcenserv.info/wiki/Warrior_Emblem" target="_blank" rel="noopener">Warrior Emblem</a> / Berserker's Glove → <a href="https://terraria.arcenserv.info/wiki/Mechanical_Glove" target="_blank" rel="noopener">Mechanical Glove</a> → <a href="https://terraria.arcenserv.info/wiki/Fire_Gauntlet" target="_blank" rel="noopener">Fire Gauntlet</a>。ヨーヨーは Yoyo Bag → Magic Yoyo Bag(1.4.5)。<a href="https://terraria.wiki.gg/wiki/Pyroclastic_Stone" target="_blank" rel="noopener">Pyroclastic Stone</a>(Snapping Stone + Magma Stone)は近接・遠距離どちらにも</li>
+      <li><b>遠距離</b>: <a href="https://terraria.wiki.gg/wiki/Poison_Barb" target="_blank" rel="noopener">Poison Barb</a> / <a href="https://terraria.wiki.gg/wiki/Harpy_Charm" target="_blank" rel="noopener">Harpy Charm</a> / <a href="https://terraria.wiki.gg/wiki/Snapping_Stone" target="_blank" rel="noopener">Snapping Stone</a>(序盤)→ <a href="https://terraria.arcenserv.info/wiki/Ranger_Emblem" target="_blank" rel="noopener">Ranger Emblem</a> / <a href="https://terraria.arcenserv.info/wiki/Magic_Quiver" target="_blank" rel="noopener">Magic Quiver</a>(Skeleton Archer 2.5%)→ <a href="https://terraria.arcenserv.info/wiki/Molten_Quiver" target="_blank" rel="noopener">Molten Quiver</a>(+ Magma Stone)/ <a href="https://terraria.arcenserv.info/wiki/Stalker%27s_Quiver" target="_blank" rel="noopener">Stalker's Quiver</a>(+ Putrid Scent、狙われにくい)→ <a href="https://terraria.wiki.gg/wiki/Phoenix_Quiver" target="_blank" rel="noopener">Phoenix Quiver</a>(Harpy Charm + Molten Quiver)/ <a href="https://terraria.wiki.gg/wiki/Chaos_Cylinder" target="_blank" rel="noopener">Chaos Cylinder</a>(Hallowed Mimic 20%)。<a href="https://terraria.arcenserv.info/wiki/Recon_Scope" target="_blank" rel="noopener">Recon Scope</a> と <a href="https://terraria.arcenserv.info/wiki/Sniper_Scope" target="_blank" rel="noopener">Sniper Scope</a> は<b>重複して合計 +20% / +20%</b>。矢筒は2つ持っても矢のダメージ分しか重ならない</li>
+      <li><b>魔法</b>: Celestial Cuffs / Magnet Flower / Mana Regeneration Band → Restoration Shield → Sorcerer Emblem → Celestial Emblem / Mana Cloak / Mystic Arts Sash / Arcane Flower。詳しくは「<a href="mage.html">魔法職の強くなり方</a>」</li>
+      <li><b>召喚</b>: Pygmy Necklace / Feral Claws → Silver Bracer → Summoner Emblem / Twilight Grasp / Wicked Claws → Hercules Beetle + Necromantic Scroll → Papyrus Scarab / Ouroboros Ring。セントリーは Heavy Sling 系。詳しくは「<a href="summoner.html">召喚職の強くなり方</a>」</li>
+    </ul>
+  </section>
+
+  <section id="a5">
+    <h2><span class="no">5</span>永続強化: 1人1回で一生効くもの</h2>
+    <div class="tbl"><table>
+      <tr><th>アイテム</th><th>効果</th><th>入手</th></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Demon_Heart" target="_blank" rel="noopener">Demon Heart</a></td><td>アクセ枠 +1(7 枠目)</td><td>Wall of Flesh の Bag(確定)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Vital_Crystal" target="_blank" rel="noopener">Vital Crystal</a></td><td>自然回復の立ち上がり +20%</td><td>Life Crystal を Shimmer に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Arcane_Crystal" target="_blank" rel="noopener">Arcane Crystal</a></td><td>マナ回復に最大マナの 2% を加算</td><td>Mana Crystal を Shimmer に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Aegis_Fruit" target="_blank" rel="noopener">Aegis Fruit</a></td><td>防御 +4</td><td>Life Fruit を Shimmer に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Ambrosia" target="_blank" rel="noopener">Ambrosia</a></td><td>採掘・設置速度 +5%</td><td>果物を Shimmer に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Galaxy_Pearl" target="_blank" rel="noopener">Galaxy Pearl</a> / <a href="https://terraria.arcenserv.info/wiki/Gummy_Worm" target="_blank" rel="noopener">Gummy Worm</a></td><td>運 +0.03 / 釣り力 +3</td><td>Pink Pearl / Gold Worm を Shimmer に</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Torch_God%27s_Favor" target="_blank" rel="noopener">Torch God's Favor</a></td><td>松明が置いたバイオームに合わせて自動変化(運が下がらない)</td><td>Torch God イベント(地下で松明 101 本、95 本以上耐える)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Minecart_Upgrade_Kit" target="_blank" rel="noopener">Minecart Upgrade Kit</a></td><td>全トロッコが 102mph・レーザー・騎乗中の防御</td><td>メカ3体の Bag の部品 3 種(Mythril Anvil)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Artisan_Loaf" target="_blank" rel="noopener">Artisan Loaf</a></td><td>作業台に届く範囲 +4</td><td>Skeleton Merchant(新月前後、10 Gold)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Peddler%27s_Satchel" target="_blank" rel="noopener">Peddler's Satchel</a> / <a href="https://terraria.arcenserv.info/wiki/Advanced_Combat_Techniques" target="_blank" rel="noopener">Advanced Combat Techniques</a></td><td>Traveling Merchant の品数 +1 / 町の NPC が強くなる(どちらも<b>ワールドに1回</b>)</td><td>Peddler's Hat を Shimmer に / Blood Moon の釣り(低確率)</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Kinship_Peach" target="_blank" rel="noopener">Kinship Peach</a> / <a href="https://terraria.wiki.gg/wiki/Little_Kinship_Peach" target="_blank" rel="noopener">Little Kinship Peach</a><span class="ver">1.4.5</span></td><td>Foxparks・Cattiva / Chillet・Digtoise を Trusty 版に進化</td><td>Life Fruit(または果物)+ Soul of Light 12 + Soul of Night 12(Crystal Ball)</td></tr>
+    </table></div>
+  </section>
+
+  <section id="a6">
+    <h2><span class="no">6</span>クラスを問わず役立つ相棒・乗り物</h2>
+    <div class="tbl"><table>
+      <tr><th>名前</th><th>種類</th><th>効果</th><th>入手</th></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Foxparks" target="_blank" rel="noopener">Foxparks</a> → Trusty Foxparks<span class="ver">1.4.5</span><span class="star">全員</span></td><td>ミニオン(1 体だけ)</td><td>火球 20(Trusty 40・Hellfire)。長押しで火炎放射器としても使える</td><td>昼の地表(草原・雪原・ジャングル、中央 1/4 以外)で Goblin Archer 2 体に囲まれた Distressed Pal を助ける。持っていない方が出る(1.4.5.7)</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Cattiva" target="_blank" rel="noopener">Cattiva</a> → Trusty Cattiva<span class="ver">1.4.5</span></td><td>ミニオン(1 体だけ)</td><td>体当たり 11(Trusty 22)。<b>採掘・伐採を自動で手伝う</b></td><td>同上(出る比率は Cattiva 60% / Foxparks 40%)</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Chillet" target="_blank" rel="noopener">Chillet</a> / Chillet Ignis → Trusty<span class="ver">1.4.5</span><span class="star">全員</span></td><td>マウント</td><td>騎乗中<b>全クラスのダメージ +10%</b>、ダッシュ体当たり(32、Trusty 150)、33 → 46mph</td><td>Cavern 層の Huge Dragon Egg(ラージで最大 12 個、2 種は 50/50)</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Digtoise" target="_blank" rel="noopener">Digtoise</a> → Trusty<span class="ver">1.4.5</span></td><td>ペット(道具)</td><td>指示した方向へ幅 3 マスで掘り進む(採掘力 26%、Trusty は手持ち最強ツルハシ基準)</td><td>地下砂漠の Antlion Egg が 1/30 で置き換わる</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Gelatinous_Pillion" target="_blank" rel="noopener">Gelatinous Pillion</a></td><td>飛行マウント</td><td>翼がない時期の空中戦</td><td>Queen Slime(25%、Bag 50%)</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Cosmic_Car_Key" target="_blank" rel="noopener">Cosmic Car Key</a><span class="star">全員</span></td><td>飛行マウント</td><td>無限飛行 41mph。これ以降の移動と回避の答え</td><td>Martian Saucer(1/6)。3人分出るまで火星人を回す</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Slasher%27s_Mysterious_Skull" target="_blank" rel="noopener">Slasher's Mysterious Skull</a><span class="ver">1.4.5</span></td><td>変身マウント</td><td>ラプトルで 38mph。翼を併用でき、Soaring Insignia で無限飛行</td><td>Sturdy Fossil 20 + Amber 5 + Fallen Star 5(鉄床)</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Roller_Skates" target="_blank" rel="noopener">Roller Skates</a><span class="ver">1.4.5</span></td><td>マウント</td><td>翼・フック・ダッシュをそのまま使える地上速度。線路も走れる</td><td>Traveling Merchant / Skeleton Merchant</td></tr>
+      <tr><td><a href="https://terraria.wiki.gg/wiki/Amulet_of_the_Night" target="_blank" rel="noopener">Amulet of the Night</a> / <a href="https://terraria.wiki.gg/wiki/Enchanted_Pixie_Dust" target="_blank" rel="noopener">Enchanted Pixie Dust</a><span class="ver">1.4.5</span></td><td>変身マウント</td><td>コウモリ(無限飛行)/ 妖精(1 マスの隙間を通れる)。どちらも騎乗中は攻撃不可</td><td>日食の Vampire(2.5%)/ メカ1体後の Pixie(0.5%)</td></tr>
+      <tr><td>マスター限定マウント</td><td>マウント</td><td>Goat Skull(61mph・WoF)、Black Spot(Flying Dutchman)、Hexxed Branch(Mourning Wood)など各ボス 25%</td><td>マスター難易度のボス(攻撃した各人が抽選)</td></tr>
+      <tr><td>光ペット</td><td>ペット</td><td>Wisp in a Bottle(Armored Bones 0.25%)、Suspicious Looking Tentacle(Moon Lord の Bag。宝と敵も映す)、Fairy Princess(Empress マスター 25%)が最も明るい</td><td>Dungeon / Moon Lord / Empress</td></tr>
+      <tr><td><a href="https://terraria.arcenserv.info/wiki/Stardust_Armor" target="_blank" rel="noopener">Stardust Guardian</a></td><td>防具のセット効果</td><td>30 マス内の敵を殴り続ける(実効 50)。1.4.0 で囮(タウント)ではなくなった</td><td>Stardust armor</td></tr>
+    </table></div>
+    <div class="warn">Foxparks / Cattiva が<b>ミニオン枠を使うかどうかは wiki に明記がない</b>。Class setups は他のミニオンと同じ「1 枠」として数えているので、このサイトもそれに合わせている。ゲーム内でミニオンの数を見て確かめてほしい。</div>
+  </section>
+
+  <section id="a7">
+    <h2><span class="no">7</span>リフォージ(接頭語)の決めごと</h2>
+    <ul>
+      <li>wiki(Modifiers): <b>Warding(防御 +4)がほとんどの場面で最良</b>。ハードモード前と高防御ビルドで特に効き、マスターは防御が 100% 効くので Expert より価値が高い</li>
+      <li>Menacing(ダメージ +4%)/ Lucky(クリ +4%)は「死なない前提で火力が勝負を決める」とき。Duke Fishron や昼の Empress のような一撃が大きい相手では Warding の価値が落ちる</li>
+      <li>召喚職と基礎ダメージの低い武器は Menacing が合う(ミニオンはクリティカルしないので Lucky は無意味)</li>
+      <li>英語の攻略記事(2026 年 9〜10 月)は「火力アクセは Menacing、生存アクセは Warding」「マスターはボスを覚えるまで Warding」で一致</li>
+      <li><b>このチームの決めごと</b>: 盾役は Warding、火力役は Menacing / Lucky、初見のボスは全員 Warding。6〜7 枠で防御 +24〜28 の差は、マスターでは「序盤の一発」をそのまま 1 回ぶん減らす</li>
+    </ul>
+  </section>
+
+  <section id="a8">
+    <h2><span class="no">8</span>7 枠の例(3人の役割つき)</h2>
+    <div class="tbl"><table>
+      <tr><th>時期</th><th>全員の共通枠</th><th>差し替える枠</th></tr>
+      <tr><td>ハードモード前</td><td>Amphibian / Terraspark・Bundle of Horseshoe Balloons・Shield of Cthulhu・Worm Scarf・Restoration Shield(なければ Obsidian Shield)</td><td>Sweet Barb / Stinger Necklace、クラス枠 1(Feral Claws / Magic Quiver / Celestial Cuffs / Pygmy Necklace)</td></tr>
+      <tr><td>メカ前〜Plantera</td><td>翼・Amphibian・Shield of Cthulhu・Worm Scarf・Star Veil / Crossed Heart</td><td>Ankh Shield(なければ Frozen Turtle Shell)、クラス枠(Emblem + Quiver / Cuffs / Twilight Grasp)</td></tr>
+      <tr><td>Plantera 後〜Moon Lord</td><td>翼(+ Soaring Insignia)・Master Ninja Gear・Worm Scarf・Celestial Shell・Ankh Shield</td><td>盾役: Hero Shield + Frozen Shield。火力役: Destroyer Emblem(召喚は Avenger)+ クラス枠(Recon / Sniper Scope、Celestial Emblem / Mana Cloak、Papyrus Scarab / Ouroboros Ring)</td></tr>
+    </table></div>
+    <div class="box"><b>3人の分担の型</b>盾役 1 人が Paladin's 系 + Flesh Knuckles / Berserker's Glove で狙いを集め(+400)、残り 2 人は Stalker's Quiver / Recon Scope / Scout's Sling で狙われにくく(−400)。全員が Paladin's 系を持てば、肩代わりし合わなくても全員の被ダメが実質 −25%。</div>
+  </section>
+
+  <section id="a9">
+    <h2><span class="no">9</span>確認できなかったこと</h2>
+    <ul>
+      <li>Foxparks / Cattiva がミニオン枠を消費するか(wiki に明記なし。1 枠として扱った)</li>
+      <li>Worm Scarf ↔ Brain of Confusion の Shimmer 交換(wiki に記載なし。不可と推定し、載せていない)</li>
+      <li>Ankh Charm の素材で Shimmer 交換できるのは Vitamins ↔ Armor Polish だけ確認。手引きの「対になる 2 つは相互変換できる」は言い過ぎの可能性がある</li>
+      <li>Shellphone 単体での情報共有(Cell Phone / PDA の共有は wiki に明記)</li>
+      <li>Advanced Combat Techniques Volume Two の入手元(Shimmer 限定らしいが元アイテム未確認)</li>
+      <li>Taa テラリア解説ch の「装備とアクセの最適解」動画はタイトルだけ確認。中身は資料ノートの要約(マスター 7 枠は防御全振りが基本)に依った</li>
+    </ul>
+  </section>
+
+  <p class="foot">出典: <a href="https://terraria.wiki.gg/wiki/Accessories">Accessories</a> / <a href="https://terraria.wiki.gg/wiki/Master_Mode">Master Mode</a> / <a href="https://terraria.wiki.gg/wiki/Modifiers">Modifiers</a> / <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups">Guide:Class setups</a> / <a href="https://terraria.wiki.gg/wiki/Cell_Phone">Cell Phone</a> / <a href="https://terraria.wiki.gg/wiki/Paladin%27s_Shield">Paladin's Shield</a> / <a href="https://terraria.wiki.gg/wiki/1.4.5.7">1.4.5.7</a>(公式 wiki、各アイテムの History 欄も参照)/ <a href="https://terraria.arcenserv.info/wiki/">日本語wiki(1.4.5 新アイテム一覧・2026-09-30)</a> / <a href="https://itemlevel.net/">itemlevel.net 1.4.5.7 クラス別ガイド(2026-09)</a> / <a href="https://kamigame.jp/terraria/page/355175865467841330.html">kamigame 最強アクセサリー(2025-03)</a>。確認日 2026-10-17</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>魔法職の強くなり方</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one long read with a sticky chip nav; each section is a card with short paragraphs, key tables and a "これだけは" box. */
+:root{
+  --bg:#f1f0ec; --panel:#ffffff; --panel-2:#f6f5f1; --ink:#22251f; --ink-2:#5f655a; --line:#dcdad2;
+  --accent:#2f7a4f; --accent-ink:#ffffff; --accent-soft:#e2f0e6;
+  --key-bg:#eeede8; --key-ink:#2a2d26; --key-line:#c9c7bd;
+  --warn-bg:#fff3d6; --warn-ink:#6b4700; --warn-line:#e7c678;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+    --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+    --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+    --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+  --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+  --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+  --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.75;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.65rem;line-height:1.3}
+.sub{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+a{color:var(--accent)}
+.top{padding-block:18px 10px}
+.lead{color:var(--ink-2);margin:10px 0 0;font-size:.95rem}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:.84rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chips a:hover{color:var(--accent);border-color:var(--accent)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:16px;scroll-margin-top:64px}
+section h2{font-size:1.2rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+section h2 .no{font-size:.8rem;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+section h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}
+ul,ol{margin:4px 0 8px;padding-left:1.3em}
+li{margin:3px 0}
+kbd{font-family:inherit;font-size:.82em;background:var(--key-bg);color:var(--key-ink);border:1px solid var(--key-line);border-bottom-width:2px;border-radius:4px;padding:0 6px;white-space:nowrap}
+.tbl{overflow-x:auto;margin:8px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:480px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+.box{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:4px;padding:10px 14px;margin:12px 0 4px;font-size:.92rem}
+.box b{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:6px;padding:10px 14px;margin:10px 0 4px;font-size:.9rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px 16px}
+.cols>div{min-width:0}
+dl{margin:4px 0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:.92rem}
+dt{font-weight:700}
+dd{margin:0}
+@media (max-width:480px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.steps{display:grid;gap:8px;margin:6px 0 10px}
+.step{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.st-h{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.st-n{font-size:.78rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 7px;white-space:nowrap}
+.step dl{font-size:.9rem;grid-template-columns:max-content 1fr}
+.step dt{color:var(--ink-2);font-weight:700}
+@media (max-width:480px){.step dl{grid-template-columns:1fr}}
+.foot{margin-top:22px;font-size:.8rem;color:var(--ink-2)}
+.ver{display:inline-block;font-size:.72rem;border:1px solid var(--key-line);background:var(--key-bg);color:var(--key-ink);border-radius:4px;padding:0 5px;white-space:nowrap;vertical-align:middle;margin-right:4px}
+td .ver{margin:0}
+.tbl td:first-child{white-space:normal;min-width:9em}
+.star{display:inline-block;font-size:.72rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:middle}
+.src{color:var(--ink-2);font-size:.85rem}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>魔法職の強くなり方</h1>
+    <p class="sub">杖・魔導書・マナで戦う人のための順路 ・ マスター / 3人 / 堕落 / Terraria 1.4.5.8</p>
+    <p class="lead">魔法職は 1.4.5.7(2026 年 8 月)の<b>マナ大改訂</b>でいちばん遊びやすくなったクラスです。「攻撃後にマナが回復しない」仕様が消え、立ち止まれば回復 2 倍、マナが切れても遅く撃てる。このページは wiki の <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups" target="_blank" rel="noopener">Guide:Class setups</a>(2026-10 時点)を骨格に、各武器の数値と 1.4.5.7 の変更を wiki の History 欄で確かめ、英語・日本語の攻略記事(2026 年 8〜10 月)の推奨を照らし合わせて書いています。全体の流れは「<a href="index.html">3人旅の手引き</a>」、集めるべきアクセは「<a href="collect.html">アクセとミニオン</a>」へ。<b>アイテム名をクリックすると wiki が開きます</b>。数値は「威力 / マナ消費」。</p>
+  </header>
+
+  <nav class="chips" aria-label="目次">
+    <a href="#g0">マナの仕組み</a><a href="#g1">ボス前</a><a href="#g2">EoC〜Skeletron</a><a href="#g3">地底〜WoF</a><a href="#g4">HM序盤</a><a href="#g5">メカ〜Plantera</a><a href="#g6">Plantera後</a><a href="#g7">終盤</a><a href="#g8">堕落ワールド</a><a href="#g9">3人での動き</a><a href="#g10">誤解</a>
+  </nav>
+
+  <section id="g0">
+    <h2><span class="no">0</span>先に覚えるマナの仕組み(1.4.5.7 以降)</h2>
+    <dl>
+      <dt>回復</dt><dd>攻撃しても回復は止まらない(以前の「回復待ち」は廃止)。<b>立ち止まると回復 2 倍</b>(アクセの分も含む)。基礎の回復率は少し下がったので、「撃ちながら歩く」より「撃つときは止まる」を体で覚える</dd>
+      <dt>マナ切れ</dt><dd>足りなくても<b>攻撃速度 40% で撃てる</b>。棒立ちにはならないが火力は半分以下。Mana Potion を飲むより、Celestial Cuffs(被弾でマナ回復)と立ち止まりで戻す</dd>
+      <dt>Mana Surge</dt><dd>マナ星を拾うと魔法ダメージ +20%(2 秒で減衰)。Celestial Cuffs / Celestial Emblem の吸引、Mana Cloak の「魔法命中で星」で回しやすい</dd>
+      <dt>Mana Potion の罠</dt><dd>飲むと Mana Sickness(魔法ダメージ −25%、重ねると最大 −50%)。<b>極力飲まない</b>。Mana Regeneration Potion(攻撃中も最大速度で回復)と Magic Power Potion(+20%)が基本</dd>
+      <dt>マナ上限</dt><dd>Mana Crystal 9 個で 200。Arcane Crystal(Mana Crystal を Shimmer に)で回復に最大マナの 2% が加算。防具とアクセの +40 / +80 / +100 で 400 まで</dd>
+      <dt>コスト軽減</dt><dd>Mana Flower 系の −8% は<b>同系統で重複しない</b>(Nature's Gift とは重なる)。1.4.5.7 で Mana Flower + Mana Cloak の二枚持ちが無意味になった</dd>
+      <dt>Crystal Ball</dt><dd>Wizard から 10 Gold。触ると死ぬまで「マナ +20・魔法 +5%・クリ +2%・コスト −2%」。ボス前に必ず触る</dd>
+    </dl>
+    <div class="box"><b>マスターでの考え方</b>魔法職の防具は近接より防御が低い。防御が 100% 効くマスターでは、wiki の「防御型」混成(Titanium Mask・Squire's Plating・Apprentice's Trousers)を遠慮なく使い、火力防具は Spectre から。アクセは Warding、7 枠目(Demon Heart)は Sorcerer Emblem が定番。被弾がマナになる Celestial Cuffs はマスターほど価値が高い。</div>
+  </section>
+
+  <section id="g1">
+    <h2><span class="no">1</span>ボス前(開始 〜 HP200)</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Thunder_Zapper" target="_blank" rel="noopener">Thunder Zapper</a> 24 / 6<span class="star">本命</span></td><td>地下砂漠の深い層の Sandstone Chest(1/3)、Oasis / Mirage Crate</td><td>低マナで連射。1.4.4 と 1.4.5 で 2 段階強化。<b>ハードモードで Lightning Strike の素材</b>になるので捨てない</td></tr>
+      <tr><td>2</td><td>宝石の杖(<a href="https://terraria.arcenserv.info/wiki/Diamond_Staff" target="_blank" rel="noopener">Diamond Staff</a> 23 / 9 など 7 種)</td><td>宝石 8 + 対応する Bar 7(鉄床)。Amber は Sturdy Fossil 10</td><td>1.4.5.7 で固有性能: Amethyst=追尾、Topaz=着弾爆発、Sapphire=二重螺旋、Emerald=高速貫通、Ruby=2 連射 + 防御貫通 4、Diamond=巨大判定、Amber=跳弾。<b>同じ宝石の Robe で +4 ダメージ</b>。英語の攻略記事は Emerald Staff + Amethyst Robe(長距離追尾)を推す</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.arcenserv.info/wiki/Demon_Scythe" target="_blank" rel="noopener">Demon Scythe</a> 35 / 14</td><td>地底の Demon / Voodoo Demon(1/35)</td><td>地底に降りられるなら序盤最強。WoF まで主力。3 人で Demon だけ狩る時間を取る価値がある</td></tr>
+      <tr><td>4</td><td><a href="https://terraria.arcenserv.info/wiki/Vilethorn" target="_blank" rel="noopener">Vilethorn</a> 10 / 10 / <a href="https://terraria.wiki.gg/wiki/Mystic_Bloom" target="_blank" rel="noopener">Mystic Bloom</a><span class="ver">1.4.5.7</span> / <a href="https://terraria.wiki.gg/wiki/Glacier_Fang" target="_blank" rel="noopener">Glacier Fang</a><span class="ver">1.4.5</span></td><td>Shadow Orb(20%)/ Nature's Gift + Moonglow 2 + Vine 3 + Rich Mahogany 7 / Frozen Chest・Boreal Crate</td><td>Vilethorn は壁貫通で EoW と Goblin Army に。Glacier Fang はチャージで 44、クリ 15%</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Jungle_armor" target="_blank" rel="noopener">Jungle armor</a>(防御 17・マナ −16%・魔法 +6%・クリ +12%・マナ +80)。手前は <a href="https://terraria.arcenserv.info/wiki/Wizard_Hat" target="_blank" rel="noopener">Wizard Hat</a>(Tim 確定)+ Diamond Robe + Jungle Pants、または Magic Hat(Merchant 3 Gold)+ Robe で +60</dd>
+      <dt>アクセ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Celestial_Magnet" target="_blank" rel="noopener">Celestial Magnet</a>(空島の Skyware Chest 25%)→ <a href="https://terraria.arcenserv.info/wiki/Magic_Cuffs" target="_blank" rel="noopener">Magic Cuffs</a>(Band of Starpower + Shackle)→ <a href="https://terraria.arcenserv.info/wiki/Celestial_Cuffs" target="_blank" rel="noopener">Celestial Cuffs</a>。<a href="https://terraria.arcenserv.info/wiki/Band_of_Starpower" target="_blank" rel="noopener">Band of Starpower</a>(Shadow Orb 20%。1.4.5.7 でマナ +40)、<a href="https://terraria.arcenserv.info/wiki/Mana_Regeneration_Band" target="_blank" rel="noopener">Mana Regeneration Band</a>(静止時 60/秒相当・HP +1/秒)、<a href="https://terraria.arcenserv.info/wiki/Nature%27s_Gift" target="_blank" rel="noopener">Nature's Gift</a>(ジャングルの花)→ Mana Flower</dd>
+      <dt>永続</dt><dd>Mana Crystal ×9、<a href="https://terraria.arcenserv.info/wiki/Arcane_Crystal" target="_blank" rel="noopener">Arcane Crystal</a>(Mana Crystal 1 個を Shimmer に)</dd>
+      <dt>バフ</dt><dd>Mana Regeneration Potion(Daybloom + Moonglow)、Magic Power Potion(Deathweed + Moonglow + Fallen Star)</dd>
+    </dl>
+  </section>
+
+  <section id="g2">
+    <h2><span class="no">2</span>Eye of Cthulhu 〜 Skeletron</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Space_Gun" target="_blank" rel="noopener">Space Gun</a> 20 / 6 + <a href="https://terraria.arcenserv.info/wiki/Meteor_armor" target="_blank" rel="noopener">Meteor armor</a><span class="star">本命</span></td><td>Meteorite Bar 20 / 45(隕石は EoW 後に落ちる)</td><td>Meteor armor 一式で<b>マナ 0</b>。撃ち放題の貫通レーザー。Gray / Orange Zapinator と Laser Rifle も 0 になる</td></tr>
+      <tr><td>2</td><td><a href="https://terraria.arcenserv.info/wiki/Bee_Gun" target="_blank" rel="noopener">Bee Gun</a> 9 / 5</td><td>Queen Bee(1/3)</td><td>追尾する蜂を連射。Hive Pack で蜂が大きくなる。Skeletron の腕払いに</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.arcenserv.info/wiki/Demon_Scythe" target="_blank" rel="noopener">Demon Scythe</a></td><td>地底の Demon</td><td>引き続き単体最強</td></tr>
+      <tr><td>4</td><td><a href="https://terraria.arcenserv.info/wiki/Gray_Zapinator" target="_blank" rel="noopener">Gray Zapinator</a> 42 / 16</td><td>Traveling Merchant(17 Gold、ボス 1 体撃破後)</td><td>挙動がランダムだが平均火力は高い。見かけたら買う</td></tr>
+      <tr><td>5</td><td><a href="https://terraria.arcenserv.info/wiki/Water_Bolt" target="_blank" rel="noopener">Water Bolt</a> 19 / 10 / <a href="https://terraria.arcenserv.info/wiki/Weather_Pain" target="_blank" rel="noopener">Weather Pain</a> 13 / 30</td><td>Dungeon の本棚(下層のみ)/ Deerclops(25%)</td><td>Water Bolt は壁で跳ね返り、Skeletron 戦と Dungeon の廊下で強い。Weather Pain は設置型の支援</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd>Jungle armor か Meteor armor(防御 16・魔法 +27%)。Jungle Hat + Meteor Suit の混成も可</dd>
+      <dt>アクセ</dt><dd>Celestial Cuffs、<a href="https://terraria.arcenserv.info/wiki/Magnet_Flower" target="_blank" rel="noopener">Magnet Flower</a>(Mana Flower + Celestial Magnet)、Mana Regeneration Band</dd>
+    </dl>
+  </section>
+
+  <section id="g3">
+    <h2><span class="no">3</span>地底 〜 Wall of Flesh</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Aqua_Scepter" target="_blank" rel="noopener">Aqua Scepter</a> 27 / 7<span class="star">本命</span></td><td>Dungeon の Gold Chest / Golden Lock Box(1/7)</td><td>5 体貫通の水流。WoF の Hungry をまとめて払う。英語の攻略記事 3 本が WoF 前の本命に挙げる</td></tr>
+      <tr><td>2</td><td>Demon Scythe / Space Gun</td><td>—</td><td>目を焼くのは Space Gun、Hungry は Aqua Scepter と使い分け</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.arcenserv.info/wiki/Flower_of_Fire" target="_blank" rel="noopener">Flower of Fire</a> 48 / 9 / <a href="https://terraria.arcenserv.info/wiki/Flamelash" target="_blank" rel="noopener">Flamelash</a> 32 / 21</td><td>Shadow Chest / Obsidian Lock Box(各 20%)</td><td>Flower of Fire は 1.4.5.7 でマナ 12 → 9。跳ねる火球で地形を選ばない</td></tr>
+      <tr><td>4</td><td><a href="https://terraria.arcenserv.info/wiki/Magic_Missile" target="_blank" rel="noopener">Magic Missile</a> 35 / <a href="https://terraria.arcenserv.info/wiki/Book_of_Skulls" target="_blank" rel="noopener">Book of Skulls</a> 29 / 18</td><td>Dungeon の鍵つき Gold Chest / Skeletron(10.5%)</td><td>Magic Missile は Sky Fracture の素材。Book of Skulls は 1.4.5.7 でブロック貫通の追尾に(持続は短く)</td></tr>
+    </table></div>
+    <dl>
+      <dt>アクセ</dt><dd><b><a href="https://terraria.wiki.gg/wiki/Restoration_Shield" target="_blank" rel="noopener">Restoration Shield</a></b><span class="ver">1.4.5.7</span>(Cobalt Shield + Mana Regeneration Band。ノックバック無効・HP +1/秒・マナ +40・マナ回復)。魔法職の盾はこれ一択。Celestial Cuffs、Magnet Flower</dd>
+      <dt>バフ</dt><dd>Mana Regeneration Potion、Magic Power Potion。<b>Mana Potion は保険に 5 本だけ</b></dd>
+    </dl>
+    <div class="box"><b>WoF 戦の実際</b>橋の上を走り、目には Space Gun、Hungry には Aqua Scepter。Sorcerer Emblem(25%)が目当て。Emblem は Shimmer で別クラスのものに変換できるので、他の 2 人が別の Emblem を引いたら交換してもらう。</div>
+  </section>
+
+  <section id="g4">
+    <h2><span class="no">4</span>ハードモード序盤(メカ前)</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Sky_Fracture" target="_blank" rel="noopener">Sky Fracture</a> 38 / 17 クリ 24%<span class="star">本命</span></td><td>Magic Missile + Light Shard 2 + Soul of Light 16</td><td>剣の雨が貫通する。単体ボスの定番で、The Destroyer の胴にも</td></tr>
+      <tr><td>2</td><td><a href="https://terraria.arcenserv.info/wiki/Meteor_Staff" target="_blank" rel="noopener">Meteor Staff</a> 50 / 9</td><td>Meteorite Bar 20 + Pixie Dust 10 + Soul of Light 10</td><td>空から隕石。Destroyer 向けの範囲火力</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.arcenserv.info/wiki/Crystal_Serpent" target="_blank" rel="noopener">Crystal Serpent</a> 40 / 9</td><td>聖域の水場で釣る(低確率)</td><td>弾が割れて破片が飛ぶ。釣り役がいるなら手軽</td></tr>
+      <tr><td>4</td><td><a href="https://terraria.wiki.gg/wiki/Lightning_Strike" target="_blank" rel="noopener">Lightning Strike</a> 150 / 30<span class="ver">1.4.5.7</span></td><td>Thunder Zapper + Adamantite Bar 24 + Soul of Night 20(Mythril Anvil)</td><td>上空から雷が落ち、ブロックを貫通する単発大火力。<b>液体に当たると自分も 120 ダメージ</b>。水辺・溶岩の上では使わない</td></tr>
+      <tr><td>5</td><td><a href="https://terraria.arcenserv.info/wiki/Orange_Zapinator" target="_blank" rel="noopener">Orange Zapinator</a> 100 / 16</td><td>Traveling Merchant(50 Gold、ハードモード後)</td><td>Meteor armor でマナ 0。挙動ランダム</td></tr>
+      <tr><td>6</td><td><a href="https://terraria.arcenserv.info/wiki/Blood_Thorn" target="_blank" rel="noopener">Blood Thorn</a> 40 / 20</td><td>ハードモードの Blood Moon の釣りで Hemogoblin Shark(1/8)</td><td>カーソル周囲のブロックから棘。壁越しの火力。1.4.5.7 で 36 → 40</td></tr>
+      <tr><td>支援</td><td><a href="https://terraria.arcenserv.info/wiki/Cursed_Flames" target="_blank" rel="noopener">Cursed Flames</a> 55 / 9 / <a href="https://terraria.arcenserv.info/wiki/Clinger_Staff" target="_blank" rel="noopener">Clinger Staff</a> 43 / 40 / <a href="https://terraria.arcenserv.info/wiki/Nimbus_Rod" target="_blank" rel="noopener">Nimbus Rod</a> 30 / 30</td><td>Spell Tome(Wizard)+ Cursed Flame 20 + Soul of Night 15 / Corrupt Mimic(20%)/ Angry Nimbus(1/15)</td><td>堕落ワールドの魔導書と設置型。Clinger Staff の呪炎の壁と Nimbus Rod の雨雲は味方全員の火力になる</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Adamantite_armor" target="_blank" rel="noopener">Adamantite armor(Headgear)</a>(防御 32・魔法 +12%・マナ −19%・+80)。防御なら Titanium。<a href="https://terraria.arcenserv.info/wiki/Forbidden_armor" target="_blank" rel="noopener">Forbidden armor</a>(Forbidden Fragment 3 + Bar 46。魔法と召喚 +25%・マナ +80)は召喚との両立向き</dd>
+      <dt>アクセ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Sorcerer_Emblem" target="_blank" rel="noopener">Sorcerer Emblem</a>(WoF 25%。魔法 +15%)、Celestial Cuffs、<a href="https://terraria.arcenserv.info/wiki/Mana_Cloak" target="_blank" rel="noopener">Mana Cloak</a>(Mana Flower + Star Cloak。1.4.5.7 から魔法命中でマナ星)、Restoration Shield</dd>
+      <dt>バフ</dt><dd>Mana Regeneration Potion、Magic Power Potion、Crystal Ball(Wizard)</dd>
+    </dl>
+  </section>
+
+  <section id="g5">
+    <h2><span class="no">5</span>メカニカルボス 〜 Plantera</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Unholy_Trident" target="_blank" rel="noopener">Unholy Trident</a> 150 / 19<span class="star">本命</span></td><td>メカ 1 体後の地底の Red Devil(1/30)</td><td>1.4.5.7 で 88 → 150、防御貫通 25 と Shadowflame。壁を抜ける。Plantera の答え</td></tr>
+      <tr><td>2</td><td><a href="https://terraria.arcenserv.info/wiki/Magical_Harp" target="_blank" rel="noopener">Magical Harp</a> 42 / 5<span class="star">本命</span></td><td>Harp + Crystal Shard 20 + Soul of Night 8 + Soul of Sight 15</td><td>壁で跳ねる音符。1.4.5.7 で最大 5 体貫通に(無限から)。The Destroyer と Dungeon の廊下</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.arcenserv.info/wiki/Venom_Staff" target="_blank" rel="noopener">Venom Staff</a> 44 / 25</td><td>Poison Staff(Black Recluse 2.5%)+ Chlorophyte Bar 14</td><td>貫通する毒牙。Plantera 前の範囲火力</td></tr>
+      <tr><td>4</td><td><a href="https://terraria.arcenserv.info/wiki/Rainbow_Rod" target="_blank" rel="noopener">Rainbow Rod</a> 50 / 21</td><td>Crystal Shard 10 + Unicorn Horn 2 + Pixie Dust 10 + Soul of Light 8 + Soul of Sight 15</td><td>カーソルで操作できる虹弾。Twins の単体火力</td></tr>
+      <tr><td>5</td><td><a href="https://terraria.arcenserv.info/wiki/Tome_of_Infinite_Wisdom" target="_blank" rel="noopener">Tome of Infinite Wisdom</a> 36 / 20 / <a href="https://terraria.arcenserv.info/wiki/Shadowflame_Hex_Doll" target="_blank" rel="noopener">Shadowflame Hex Doll</a></td><td>Old One's Army Tier2 の Ogre(10%)/ ハードモードの Goblin Warlock</td><td>Tome は右クリックで竜巻(175%)。Hex Doll は Shadowflame の触手で近距離に強い</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Hallowed_Armor" target="_blank" rel="noopener">Hallowed armor(Headgear)</a>(防御 31・魔法とクリ +19%・マナ +100・Holy Protection)か <a href="https://terraria.arcenserv.info/wiki/Chlorophyte_armor" target="_blank" rel="noopener">Chlorophyte armor(Headgear)</a>(防御 38・+21%・Leaf Crystal)。<b>マスターの推奨は Hallowed Headgear + Squire's Plating + Apprentice's Trousers</b>(wiki の防御型)</dd>
+      <dt>アクセ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Celestial_Emblem" target="_blank" rel="noopener">Celestial Emblem</a>(Celestial Magnet + Avenger Emblem。魔法 +15% と星の吸引)、Sorcerer Emblem、Celestial Cuffs、Restoration Shield</dd>
+    </dl>
+  </section>
+
+  <section id="g6">
+    <h2><span class="no">6</span>Plantera 後 〜 Golem 〜 Empress of Light</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Razorblade_Typhoon" target="_blank" rel="noopener">Razorblade Typhoon</a> 85 / 20<span class="star">本命</span></td><td>Duke Fishron(1/7。1.4.5.7 で 1/6 から変更)</td><td>追尾する刃を撃ち続ける。英語・日本語の攻略記事がそろって Moon Lord 前の最推し。Fishron に挑む価値はこれ</td></tr>
+      <tr><td>2</td><td><a href="https://terraria.arcenserv.info/wiki/Shadowbeam_Staff" target="_blank" rel="noopener">Shadowbeam Staff</a> 80 / 7 / <a href="https://terraria.arcenserv.info/wiki/Inferno_Fork" target="_blank" rel="noopener">Inferno Fork</a> 70 / 18 / <a href="https://terraria.arcenserv.info/wiki/Spectre_Staff" target="_blank" rel="noopener">Spectre Staff</a> 65 / 15</td><td>Plantera 後の Dungeon(Necromancer / Diabolist / Ragged Caster、各 5%)</td><td>Dungeon 産の 3 本。Shadowbeam は壁で跳ねるビーム、Inferno Fork は爆発、Spectre は追尾。Golem と火星人はこれで足りる</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.arcenserv.info/wiki/Leaf_Blower" target="_blank" rel="noopener">Leaf Blower</a> 48 / 5</td><td>Plantera(1/8)</td><td>1.4.5.7 で 3 連射の螺旋に。低マナで単体に強い</td></tr>
+      <tr><td>4</td><td><a href="https://terraria.arcenserv.info/wiki/Betsy%27s_Wrath" target="_blank" rel="noopener">Betsy's Wrath</a> 100 / 14</td><td>Old One's Army Tier3 の Betsy(25%)</td><td>Betsy's Curse(防御貫通 40)で<b>味方全員の火力が上がる</b>。3 人プレイでは最優先の支援武器</td></tr>
+      <tr><td>5</td><td><a href="https://terraria.arcenserv.info/wiki/Nightglow" target="_blank" rel="noopener">Nightglow</a> 50 / 23 / <a href="https://terraria.arcenserv.info/wiki/Stellar_Tune" target="_blank" rel="noopener">Stellar Tune</a> 85 / 12 クリ 24%</td><td>Empress of Light(25% / 2%)</td><td>Nightglow は追尾の虹弾、Stellar Tune は出れば Moon Lord まで</td></tr>
+      <tr><td>6</td><td><a href="https://terraria.arcenserv.info/wiki/Razorpine" target="_blank" rel="noopener">Razorpine</a> 48 / 5 / <a href="https://terraria.arcenserv.info/wiki/Blizzard_Staff" target="_blank" rel="noopener">Blizzard Staff</a> 58 / 9</td><td>Frost Moon の Everscream / Ice Queen</td><td>Frost Moon をやるなら。Razorpine は低マナ連射の定番</td></tr>
+      <tr><td>支援</td><td><a href="https://terraria.arcenserv.info/wiki/Magnet_Sphere" target="_blank" rel="noopener">Magnet Sphere</a> 48 / 14 / <a href="https://terraria.arcenserv.info/wiki/Rainbow_Gun" target="_blank" rel="noopener">Rainbow Gun</a></td><td>Dungeon の Armored Bones(0.33%)/ Hallowed Chest(Hallowed Key)</td><td>置いておくだけで削れる。Golem と Pumpkin Moon が楽</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Spectre_armor" target="_blank" rel="noopener">Spectre armor</a>(Ectoplasm 27 + Chlorophyte Ore 270)。<b>Mask</b>: 防御 60・魔法 +25%・クリ +17%・マナ +60。<b>Hood</b>: 与ダメージの 20% が回復の玉になり、<b>チームで一番 HP の低い味方</b>へ飛ぶ(火力は −25% 相当)。3 人なら 1 人が Hood。Dark Artist armor(Tavernkeep、Defender Medal 150)も候補</dd>
+      <dt>アクセ</dt><dd>Celestial Emblem、Celestial Cuffs、Sorcerer Emblem、Restoration Shield、<a href="https://terraria.wiki.gg/wiki/Mystic_Arts_Sash" target="_blank" rel="noopener">Mystic Arts Sash</a><span class="ver">1.4.5.7</span>(Mana Regeneration Band + Black Belt。回避 10% とマナ)</dd>
+    </dl>
+  </section>
+
+  <section id="g7">
+    <h2><span class="no">7</span>終盤(Lunatic Cultist 〜 Moon Lord)</h2>
+    <div class="tbl"><table>
+      <tr><th>優先</th><th>武器</th><th>入手</th><th>一言</th></tr>
+      <tr><td>1</td><td><a href="https://terraria.arcenserv.info/wiki/Nebula_Blaze" target="_blank" rel="noopener">Nebula Blaze</a> 130 / 12<span class="star">本命</span></td><td>Nebula Fragment 18</td><td>追尾弾。20% で 300% の強化弾。Moon Lord の単体火力</td></tr>
+      <tr><td>2</td><td><a href="https://terraria.arcenserv.info/wiki/Nebula_Arcanum" target="_blank" rel="noopener">Nebula Arcanum</a> 70 / 30</td><td>Nebula Fragment 18</td><td>群れ向け。柱の雑魚処理</td></tr>
+      <tr><td>3</td><td><a href="https://terraria.wiki.gg/wiki/Arc_Surge" target="_blank" rel="noopener">Arc Surge</a> 180 / 18<span class="ver">1.4.5.7</span></td><td>Martian Saucer(2%)</td><td>画面内に即着弾する雷。火星人周回のついでに狙う</td></tr>
+      <tr><td>4</td><td>Razorblade Typhoon / <a href="https://terraria.arcenserv.info/wiki/Bubble_Gun" target="_blank" rel="noopener">Bubble Gun</a> 70 / 5</td><td>Duke Fishron(各 1/7)</td><td>Fishron を倒せていれば Nebula 前から Moon Lord に通る</td></tr>
+      <tr><td>撃破後</td><td><a href="https://terraria.arcenserv.info/wiki/Last_Prism" target="_blank" rel="noopener">Last Prism</a> 100 / <a href="https://terraria.arcenserv.info/wiki/Lunar_Flare" target="_blank" rel="noopener">Lunar Flare</a> 100 / 9</td><td>Moon Lord(各 20%)</td><td>Last Prism は収束で 300%、ただし最大 144 マナ/秒。Lunar Flare は壁越し。周回用</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd>Moon Lord 戦までは Spectre(Mask 推奨。Moon Bite で吸血が止まるので Hood の価値が下がる)か Dark Artist。<a href="https://terraria.arcenserv.info/wiki/Nebula_Armor" target="_blank" rel="noopener">Nebula armor</a>(Luminite Bar 36 + Nebula Fragment 45)は<b>Moon Lord 撃破後</b>。防御 46・魔法 +26%・クリ +16%・コスト −15%。落ちるブースターは<b>拾った人の周囲 44 マスの味方全員</b>に効く(HP +3/秒・マナ +10/秒・ダメージ +15%、各 3 段階)</dd>
+      <dt>アクセの最終形(wiki の Endgame 欄)</dt><dd>Celestial Emblem・Celestial Cuffs・Sorcerer Emblem・Mana Cloak・Restoration Shield・Mystic Arts Sash・<a href="https://terraria.arcenserv.info/wiki/Arcane_Flower" target="_blank" rel="noopener">Arcane Flower</a>(1.4.5.7 で Putrid Scent の +5% / +5% を継承、狙われにくい)。生存枠との差し替えは「<a href="collect.html#a8">アクセとミニオン</a>」の例を参照</dd>
+      <dt>バフ</dt><dd>Mana Regeneration Potion、Magic Power Potion、Super Mana Potion(1.4.5.7 で回復 400。Greater Mana Potion 8 + Fallen Star 2 + Ectoplasm 1 で 8 本)、Super Healing Potion</dd>
+    </dl>
+  </section>
+
+  <section id="g8">
+    <h2><span class="no">8</span>堕落ワールド(病み村)での固有事情</h2>
+    <ul>
+      <li><b>手に入る</b>: Vilethorn・Band of Starpower(Shadow Orb 各 20%)、Cursed Flames(Cursed Flame は Clinger / Cursed Hammer)、Clinger Staff・Putrid Scent(Corrupt Mimic 各 20%。Putrid Scent は Arcane Flower の素材)</li>
+      <li><b>手に入らない</b>: Crimson Rod・Golden Shower・Life Drain。Shimmer での Vilethorn ↔ Crimson Rod などの変換は wiki に<b>載っていない</b>(素材の Demonite ↔ Crimtane のような分解結果の違いだけ)</li>
+      <li><b>Golden Shower(Ichor)が欲しいとき</b>: ハードモードの墓場で Dryad から Crimson Seeds を買い、地下に人工 Crimson を作ると Ichor Sticker が湧く(wiki の Ichor のページに明記)。Betsy's Curse(防御貫通 40)と Ichor(15)は合算されるので、3 人プレイの支援としては価値が高い</li>
+      <li>Toxikarp(堕落の釣り)は<b>遠距離武器</b>で魔法ではない。釣り役が引いても魔法職の武器にはならない</li>
+      <li>Blood Thorn は Blood Moon の釣りの敵が落とすので、ワールドの邪悪に関係なく狙える(wiki に邪悪の条件なし)</li>
+    </ul>
+  </section>
+
+  <section id="g9">
+    <h2><span class="no">9</span>3人で遊ぶときの魔法職</h2>
+    <ul>
+      <li><b>Spectre Hood</b> の回復の玉は「チームで一番 HP の低い味方」へ飛ぶ。3 人なら 1 人が Hood、2 人が Mask の分業が成立する。Moon Lord 戦だけは Moon Bite(吸血無効)で効かない</li>
+      <li><b>Nebula armor</b> のブースターは誰が拾っても、拾った人の周囲の味方全員に効く。Moon Lord 周回で魔法職が 1 人いると全員の回復とダメージが上がる</li>
+      <li><b>Betsy's Wrath・Clinger Staff・Nimbus Rod・Magnet Sphere</b> など、デバフと設置型は味方全員の火力になる。魔法職は「自分の DPS」より「場を作る」役が向く</li>
+      <li>Arcane Flower と Putrid Scent は狙われにくくする(−400)。防御の低い魔法職はこれで盾役に敵を押しつける</li>
+      <li>Celestial Cuffs は被弾でマナが戻るので、マスターの被弾の多さがそのまま弾になる。Nurse の横で撃ち続ける「回復と撃ち合い」が成立する</li>
+    </ul>
+  </section>
+
+  <section id="g10">
+    <h2><span class="no">10</span>情報源で食い違う点・古い情報</h2>
+    <ul>
+      <li><b>Space Gun の 17 → 20 は 1.4.5.0</b> の変更(1.4.5.7 ではない)</li>
+      <li>「Nebula armor は柱の最中に作れる」と書く記事があるが、Luminite が要るので <b>Moon Lord 撃破後</b></li>
+      <li>「Golden Shower は堕落ワールドでは不可」は人工 Crimson で回避できる(8 章)</li>
+      <li>「Mana Flower と Magnet Flower / Mana Cloak でコスト軽減を重ねる」は 1.4.5.7 で<b>不可</b>に</li>
+      <li>Magic Cuffs の素材を「Mana Regeneration Band + Shackle」と書く記事は旧レシピ。現在は <b>Band of Starpower + Shackle</b>(1.4.5.7)</li>
+      <li>Razorblade Typhoon / Last Prism のドロップ率を「20% / 11%」とする記事があるが wiki は 1/7 と 1/5(Last Prism は 20%)</li>
+      <li>Betsy's Wrath は「防御 −40」ではなく<b>防御貫通 40</b>(1.4.4 以降)</li>
+      <li>Lightning Strike と Arc Surge は 1.4.5.7 実装。それ以前のガイドには載っていない</li>
+      <li>未確認: Unholy Trident・Arc Surge などのマスター別ドロップ率(wiki はクラシックの率のみ)。Reddit と英語 YouTube の 1.4.5.7 向け動画は取得できず、根拠は wiki と 2026 年 8〜10 月の攻略記事(itemlevel / howtoplayhub / mygamingtutorials / terraria.guide / game-shinden)まで</li>
+    </ul>
+  </section>
+
+  <p class="foot">出典: <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups">Guide:Class setups</a> / <a href="https://terraria.wiki.gg/wiki/Mana">Mana</a> / <a href="https://terraria.wiki.gg/wiki/1.4.5.7">1.4.5.7</a> / <a href="https://terraria.wiki.gg/wiki/Gem_staves">Gem staves</a> / <a href="https://terraria.wiki.gg/wiki/Ichor">Ichor</a> / <a href="https://terraria.wiki.gg/wiki/Spectre_armor">Spectre armor</a> / <a href="https://terraria.wiki.gg/wiki/Nebula_armor">Nebula armor</a>(公式 wiki、各武器の History 欄も参照)/ <a href="https://itemlevel.net/terraria-1-4-5-7-mage-class-progression-setups-guide/">itemlevel.net 1.4.5.7 mage guide(2026-09)</a> / <a href="https://game-shinden.com/">game-shinden(日本語・1.4.5)</a> / <a href="https://terraria.arcenserv.info/wiki/">日本語wiki</a>。確認日 2026-10-17</p>
+</div>
+
+</body>
+</html>

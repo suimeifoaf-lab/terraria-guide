@@ -126,7 +126,7 @@ td:first-child{font-weight:700;white-space:nowrap}
   <header class="top">
     <h1>テラリア3人旅の手引き</h1>
     <p class="sub">マスター / 3人 / クラシック / 堕落(Corruption) / ラージ ・ Terraria 1.4.5.8 準拠</p>
-    <p class="lead">フェーズごとに「これがあると一気に楽になるもの」と「建築はここを目指す」をまとめました。役割分担は決めず、3人とも何でもできる前提で、カードは武器の系統別です。<b>アイテム名をクリックすると、画像つきの日本語wikiのページが開きます</b>(新要素は公式wiki)。全部そろえる必要はなく、各カードの「本命」1〜2個が優先です。釣りとアクセサリーは右端の専用タブに。初めての人は先に <a href="beginner.html">はじめてのテラリア</a> を。昔(1.3 まで)遊んだことがある人は <a href="changes.html">1.4 以降で変わったテラリア</a> を。</p>
+    <p class="lead">フェーズごとに「これがあると一気に楽になるもの」と「建築はここを目指す」をまとめました。役割分担は決めず、3人とも何でもできる前提で、カードは武器の系統別です。<b>アイテム名をクリックすると、画像つきの日本語wikiのページが開きます</b>(新要素は公式wiki)。全部そろえる必要はなく、各カードの「本命」1〜2個が優先です。釣りとアクセサリーは右端の専用タブに。初めての人は先に <a href="beginner.html">はじめてのテラリア</a> を。昔(1.3 まで)遊んだことがある人は <a href="changes.html">1.4 以降で変わったテラリア</a> を。クラス別の順路は <a href="mage.html">魔法職</a>・<a href="summoner.html">召喚職</a>、枠に入れる物は <a href="collect.html">アクセとミニオン</a> に。</p>
     <div class="legend">
       <span><i style="--c:var(--all)"></i>全員</span>
       <span><i style="--c:var(--tank)"></i>近接</span>
@@ -191,7 +191,7 @@ const PHASES=[
   {nm:"Mana Crystal ×9",w:"Mana_Crystal",why:"マナ上限を200にする。魔法職はこれが終わるまで本領が出ない。",tip:"Fallen Star は夜に地表に落ちる。3人で拾うと早い。Shimmer に Mana Crystal を1個投げると Arcane Crystal(マナ回復が速くなる永続強化)。1.4.5.7 から「攻撃後にマナ回復が止まる」仕様がなくなり、立ち止まると回復2倍、マナが足りなくても攻撃速度40%で撃てる。Mana Potion は保険程度でよい。",src:"Fallen Star 5 個で 1 つ"},
  ],
  pet:[
-  {nm:"Foxparks / Cattiva",w:"Foxparks",star:1,nw:1,why:"ミニオン枠を使わない無料の相棒。Foxparks は火炎弾20で序盤の火力が倍になり、Cattiva は殴りながら採掘・伐採も手伝う。クラスを問わず3人全員が持つべき。",tip:"昼の地表(草原・雪原・ジャングル)で Goblin Archer 2体に囲まれた Distressed Pal を見つけたら、弓兵を倒して近づくだけ。1.4.5.7から持っていない方が確定で出る。ハードモードで Kinship Peach を使うと Trusty 版に進化。",src:"Distressed Pal を助ける(地表、昼、ワールド中央1/4以外)"},
+  {nm:"Foxparks / Cattiva",w:"Foxparks",star:1,nw:1,why:"召喚武器を作らなくても手に入る相棒(ミニオン枠を1つ使う。1体だけ)。Foxparks は火炎弾20で序盤の火力が倍になり、Cattiva は殴りながら採掘・伐採も手伝う。クラスを問わず3人全員が持つべき。",tip:"昼の地表(草原・雪原・ジャングル)で Goblin Archer 2体に囲まれた Distressed Pal を見つけたら、弓兵を倒して近づくだけ。1.4.5.7から持っていない方が確定で出る。ハードモードで Kinship Peach を使うと Trusty 版に進化。",src:"Distressed Pal を助ける(地表、昼、ワールド中央1/4以外)"},
   {nm:"Chillet",star:1,nw:1,why:"騎乗中ダメージ+10%、ダッシュ攻撃つきの乗り物。ラージの移動がこれ1つで楽になり、戦闘中に逃げる足にもなる。",tip:"卵は Cavern 層に12個。Spelunker Potion か Metal Detector で光る。Chillet と Chillet Ignis の2種は50/50。",src:"Huge Dragon Egg を拾う"},
   {nm:"Slasher's Mysterious Skull",nw:1,why:"時速38で走るラプトル変身マウント。地上戦なら Chillet より速く、翼も乗ったまま使える。",src:"Sturdy Fossil 20 + Amber 5 + Fallen Star 5 を鉄床で"},
  ]},
@@ -242,7 +242,7 @@ const PHASES=[
   {nm:"Water Bolt",why:"壁で跳ね返る貫通弾。Skeletron の腕と Dungeon の廊下で特に強い。",src:"Dungeon の本棚(青い本)。1.4.5から Water Bolt Mimic も落とす"},
   {nm:"Vilethorn",why:"壁を貫通する棘の列。Eater of Worlds の胴と Goblin Army の列をまとめて削る。",src:"Shadow Orb(20%)"},
   {nm:"Bee Gun",why:"追尾する蜂を連射する。ボス戦で「撃っていれば当たる」安定火力。",src:"Queen Bee(1/3)"},
-  {nm:"Band of Starpower → Magic Cuffs",w:"Magic_Cuffs",nw:1,why:"1.4.5.7 で Band of Starpower がマナ+40 に強化された。Shackle と合成すると Magic Cuffs(被弾でマナ回復)。Celestial Cuffs への道。",src:"Shadow Orb / Shackle(ゾンビ)と Tinkerer's Workshop で合成"},
+  {nm:"Band of Starpower → Magic Cuffs",w:"Magic_Cuffs",nw:1,why:"1.4.5.7 で Band of Starpower がマナ+40 に強化され、Magic Cuffs(被弾でマナ回復)の素材も Mana Regeneration Band からこれに変わった(Shackle と合成)。Celestial Cuffs への道。",src:"Shadow Orb / Shackle(ゾンビ)と Tinkerer's Workshop で合成"},
  ],
  pet:[
   {nm:"Honeyed Goggles",star:1,why:"蜂に乗って飛べる最初の乗り物。EoW の地下戦と Skeletron で落下死が消え、Dungeon 探索も安全になる。",tip:"低確率なので、Queen Bee は3人で2〜3回戦う。Abeemination(Honey Block + Stinger + Hive + Bottled Honey)で再召喚。",src:"Queen Bee(1/20)"},
@@ -518,7 +518,7 @@ const PHASES=[
   {nm:"S.D.M.G. / Celebration Mk2(撃破後)",w:"S.D.M.G.",why:"周回用の最終銃。",src:"Moon Lord"},
  ],
  summon:[
-  {nm:"Stardust armor + Stardust Dragon Staff",w:"Stardust_Dragon_Staff",star:1,why:"全枠を1本の竜に注ぐと長くなり、Guardian が盾になる。3人プレイでは Guardian が囮にもなる。",src:"Stardust Fragment + Luminite Bar / Stardust Fragment 18"},
+  {nm:"Stardust armor + Stardust Dragon Staff",w:"Stardust_Dragon_Staff",star:1,why:"全枠を1本の竜に注ぐと長くなる。セット効果の Stardust Guardian は壁を抜けて近くの敵を殴り続ける(1.4 以降は囮ではなく攻撃役)。",src:"Stardust Fragment + Luminite Bar / Stardust Fragment 18"},
   {nm:"Kaleidoscope + Terraprisma(あれば)",w:"Kaleidoscope",why:"ムチは Kaleidoscope 一択。Terraprisma は昼 Empress のご褒美。",src:"Empress of Light"},
   {nm:"Stardust Cell Staff",why:"単体火力ならこちら。竜と使い分け。",src:"Stardust Fragment 18"},
   {nm:"Constellation / Possession(撃破後)",w:"Constellation",nw:1,why:"1.4.5 の新ムチ。Constellation は Stardust のかけらで作れる。",src:"Stardust Fragment 18 / Moon Lord(20%)"},

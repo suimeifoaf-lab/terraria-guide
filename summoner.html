@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>召喚職の強くなり方</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: one long read with a sticky chip nav; each section is a card with short paragraphs, key tables and a "これだけは" box. */
+:root{
+  --bg:#f1f0ec; --panel:#ffffff; --panel-2:#f6f5f1; --ink:#22251f; --ink-2:#5f655a; --line:#dcdad2;
+  --accent:#2f7a4f; --accent-ink:#ffffff; --accent-soft:#e2f0e6;
+  --key-bg:#eeede8; --key-ink:#2a2d26; --key-line:#c9c7bd;
+  --warn-bg:#fff3d6; --warn-ink:#6b4700; --warn-line:#e7c678;
+  --font-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP","Yu Gothic UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+    --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+    --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+    --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171a17; --panel:#1f241f; --panel-2:#262c26; --ink:#e7eae3; --ink-2:#a7ada2; --line:#363d36;
+  --accent:#7cc795; --accent-ink:#171a17; --accent-soft:#223527;
+  --key-bg:#2b312b; --key-ink:#e7eae3; --key-line:#4a524a;
+  --warn-bg:#3a2f14; --warn-ink:#f1d48a; --warn-line:#6b5420;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.75;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.65rem;line-height:1.3}
+.sub{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+a{color:var(--accent)}
+.top{padding-block:18px 10px}
+.lead{color:var(--ink-2);margin:10px 0 0;font-size:.95rem}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;font-size:.84rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chips a:hover{color:var(--accent);border-color:var(--accent)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:16px;scroll-margin-top:64px}
+section h2{font-size:1.2rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+section h2 .no{font-size:.8rem;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+section h3{font-size:1rem;margin:14px 0 4px}
+p{margin:6px 0}
+ul,ol{margin:4px 0 8px;padding-left:1.3em}
+li{margin:3px 0}
+kbd{font-family:inherit;font-size:.82em;background:var(--key-bg);color:var(--key-ink);border:1px solid var(--key-line);border-bottom-width:2px;border-radius:4px;padding:0 6px;white-space:nowrap}
+.tbl{overflow-x:auto;margin:8px 0 10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:480px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel-2);white-space:nowrap}
+td:first-child{font-weight:700;white-space:nowrap}
+.box{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:4px;padding:10px 14px;margin:12px 0 4px;font-size:.92rem}
+.box b{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:6px;padding:10px 14px;margin:10px 0 4px;font-size:.9rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px 16px}
+.cols>div{min-width:0}
+dl{margin:4px 0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:.92rem}
+dt{font-weight:700}
+dd{margin:0}
+@media (max-width:480px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.steps{display:grid;gap:8px;margin:6px 0 10px}
+.step{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.st-h{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.st-n{font-size:.78rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 7px;white-space:nowrap}
+.step dl{font-size:.9rem;grid-template-columns:max-content 1fr}
+.step dt{color:var(--ink-2);font-weight:700}
+@media (max-width:480px){.step dl{grid-template-columns:1fr}}
+.foot{margin-top:22px;font-size:.8rem;color:var(--ink-2)}
+.ver{display:inline-block;font-size:.72rem;border:1px solid var(--key-line);background:var(--key-bg);color:var(--key-ink);border-radius:4px;padding:0 5px;white-space:nowrap;vertical-align:middle;margin-right:4px}
+td .ver{margin:0}
+.tbl td:first-child{white-space:normal;min-width:9em}
+.star{display:inline-block;font-size:.72rem;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:0 6px;margin-left:4px;vertical-align:middle}
+.src{color:var(--ink-2);font-size:.85rem}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>召喚職の強くなり方</h1>
+    <p class="sub">ミニオン・ムチ・セントリーで戦う人のための順路 ・ マスター / 3人 / 堕落 / Terraria 1.4.5.8</p>
+    <p class="lead">召喚職は 1.4 で「ミニオンを出して眺める職」から「<b>自分でムチを振ってミニオンに指示する職</b>」に変わり、1.4.5 でマナが不要になり、1.4.5.7 でタグ系アクセが一気に増えました。このページは wiki の <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups" target="_blank" rel="noopener">Guide:Class setups</a>(2026-10 時点)を骨格に、各アイテムの数値を wiki で確かめ、Steam の議論や日本語ブログの推奨を照らし合わせて書いています。全体の流れは「<a href="index.html">3人旅の手引き</a>」、集めるべきアクセは「<a href="collect.html">アクセとミニオン</a>」へ。<b>アイテム名をクリックすると wiki が開きます</b>。</p>
+  </header>
+
+  <nav class="chips" aria-label="目次">
+    <a href="#m0">仕組み</a><a href="#m1">ボス前</a><a href="#m2">EoC〜Skeletron</a><a href="#m3">地底〜WoF</a><a href="#m4">HM序盤</a><a href="#m5">メカ〜Plantera</a><a href="#m6">Plantera後</a><a href="#m7">終盤</a><a href="#m8">堕落ワールド</a><a href="#m9">3人での動き</a><a href="#m10">誤解</a>
+  </nav>
+
+  <section id="m0">
+    <h2><span class="no">0</span>先に覚える仕組み</h2>
+    <dl>
+      <dt>ミニオン枠</dt><dd>初期 1。防具(Flinx Fur Coat +1 / Bee +2 / Obsidian +1 / Spider +3 / Forbidden +2 / Hallowed Hood +3 / Chlorophyte Visor +3 / Tiki +4 / Spooky +4 / Stardust +5)、アクセ(Pygmy Necklace・Necromantic Scroll・Papyrus Scarab 各 +1)、Summoning Potion +1、Bewitching Table +1。全部で最大 11。Optic Staff は2体で1枠、Abigail / Desert Tiger / Stardust Dragon は「枠を注ぐほど1体が強くなる」型</dd>
+      <dt>タグ</dt><dd>ムチで叩いた敵に 4 秒の印が付き、ミニオンとセントリーの攻撃に「タグダメージ」が<b>固定値で加算</b>される。手数の多いミニオン(Blade Staff・Spider)ほどタグの価値が高い。1.4.4 からセントリーにも乗る</dd>
+      <dt>タグ枠(1.4.5.7)</dt><dd>同時に乗せられるムチの種類は初期 1。Silver Bracer / Silver Shield / Wicked Armlet / Wicked Claws / Armlet Of Ruin / Mobius Strip / Ouroboros Ring が +1、Twilight Grasp が +2(同じ系統は重複しない)。実用上の最大は Twilight Grasp + Ouroboros Ring の 4。上限を超えると古いタグから消える。<b>複数ムチの重ね掛け(ムチスタック)はこのアクセがあるときだけ成立</b>する</dd>
+      <dt>ムチの速度</dt><dd>近接速度のアクセ(Feral Claws 系・Berserker's Glove・Wicked Claws 各 +12%)とムチ固有のバフ(Snapthorn 12% / Durendal 25% / Dark Harvest 35%)で速くなる。Obsidian armor のセット効果 15% は別枠で掛け算</dd>
+      <dt>多段ペナルティ</dt><dd>1振りで2体目以降に当たると威力が下がる。Leather 50% / Snapthorn・Soulscourge 40% / Firecracker 34% / Cool Whip・Starcrash 30% / Durendal・Kaleidoscope 20% / Spinal Tap・Dark Harvest・Constellation 10% / Morning Star・Possession 5%。雑魚戦の体感差はここ</dd>
+      <dt>セントリー枠</dt><dd>初期 1。Old One's Army のアクセ +1(同系統は1つだけ)、Squire / Monk / Apprentice / Huntress 防具 +2、Valhalla Knight など上位 +3、Stardust +1。1.4.5.7 から Heavy Sling 系でセントリーを<b>持ち運べる</b></dd>
+      <dt>特殊効果のムチ</dt><dd>Starcrash(隕石 = ミニオン1ヒットの 1.33 倍)、Firecracker(次の一撃が 2.75 倍で爆発)、Vulgar Display of Flower(花弁 2.25 倍)は「基礎ダメージが高い少数のミニオン」向け。固定タグのムチ(Spinal Tap・Snapthorn・Kaleidoscope)は「手数の多いミニオン」向け。この2系統を混ぜないのがコツ</dd>
+    </dl>
+    <div class="box"><b>マスターでの考え方</b>召喚職は防具の防御が全職で最低。wiki も各段階で「防御型(Titanium Mask・Squire・Valhalla Knight)との混成」を併記している。3人マスターでは<b>Hallowed Hood(被弾1回無効)</b>を基準に、火力防具は余裕が出てから。アクセのリフォージは Warding。</div>
+  </section>
+
+  <section id="m1">
+    <h2><span class="no">1</span>ボス前(開始 〜 HP200)</h2>
+    <div class="tbl"><table>
+      <tr><th>種類</th><th>推奨(上ほど優先)</th><th>入手</th><th>一言</th></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Flinx_Staff" target="_blank" rel="noopener">Flinx Staff</a><span class="star">本命</span></td><td>Flinx Fur 6 + Gold / Platinum Bar 10(作業台)</td><td>雪原だけで完成。敵に飛びついて削り続ける。Flinx Fur Coat(Fur 8 + Silk)で枠 +1</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Vampire_Frog_Staff" target="_blank" rel="noopener">Vampire Frog Staff</a></td><td>Blood Moon の夜に釣る(Zombie Merman / Wandering Eye Fish 1/8)</td><td>威力 11 で前半ずっと現役。釣り役が狙う</td></tr>
+      <tr><td>相棒</td><td><a href="https://terraria.wiki.gg/wiki/Foxparks" target="_blank" rel="noopener">Foxparks</a> / <a href="https://terraria.wiki.gg/wiki/Cattiva" target="_blank" rel="noopener">Cattiva</a><span class="ver">1.4.5</span></td><td>昼の地表(草原・雪原・ジャングル)で Goblin Archer 2体に囲まれた Distressed Pal を助ける</td><td>Foxparks は火炎弾 20、Cattiva は 11 で採掘も手伝う。ミニオン枠を1つ使い、1体だけ。1.4.5.7 から持っていない方が出る</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Finch_Staff" target="_blank" rel="noopener">Finch Staff</a> / <a href="https://terraria.arcenserv.info/wiki/Abigail%27s_Flower" target="_blank" rel="noopener">Abigail's Flower</a></td><td>Living Wood Chest / 墓場の Graveyard に生える花</td><td>最初の1本。Abigail は枠を注ぐほど強くなる型で、墓場を作れば序盤の全振り候補</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Snapthorn" target="_blank" rel="noopener">Snapthorn</a><span class="star">本命</span></td><td>Stinger 15 + Vine 3 + Jungle Spores 12(鉄床)</td><td>叩くと召喚速度 +12%。ジャングルに入れたら最優先</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.wiki.gg/wiki/Soulscourge" target="_blank" rel="noopener">Soulscourge</a><span class="ver">1.4.5</span></td><td>Demonite Bar 12(鉄床)</td><td>堕落ワールドの序盤ムチ。威力 17・タグ 5。ジャングルが遠いときの代替</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Leather_Whip" target="_blank" rel="noopener">Leather Whip</a> → <a href="https://terraria.arcenserv.info/wiki/Cobwhip" target="_blank" rel="noopener">Cobwhip</a></td><td>Zoologist(5 Gold)/ Cobweb 30 + Wood 10(Loom)</td><td>Snapthorn までのつなぎ。初日はこれで十分</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd>頭と脚は防御の高いもの(金・白金)、胴だけ <a href="https://terraria.arcenserv.info/wiki/Flinx_Fur_Coat" target="_blank" rel="noopener">Flinx Fur Coat</a></dd>
+      <dt>アクセ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Feral_Claws" target="_blank" rel="noopener">Feral Claws</a>(ジャングルの Ivy Chest。ムチの速度 +12% とオートスイング)</dd>
+      <dt>バフ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Summoning_Potion" target="_blank" rel="noopener">Summoning Potion</a>(Moonglow + Variegated Lardfish。枠 +1)</dd>
+    </dl>
+  </section>
+
+  <section id="m2">
+    <h2><span class="no">2</span>Eye of Cthulhu 〜 Skeletron</h2>
+    <div class="tbl"><table>
+      <tr><th>種類</th><th>推奨</th><th>入手</th><th>一言</th></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Imp_Staff" target="_blank" rel="noopener">Imp Staff</a><span class="star">本命</span></td><td>Hellstone Bar 17</td><td>壁を無視する火球。1〜2体を混ぜる。地底に降りられたら最初に作る</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Hornet_Staff" target="_blank" rel="noopener">Hornet Staff</a></td><td>Bee Wax 14(Queen Bee)</td><td>空中から毒針。Bee armor とセットで Queen Bee の素材だけで整う</td></tr>
+      <tr><td>混成</td><td>Imp + Flinx + Vampire Frog + 相棒</td><td>上記</td><td>wiki は「この段階の本格的な火力は<b>種類を混ぜる構成</b>だけ」と注記</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Snapthorn" target="_blank" rel="noopener">Snapthorn</a> / <a href="https://terraria.arcenserv.info/wiki/Starcrash" target="_blank" rel="noopener">Starcrash</a><span class="ver">1.4.5</span></td><td>— / Meteorite Bar 20 + Chain 10 + Fallen Star 10</td><td>基礎ダメの高いミニオン(Imp)なら Starcrash、低いなら Snapthorn</td></tr>
+      <tr><td>セントリー</td><td><a href="https://terraria.arcenserv.info/wiki/Houndius_Shootius" target="_blank" rel="noopener">Houndius Shootius</a> / <a href="https://terraria.arcenserv.info/wiki/Ballista_Rod" target="_blank" rel="noopener">Ballista Rod</a></td><td>Deerclops / Tavernkeep(Defender Medal)</td><td>アリーナに置いておく砲台。ハードモード前は最大 3 台</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Obsidian_armor" target="_blank" rel="noopener">Obsidian armor</a>(Obsidian 60 + Silk 30 + Shadow Scale 20。枠 +1・召喚 +31%・ムチ射程 +30%・速度 +15%)がムチ主体なら本命。ミニオン主体なら <a href="https://terraria.arcenserv.info/wiki/Bee_Armor" target="_blank" rel="noopener">Bee armor</a>(枠 +2・+23%)</dd>
+      <dt>アクセ</dt><dd>Feral Claws、<a href="https://terraria.arcenserv.info/wiki/Pygmy_Necklace" target="_blank" rel="noopener">Pygmy Necklace</a>(Witch Doctor が夜に 20 Gold で販売。Queen Bee 後)、Old One's Army のアクセ(Squire's Shield など。セントリー +1)</dd>
+      <dt>バフ</dt><dd>Summoning Potion、War Table(Tavernkeep。セントリー +1)、Flask of Fire</dd>
+    </dl>
+  </section>
+
+  <section id="m3">
+    <h2><span class="no">3</span>地底 〜 Wall of Flesh</h2>
+    <div class="tbl"><table>
+      <tr><th>構成</th><th>中身</th><th>一言</th></tr>
+      <tr><td>A: 混成</td><td>Vampire Frog 1〜2 + Flinx + Imp + 相棒</td><td>地上・空中どちらにも対応。枠が 2 しかないなら Vampire Frog を1体は常時</td></tr>
+      <tr><td>B: 全振り</td><td><a href="https://terraria.arcenserv.info/wiki/Imp_Staff" target="_blank" rel="noopener">Imp Staff</a> 全枠 + <a href="https://terraria.arcenserv.info/wiki/Starcrash" target="_blank" rel="noopener">Starcrash</a></td><td>wiki は「近距離だが高 DPS」。WoF の目を上から焼く</td></tr>
+      <tr><td>C: 全振り</td><td><a href="https://terraria.wiki.gg/wiki/Mushroom_Staff" target="_blank" rel="noopener">Mushroom Staff</a><span class="ver">1.4.5</span> 全枠 + <a href="https://terraria.arcenserv.info/wiki/Spinal_Tap" target="_blank" rel="noopener">Spinal Tap</a></td><td>Glowing Mushroom 300 + Mushroom Grass Seeds 5 + Shadow Scale 5。手数型なので固定タグの Spinal Tap(Bone 90 + Cobweb 55、タグ 7)と相性がよい。足場がないと働かない</td></tr>
+    </table></div>
+    <dl>
+      <dt>ムチ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Spinal_Tap" target="_blank" rel="noopener">Spinal Tap</a>(WoF 前の最強ムチ。多段ペナルティ 10% で雑魚にも強い)、Starcrash、速度用に Snapthorn</dd>
+      <dt>防具</dt><dd>Bee armor か Obsidian armor のまま</dd>
+      <dt>アクセ</dt><dd>Feral Claws、Pygmy Necklace、<a href="https://terraria.wiki.gg/wiki/Silver_Shield" target="_blank" rel="noopener">Silver Shield</a><span class="ver">1.4.5.7</span>(Silver Bracer〈Dungeon の鍵つき Gold Chest 25%〉+ Obsidian Shield。タグ枠 +1・持続 3 倍・ノックバック無効を1枠で)</dd>
+      <dt>バフ</dt><dd>Summoning Potion、<a href="https://terraria.arcenserv.info/wiki/Bewitching_Table" target="_blank" rel="noopener">Bewitching Table</a>(Dungeon の家具。枠 +1)、War Table、Flask of Poison</dd>
+    </dl>
+    <div class="box"><b>WoF 戦の実際</b>橋の上を走りながら Imp を上の目に、Vampire Frog を Hungry に。本人は Beenade を投げる(召喚職でも投げ物は使える)。Firecracker(25%)と Summoner Emblem(25%)が目当てなので、3人で Treasure Bag を開けて出た人に渡す。</div>
+  </section>
+
+  <section id="m4">
+    <h2><span class="no">4</span>ハードモード序盤(メカ前)</h2>
+    <div class="tbl"><table>
+      <tr><th>種類</th><th>推奨</th><th>入手</th><th>一言</th></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Blade_Staff" target="_blank" rel="noopener">Blade Staff</a> + <a href="https://terraria.arcenserv.info/wiki/Cool_Whip" target="_blank" rel="noopener">Cool Whip</a><span class="star">本命</span></td><td>Queen Slime(25%)/ Soul of Light 8 + Soul of Night 8 + Frost Core(Ice Golem)</td><td>威力 6 でも防御貫通 25 と手数で、固定タグが全部乗る。Queen Slime を先に倒す理由</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Sanguine_Staff" target="_blank" rel="noopener">Sanguine Staff</a> + <a href="https://terraria.arcenserv.info/wiki/Firecracker" target="_blank" rel="noopener">Firecracker</a></td><td>Blood Moon の釣りで Dreadnautilus(Expert 以上 100%)/ WoF(25%)</td><td>追尾コウモリ 35。Firecracker の爆発(2.75 倍)が乗る高基礎型。Steam の議論でも「メカ前は Sanguine、Durendal 以降は Blade」が定番</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.wiki.gg/wiki/Ruinous_Staff" target="_blank" rel="noopener">Ruinous Staff</a><span class="ver">1.4.5</span></td><td>Dark Shard + Light Shard + Forbidden Fragment 2 + Soul of Night 5 + Soul of Light 5</td><td>威力 40。Sanguine が釣れないときの代替で、Firecracker と組む</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Spider_Staff" target="_blank" rel="noopener">Spider Staff</a> ×3 まで</td><td>Spider Fang 16(<b>Mythril Anvil</b>。1.4.5 から)</td><td>壁に張りつく。合計 12 ヒット/秒の上限があり 6 体を超えると無駄。The Destroyer に強い</td></tr>
+      <tr><td>ムチ</td><td>Firecracker / Cool Whip</td><td>上記</td><td>Sanguine 系なら Firecracker、Blade なら Cool Whip(威力 45・タグ 6・雪片)。重ね掛けは Spinal Tap(Cool と)/ Starcrash(Firecracker と)、速度用に Snapthorn</td></tr>
+      <tr><td>セントリー</td><td><a href="https://terraria.arcenserv.info/wiki/Queen_Spider_Staff" target="_blank" rel="noopener">Queen Spider Staff</a> / <a href="https://terraria.wiki.gg/wiki/Barnacle_Staff" target="_blank" rel="noopener">Barnacle Staff</a><span class="ver">1.4.5</span></td><td>Spider Fang 24 / ハードモードのジャングルで釣る</td><td>アリーナに置く。Barnacle は 1.4.5.7 で釣れる確率が大きく上がった</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Spider_armor" target="_blank" rel="noopener">Spider armor</a>(Spider Fang 36。枠 +3・+28%)。被弾が怖い日は Titanium Mask + Forbidden Robes + Spider Greaves の混成</dd>
+      <dt>アクセ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Summoner_Emblem" target="_blank" rel="noopener">Summoner Emblem</a>(WoF 25%)、Pygmy Necklace、<b>タグ枠</b>: <a href="https://terraria.wiki.gg/wiki/Twilight_Grasp" target="_blank" rel="noopener">Twilight Grasp</a><span class="ver">1.4.5.7</span>(Silver Bracer + Wicked Armlet〈Cursed Hammer 1/25〉。タグ枠 +2)、<a href="https://terraria.wiki.gg/wiki/Druidic_Serpent_Cloak" target="_blank" rel="noopener">Druidic Serpent Cloak</a>(Snake Band〈Lamia 1/40〉+ Star Cloak)、<a href="https://terraria.wiki.gg/wiki/Wicked_Claws" target="_blank" rel="noopener">Wicked Claws</a>(Wicked Armlet + Feral Claws。速度 +12% とタグ枠 +1)、<a href="https://terraria.wiki.gg/wiki/Armlet_Of_Ruin" target="_blank" rel="noopener">Armlet Of Ruin</a>(Wicked Armlet + Snapping Stone。6 秒ごとにタグヒット +150〜170)。セントリー用: <a href="https://terraria.wiki.gg/wiki/Heavy_Sling" target="_blank" rel="noopener">Heavy Sling</a>(Ice Mimic 23.75%)</dd>
+      <dt>バフ</dt><dd>Flask of Cursed Flames(堕落)、Summoning Potion、Bewitching Table、War Table</dd>
+    </dl>
+    <div class="box"><b>堕落ワールドの近道</b>Wicked Armlet は堕落の Cursed Hammer が落とすので、ハードモード入り直後から狩れる。Dungeon の Silver Bracer と合わせれば<b>メカ前に Twilight Grasp(タグ枠合計 3)</b>が組め、Cool Whip + Spinal Tap + Snapthorn の3本重ねが成立する。</div>
+  </section>
+
+  <section id="m5">
+    <h2><span class="no">5</span>メカニカルボス 〜 Plantera</h2>
+    <div class="tbl"><table>
+      <tr><th>種類</th><th>推奨</th><th>入手</th><th>一言</th></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Optic_Staff" target="_blank" rel="noopener">Optic Staff</a><span class="star">本命</span></td><td>Hallowed Bar 12 + Soul of Sight 20 + Black Lens + Lens 2</td><td>Twins のミニチュア2体で1枠。残り枠を全部これにする構成が wiki の「混成」の軸</td></tr>
+      <tr><td>相棒</td><td>Trusty <a href="https://terraria.wiki.gg/wiki/Foxparks" target="_blank" rel="noopener">Foxparks</a> / Trusty <a href="https://terraria.wiki.gg/wiki/Cattiva" target="_blank" rel="noopener">Cattiva</a><span class="ver">1.4.5</span></td><td><a href="https://terraria.wiki.gg/wiki/Kinship_Peach" target="_blank" rel="noopener">Kinship Peach</a>(Life Fruit + Soul of Light 12 + Soul of Night 12、Crystal Ball)で進化</td><td>Foxparks 40・Cattiva 22 に。1枠ずつ混ぜる</td></tr>
+      <tr><td>全振り</td><td><a href="https://terraria.arcenserv.info/wiki/Blade_Staff" target="_blank" rel="noopener">Blade Staff</a> + <a href="https://terraria.arcenserv.info/wiki/Durendal" target="_blank" rel="noopener">Durendal</a></td><td>Hallowed Bar 12</td><td>Durendal は威力 55・タグ 9、召喚速度 +25%。1.4.5.7 からミニオンの消費ヒットに +30。Blade と組むと Plantera まで通る</td></tr>
+      <tr><td>全振り</td><td>Abigail's Flower / Ruinous Staff + Firecracker</td><td>—</td><td>高基礎型の継続。Abigail は枠を注ぐほど強くなる</td></tr>
+      <tr><td>セントリー</td><td>Queen Spider Staff / Ballista Cane / Explosive Trap Cane</td><td>— / Tavernkeep(メカ後の Tier2)</td><td>Plantera の部屋に2つ置く</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Hallowed_Hood" target="_blank" rel="noopener">Hallowed armor(Hood)</a>(枠 +3・Holy Protection で被弾1回無効)。火力なら <a href="https://terraria.wiki.gg/wiki/Chlorophyte_armor" target="_blank" rel="noopener">Chlorophyte Visor</a><span class="ver">1.4.5</span>(枠 +3)、ムチ主体なら Monk's Bushy Brow Bald Cap(Tavernkeep Tier2)。防御型は <a href="https://terraria.arcenserv.info/wiki/Squire_armor" target="_blank" rel="noopener">Squire armor</a></dd>
+      <dt>アクセ</dt><dd>Summoner Emblem、Pygmy Necklace、Twilight Grasp / Druidic Serpent Cloak / Wicked Claws、セントリー用に Heavy Sling 系</dd>
+      <dt>バフ</dt><dd>Flask of Cursed Flames、Summoning Potion、Bewitching Table、War Table</dd>
+    </dl>
+  </section>
+
+  <section id="m6">
+    <h2><span class="no">6</span>Plantera 後 〜 Golem 〜 Empress of Light</h2>
+    <div class="tbl"><table>
+      <tr><th>種類</th><th>推奨</th><th>入手</th><th>一言</th></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Terraprisma" target="_blank" rel="noopener">Terraprisma</a><span class="star">本命</span></td><td>昼間の Empress of Light(確定)</td><td>威力 90。ゲーム最高難度の挑戦だが、3人なら「1人が囮・2人が撃つ」で現実的。取れたらこの先ずっと主力</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Desert_Tiger_Staff" target="_blank" rel="noopener">Desert Tiger Staff</a> + Firecracker</td><td>Dungeon の Desert Chest(Desert Key。確定)</td><td>威力 41。枠を注ぐほど強くなる1体型で、Firecracker の爆発が大きい。wiki の Golem 前「Firecracker 構成」の本命</td></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Xeno_Staff" target="_blank" rel="noopener">Xeno Staff</a> / <a href="https://terraria.arcenserv.info/wiki/Deadly_Sphere_Staff" target="_blank" rel="noopener">Deadly Sphere Staff</a> / <a href="https://terraria.arcenserv.info/wiki/Raven_Staff" target="_blank" rel="noopener">Raven Staff</a></td><td>Martian Saucer(1/6)/ 日食の Deadly Sphere / Pumpkin Moon の Pumpking</td><td>Xeno は壁無視の追尾(36)、Deadly Sphere は 55。Golem 後の混成の中身</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Kaleidoscope" target="_blank" rel="noopener">Kaleidoscope</a><span class="star">本命</span></td><td>Empress of Light(25%)</td><td>威力 170・タグ 20・タグクリ 10%。1.4.5 で少し弱体したが依然最強の固定タグ。Blade / Terraprisma と組む</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Vulgar_Display_of_Flower" target="_blank" rel="noopener">Vulgar Display of Flower</a><span class="ver">1.4.5</span> / <a href="https://terraria.arcenserv.info/wiki/Dark_Harvest" target="_blank" rel="noopener">Dark Harvest</a> / <a href="https://terraria.arcenserv.info/wiki/Morning_Star" target="_blank" rel="noopener">Morning Star</a></td><td>Plantera(12.5%)/ Pumpking(2.5〜12.5%)/ Dungeon の Armored Bones(0.5%)</td><td>VDoF は花弁 2.25 倍で Desert Tiger と、Dark Harvest は速度 +35%、Morning Star は多段ペナルティ 5% で雑魚処理</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Electric_Eel" target="_blank" rel="noopener">Electric Eel</a><span class="ver">1.4.5</span></td><td>Duke Fishron(1/7)</td><td>威力 150・タグ 12・共鳴で継続ダメージ。Fishron を倒せる人向け</td></tr>
+      <tr><td>セントリー</td><td><a href="https://terraria.arcenserv.info/wiki/Staff_of_the_Frost_Hydra" target="_blank" rel="noopener">Staff of the Frost Hydra</a> / Ballista Cane</td><td>Dungeon の Frozen Chest(Frozen Key)</td><td>日食・Pumpkin Moon のアリーナに置く</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Tiki_Armor" target="_blank" rel="noopener">Tiki armor</a>(Witch Doctor、Pygmy Staff 所持で解禁。枠 +4・+30%)→ <a href="https://terraria.arcenserv.info/wiki/Spooky_Armor" target="_blank" rel="noopener">Spooky armor</a>(Spooky Wood 750。枠 +4・+58%)。防御型は <a href="https://terraria.arcenserv.info/wiki/Valhalla_Knight_armor" target="_blank" rel="noopener">Valhalla Knight armor</a>(Tavernkeep Tier3)</dd>
+      <dt>アクセ</dt><dd><a href="https://terraria.arcenserv.info/wiki/Hercules_Beetle" target="_blank" rel="noopener">Hercules Beetle</a>(Witch Doctor、ジャングル在住で Plantera 後)+ <a href="https://terraria.arcenserv.info/wiki/Necromantic_Scroll" target="_blank" rel="noopener">Necromantic Scroll</a>(Mourning Wood)→ <a href="https://terraria.arcenserv.info/wiki/Papyrus_Scarab" target="_blank" rel="noopener">Papyrus Scarab</a>。<a href="https://terraria.wiki.gg/wiki/Mobius_Strip" target="_blank" rel="noopener">Mobius Strip</a><span class="ver">1.4.5.7</span>(Golem 1/6)+ Snake Band → <a href="https://terraria.wiki.gg/wiki/Ouroboros_Ring" target="_blank" rel="noopener">Ouroboros Ring</a>。セントリー用 <a href="https://terraria.wiki.gg/wiki/Templar%27s_Sling" target="_blank" rel="noopener">Templar's Sling</a>(Heavy Sling + Eye of the Golem)</dd>
+      <dt>バフ</dt><dd>Flask of Venom / Cursed Flames、Summoning Potion、Bewitching Table、War Table</dd>
+    </dl>
+  </section>
+
+  <section id="m7">
+    <h2><span class="no">7</span>終盤(Lunatic Cultist 〜 Moon Lord)</h2>
+    <div class="tbl"><table>
+      <tr><th>種類</th><th>推奨</th><th>入手</th><th>一言</th></tr>
+      <tr><td>ミニオン</td><td><a href="https://terraria.arcenserv.info/wiki/Stardust_Dragon_Staff" target="_blank" rel="noopener">Stardust Dragon Staff</a><span class="star">本命</span></td><td>Stardust Fragment 18</td><td>1体目の実効ダメージは約 67、以後 1 枠ごとに +18〜19。wiki の最終形は「竜に 3 枠 + Terraprisma 8 枠」</td></tr>
+      <tr><td>ミニオン</td><td>Terraprisma / <a href="https://terraria.arcenserv.info/wiki/Stardust_Cell_Staff" target="_blank" rel="noopener">Stardust Cell Staff</a></td><td>— / Stardust Fragment 18</td><td>Cell は 60 で分裂する単体火力。竜と使い分け</td></tr>
+      <tr><td>ムチ</td><td><a href="https://terraria.arcenserv.info/wiki/Constellation" target="_blank" rel="noopener">Constellation</a><span class="ver">1.4.5</span> / <a href="https://terraria.arcenserv.info/wiki/Possession" target="_blank" rel="noopener">Possession</a><span class="ver">1.4.5</span></td><td>Stardust Fragment 18 / Moon Lord(20%)</td><td>Constellation は 130・タグ 15・クリ 15%・タグ持続 8 秒。Possession は 110・タグ 25・4 連振り。Firecracker は竜など高基礎ミニオン専用</td></tr>
+      <tr><td>セントリー</td><td>Lunar Portal Staff / Rainbow Crystal Staff</td><td>Moon Lord</td><td>周回用</td></tr>
+    </table></div>
+    <dl>
+      <dt>防具</dt><dd><a href="https://terraria.arcenserv.info/wiki/Stardust_Armor" target="_blank" rel="noopener">Stardust armor</a>(Fragment 45 + Luminite Bar 36。枠 +5・セントリー +1・+66%・ムチ射程 +30%)。セット効果の Stardust Guardian は壁を抜けて近くの敵を殴り続ける(1.4 以降は囮ではなく攻撃役)。防御型は Valhalla Knight</dd>
+      <dt>アクセの最終形</dt><dd>Summoner Emblem・Hercules Beetle・Papyrus Scarab・Necromantic Scroll・Pygmy Necklace・Twilight Grasp・Ouroboros Ring の 7 枠。これに生存枠(Worm Scarf・Celestial Shell 等)をどう差し込むかは「<a href="collect.html">アクセとミニオン</a>」の例を参照</dd>
+      <dt>バフ</dt><dd>Flask of Venom、Summoning Potion、Bewitching Table、War Table、Super Healing Potion</dd>
+    </dl>
+  </section>
+
+  <section id="m8">
+    <h2><span class="no">8</span>堕落ワールド(病み村)での固有事情</h2>
+    <ul>
+      <li>序盤ムチは <b>Soulscourge</b>(Demonite Bar 12)。Crimson 側の Vasculash より 2 低いぶん射程が 1 長い</li>
+      <li>Obsidian armor と Mushroom Staff の <b>Shadow Scale</b> は EoW の胴 27 節ぶんで足りる</li>
+      <li><b>Wicked Armlet</b> は Cursed Hammer(ハードモードの堕落)1/25。Crimson Axe を待つ必要がないので、Twilight Grasp がメカ前に組める</li>
+      <li>Corrupt Mimic の <b>Putrid Scent</b>(20%)は、Shimmer で Flesh Knuckles(盾役向け)に変えるより、召喚職なら <a href="https://terraria.wiki.gg/wiki/Scout%27s_Sling" target="_blank" rel="noopener">Scout's Sling</a>(Heavy Sling + Putrid Scent。ダメージ +5%・狙われにくい)の素材にする方が合う</li>
+      <li>Flask は Cursed Flames。Ichor は Crimson 産なので Flask of Ichor は使えない(Shimmer でも Cursed Flame ↔ Ichor は変換可)</li>
+    </ul>
+  </section>
+
+  <section id="m9">
+    <h2><span class="no">9</span>3人で遊ぶときの召喚職</h2>
+    <ul>
+      <li><b>手が空く</b>のが最大の強み。ミニオンが殴っている間に、落ちたお金を拾う・Nurse まで走る・Heart Statue のスイッチを押す、を引き受ける</li>
+      <li><a href="https://terraria.arcenserv.info/wiki/Berserker%27s_Glove" target="_blank" rel="noopener">Berserker's Glove</a> はムチにもオートスイングと速度 +12% が乗るが、<b>敵の狙いを集める(+400)</b>。防御の低い召喚職が付けると自分が狙われる。3人のうち盾役が付け、召喚職は Wicked Claws で速度を取る</li>
+      <li>逆に Scout's Sling / Putrid Scent は狙われにくくなる(−400)。召喚職の「見えない盾」</li>
+      <li>Heavy Sling で持ち運べるのは<b>自分のセントリーだけ</b>。他人の砲台は拾えない</li>
+      <li>Stardust Guardian は囮にならない(1.4.0 で攻撃役に変更)。囮が欲しいときは盾役の Hero Shield / Flesh Knuckles に任せる</li>
+    </ul>
+  </section>
+
+  <section id="m10">
+    <h2><span class="no">10</span>情報源で食い違う点・古い情報</h2>
+    <ul>
+      <li><b>「1.4.5 でムチの重ね掛けは廃止」</b>: 2026 年前半の日本語・英語記事の多くはこう書くが、1.4.5.7(2026-08)でタグ枠アクセがあるときだけ復活した。1.4.5.7 未反映の記事に注意</li>
+      <li>Electric Eel のドロップ率「1/6」は旧値。1.4.5.7 から 1/7</li>
+      <li>Dark Harvest の威力は wiki の 110 が正(まとめサイトに別の数字がある)</li>
+      <li>Firecracker の「タグ 0」は仕様どおり。接頭語の分だけが乗る</li>
+      <li>Foxparks を「セントリー」と呼ぶ記事があるが、wiki ではミニオン扱い。枠を使うかどうかは wiki に明記がなく、このページでは Class setups の数え方(1枠)に従った</li>
+      <li>Steam に投稿された 1.4.5 向けの召喚ガイド2本は削除済みで中身を確認できなかった。このページの根拠は wiki と Steam 掲示板の議論、日本語ブログ(1.4.5.0 時点)まで</li>
+    </ul>
+  </section>
+
+  <p class="foot">出典: <a href="https://terraria.wiki.gg/wiki/Guide:Class_setups">Guide:Class setups</a> / <a href="https://terraria.wiki.gg/wiki/Whips">Whips</a> / <a href="https://terraria.wiki.gg/wiki/Minions">Minions</a> / <a href="https://terraria.wiki.gg/wiki/Sentry">Sentry</a> / <a href="https://terraria.wiki.gg/wiki/1.4.5.7">1.4.5.7</a>(公式 wiki、各アイテムの History 欄も参照)/ <a href="https://steamcommunity.com/app/105600/discussions/0/758428924213587719/">Steam 掲示板: Sanguine と Blade の使い分け</a> / <a href="https://game-shinden.com/terraria-summoner-gear-best-setup-guide/">game-shinden(日本語・1.4.5.0 時点)</a> / <a href="https://chi-tara.com/tr_muchi/">chi-tara ムチ解説(日本語・1.4.5.0 時点)</a>。確認日 2026-10-17</p>
+</div>
+
+</body>
+</html>
